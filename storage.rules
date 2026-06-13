@@ -1,0 +1,59 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── Helper Functions ──────────────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // ─── Audio Files ───────────────────────────────────────────────────────────
+    // Authenticated users can stream; admins can upload
+
+    match /audio/{songId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ─── Song / Album Artwork ──────────────────────────────────────────────────
+
+    match /artwork/{albumId}/{fileName} {
+      allow read: if true;  // Public artwork
+      allow write: if isAdmin();
+    }
+
+    // ─── Artist Images ─────────────────────────────────────────────────────────
+
+    match /artists/{artistId}/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── Albums ────────────────────────────────────────────────────────────────
+
+    match /albums/{albumId}/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── User Uploads (profile photos, etc.) ──────────────────────────────────
+
+    match /users/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == userId
+                   && request.resource.size < 5 * 1024 * 1024;  // 5 MB limit
+    }
+
+    // ─── Default: deny ─────────────────────────────────────────────────────────
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

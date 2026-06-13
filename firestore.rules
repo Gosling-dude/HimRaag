@@ -1,0 +1,95 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helper Functions ──────────────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ─── Songs ─────────────────────────────────────────────────────────────────
+
+    match /songs/{songId} {
+      // Anyone can read approved songs
+      allow read: if resource.data.isApproved == true;
+      // Admins can read all (including unapproved)
+      allow read: if isAdmin();
+      // Only admins can write
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Albums ────────────────────────────────────────────────────────────────
+
+    match /albums/{albumId} {
+      allow read: if resource.data.isApproved == true;
+      allow read: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Artists ───────────────────────────────────────────────────────────────
+
+    match /artists/{artistId} {
+      allow read: if true;  // All artists are public
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Playlists ─────────────────────────────────────────────────────────────
+
+    match /playlists/{playlistId} {
+      // Public playlists readable by all
+      allow read: if resource.data.isPublic == true;
+      // Owner can read their own playlists
+      allow read: if isOwner(resource.data.ownerId);
+      // Admins can read all
+      allow read: if isAdmin();
+      // Owners can create/update/delete their playlists
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.ownerId;
+      allow update, delete: if isOwner(resource.data.ownerId);
+      // Admins can manage all
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Users ─────────────────────────────────────────────────────────────────
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      allow read: if isAdmin();
+    }
+
+    // ─── Categories ────────────────────────────────────────────────────────────
+
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Regions ───────────────────────────────────────────────────────────────
+
+    match /regions/{regionId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Featured / Banners ────────────────────────────────────────────────────
+
+    match /featured/{docId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /banners/{docId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}
