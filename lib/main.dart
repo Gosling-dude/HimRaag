@@ -15,27 +15,50 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  debugPrint('[APP] APP_START');
 
+  // ── Firebase ──────────────────────────────────────────────────────────────
+  debugPrint('[APP] FIREBASE_INIT_START');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  debugPrint('[APP] FIREBASE_INIT_SUCCESS');
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = (details) {
+    debugPrint('[APP] FLUTTER_ERROR: ${details.exception}');
+    FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+  };
   PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('[APP] PLATFORM_ERROR: $error');
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
 
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.himraag.app.audio',
-    androidNotificationChannelName: 'HimRaag Audio',
-    androidNotificationOngoing: true,
-    androidStopForegroundOnPause: true,
-    notificationColor: const Color(0xFF6B3FA0),
-  );
+  // ── Audio background service ───────────────────────────────────────────────
+  // Wrapped in try/catch + timeout: on some physical devices the AudioService
+  // foreground-service binding never resolves, which would block runApp() and
+  // keep the Android launch screen visible forever.
+  debugPrint('[APP] AUDIO_BG_INIT_START');
+  try {
+    await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.himraag.app.audio',
+      androidNotificationChannelName: 'HimRaag Audio',
+      androidNotificationOngoing: true,
+      androidStopForegroundOnPause: true,
+      notificationColor: const Color(0xFF6B3FA0),
+    ).timeout(const Duration(seconds: 5));
+    debugPrint('[APP] AUDIO_BG_INIT_SUCCESS');
+  } catch (e) {
+    // Non-fatal: app runs without lock-screen controls when this fails.
+    debugPrint('[APP] AUDIO_BG_INIT_FAILED (continuing without it): $e');
+  }
 
+  // ── Local storage ─────────────────────────────────────────────────────────
+  debugPrint('[APP] HIVE_INIT_START');
   await Hive.initFlutter();
   await HiveBoxes.registerAdapters();
   await HiveBoxes.openBoxes();
+  debugPrint('[APP] HIVE_INIT_SUCCESS');
 
+  // ── UI setup ──────────────────────────────────────────────────────────────
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -48,6 +71,7 @@ Future<void> main() async {
     ),
   );
 
+  debugPrint('[APP] RUN_APP');
   runApp(const ProviderScope(child: HimRaagApp()));
 }
 
@@ -56,6 +80,7 @@ class HimRaagApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint('[APP] ROUTER_BUILD');
     final router = ref.watch(appRouterProvider);
     final themeMode = ref.watch(themeModeProvider);
 
@@ -66,12 +91,7 @@ class HimRaagApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       routerConfig: router,
-      localizationsDelegates: const [
-        // AppLocalizations.delegate,
-        // GlobalMaterialLocalizations.delegate,
-        // GlobalWidgetsLocalizations.delegate,
-        // GlobalCupertinoLocalizations.delegate,
-      ],
+      localizationsDelegates: const [],
       supportedLocales: const [
         Locale('en'),
         Locale('hi'),

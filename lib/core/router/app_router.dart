@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/onboarding_screen.dart';
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
+import '../../domain/models/app_user.dart';
 import '../../features/auth/providers/auth_providers.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/library/presentation/screens/library_screen.dart';
@@ -19,22 +20,38 @@ import '../shell/main_shell.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-final appRouterProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
+// Notifier that GoRouter listens to for auth changes.
+// Using refreshListenable keeps the GoRouter as a singleton — no GlobalKey
+// conflicts from recreating the router on every auth state emission.
+class _RouterNotifier extends ChangeNotifier {
+  _RouterNotifier(this._ref) {
+    _ref.listen<AsyncValue<AppUser?>>(
+      authStateProvider,
+      (_, next) {
+        debugPrint('[APP] AUTH_STATE_CHANGED: ${next.runtimeType}');
+        notifyListeners();
+      },
+    );
+  }
 
-  return GoRouter(
+  final Ref _ref;
+
+  String? redirect(BuildContext context, GoRouterState state) {
+    // Guest mode: no forced sign-in. All routes are reachable anonymously.
+    // Add redirect logic here when sign-in becomes required.
+    return null;
+  }
+}
+
+final appRouterProvider = Provider<GoRouter>((ref) {
+  debugPrint('[APP] ROUTER_INIT');
+  final notifier = _RouterNotifier(ref);
+
+  final router = GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/home',
-    redirect: (context, state) {
-      final isAuthenticated = authState.valueOrNull != null;
-      final isOnboarding = state.matchedLocation == '/onboarding';
-      final isSignIn = state.matchedLocation == '/sign-in';
-
-      if (!isAuthenticated && !isOnboarding && !isSignIn) {
-        return null; // Guest mode allowed everywhere
-      }
-      return null;
-    },
+    refreshListenable: notifier,
+    redirect: notifier.redirect,
     routes: [
       GoRoute(
         path: '/onboarding',
@@ -50,7 +67,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) {
+              debugPrint('[APP] HOME_SCREEN_RENDER');
+              return const HomeScreen();
+            },
           ),
           GoRoute(
             path: '/search',
@@ -118,4 +138,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
     ),
   );
+
+  ref.onDispose(() {
+    notifier.dispose();
+    router.dispose();
+  });
+
+  return router;
 });
