@@ -11,9 +11,11 @@ class FirebaseConstants {
   static const String featuredCollection = 'featured';
   static const String bannersCollection = 'banners';
 
-  static const String audioStoragePath = 'audio';
-  static const String artworkStoragePath = 'artwork';
-  static const String artistImagesPath = 'artists';
+  // Firebase Storage paths — reserved for future paid-tier (Blaze plan) integration.
+  // Currently unused: audio/artwork URLs are served from external CDN (free tier).
+  // static const String audioStoragePath = 'audio';
+  // static const String artworkStoragePath = 'artwork';
+  // static const String artistImagesPath = 'artists';
 
   static const String songsTitleField = 'title';
   static const String songsArtistField = 'artistId';

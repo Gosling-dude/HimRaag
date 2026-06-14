@@ -147,7 +147,7 @@ class AlbumDetailScreen extends ConsumerWidget {
                             OutlinedButton.icon(
                               onPressed: songs.isEmpty
                                   ? null
-                                  : () => _downloadAll(ref, songs),
+                                  : () => _downloadAll(context, ref, songs),
                               icon: const Icon(Icons.download_rounded),
                               label: const Text('Download All'),
                               style: OutlinedButton.styleFrom(
@@ -186,16 +186,42 @@ class AlbumDetailScreen extends ConsumerWidget {
     );
   }
 
-  void _downloadAll(WidgetRef ref, List<Song> songs) {
+  void _downloadAll(BuildContext context, WidgetRef ref, List<Song> songs) {
     final downloadService = ref.read(downloadServiceProvider);
-    for (final song in songs) {
-      if (!downloadService.isDownloaded(song.id)) {
-        downloadService.downloadSong(song).listen(
-              (_) {},
-              onError: (_) {},
-              cancelOnError: false,
-            );
-      }
+    final downloadable = songs
+        .where((s) => s.isDownloadable && !downloadService.isDownloaded(s.id))
+        .toList();
+
+    if (downloadable.isEmpty) {
+      final allDownloaded = songs.every((s) => downloadService.isDownloaded(s.id));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            allDownloaded
+                ? 'All songs already downloaded'
+                : 'Downloads not available for this album',
+          ),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      return;
     }
+
+    for (final song in downloadable) {
+      downloadService.downloadSong(song).listen(
+            (_) {},
+            onError: (_) {},
+            cancelOnError: false,
+          );
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Downloading ${downloadable.length} song${downloadable.length == 1 ? '' : 's'}…',
+        ),
+        duration: const Duration(seconds: 3),
+      ),
+    );
   }
 }

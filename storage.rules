@@ -1,3 +1,8 @@
+// NOTE: Firebase Storage is NOT used in the free-tier architecture.
+// Audio and artwork are served from external CDN URLs stored in Firestore.
+// These rules are preserved for future migration to Firebase Storage (Blaze plan).
+// To activate: enable Storage in Firebase Console → upgrade to Blaze plan →
+// upload media files → update audioUrl/artworkUrl fields in Firestore.
 rules_version = '2';
 
 service firebase.storage {

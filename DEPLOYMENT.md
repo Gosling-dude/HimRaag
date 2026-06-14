@@ -1,11 +1,48 @@
 # HimRaag — Deployment Guide
 
+## Free-Tier Architecture (₹0/month)
+
+HimRaag runs entirely on Firebase's **Spark (free) plan** with no paid services.
+
+| Service | Provider | Cost | Limit |
+|---------|----------|------|-------|
+| Authentication | Firebase Auth | Free | Unlimited MAU |
+| Database | Cloud Firestore | Free | 1 GB storage, 50k reads/day, 20k writes/day |
+| Analytics | Firebase Analytics | Free | Unlimited |
+| Crash reporting | Firebase Crashlytics | Free | Unlimited |
+| Audio streaming | External CDN (SoundHelix / self-hosted) | Free | Depends on host |
+| Artwork / images | External CDN (picsum.photos / self-hosted) | Free | Depends on host |
+| Firebase Storage | **Not used** | — | — |
+
+### How audio and images work
+
+Audio files and artwork are served as plain HTTP URLs stored in Firestore fields
+(`audioUrl`, `artworkUrl`). The app streams/downloads directly from those URLs using
+`just_audio` and `dio`. Firebase Storage is **not involved** and the `firebase_storage`
+SDK package is **not a dependency**.
+
+### Migrating to Firebase Storage (future / paid)
+
+When you need to self-host audio in Firebase Storage (requires Blaze plan):
+
+1. Upgrade project to Blaze plan in Firebase Console.
+2. Enable Storage → `us-central1`.
+3. Upload MP3s to `gs://himraag-prod.firebasestorage.app/audio/<songId>.mp3`.
+4. Upload artwork to `gs://himraag-prod.firebasestorage.app/artwork/<albumId>.jpg`.
+5. Update `AUDIO` / `ART` / `IMG` constants in `scripts/seed_firestore.js` with the
+   public Storage URLs (or signed URLs if private).
+6. Re-run `node scripts/seed_firestore.js` to update Firestore.
+7. Un-comment the storage path constants in `lib/core/constants/firebase_constants.dart`.
+8. Deploy storage rules: `firebase deploy --only storage`.
+
+---
+
 ## Firebase Project
 
 - **Project ID**: `himraag-prod`
 - **Project Number**: `39471021909`
 - **Android App ID**: `1:39471021909:android:1fb835736cc307e6f7b9dc`
-- **Storage Bucket**: `himraag-prod.firebasestorage.app`
+- **Storage Bucket**: `himraag-prod.firebasestorage.app` _(reserved, currently unused)_
 
 ## Prerequisites
 
@@ -74,48 +111,36 @@ flutter build apk --debug
 
 3. Build:
    ```bash
-   flutter build appbundle --release \
-     --dart-define=ALGOLIA_APP_ID=YOUR_APP_ID \
-     --dart-define=ALGOLIA_SEARCH_KEY=YOUR_SEARCH_ONLY_KEY
+   flutter build appbundle --release
    ```
    Output: `build/app/outputs/bundle/release/app-release.aab`
-
-> **Note**: Without `--dart-define` flags, search returns no results. Get keys from Algolia dashboard.
 
 ## Firebase Setup (one-time per environment)
 
 ### Firestore
 
-Rules and indexes are in the repo and deploy automatically:
+Rules and indexes are in the repo:
 
 ```bash
 firebase deploy --only firestore
 ```
 
-### Storage (requires Console action first)
-
-Storage **must** be initialized manually before deploying rules:
-
-1. Go to: https://console.firebase.google.com/project/himraag-prod/storage
-2. Click **Get Started** → choose **us-central1** → Done
-3. Then deploy rules:
-   ```bash
-   firebase deploy --only storage
-   ```
-
 ### Authentication (requires Console action first)
-
-Auth **must** be initialized manually before providers can be enabled:
 
 1. Go to: https://console.firebase.google.com/project/himraag-prod/authentication
 2. Click **Get Started**
 3. Enable **Anonymous** provider (Sign-in providers → Anonymous → Enable)
 4. Enable **Google** provider (Sign-in providers → Google → Enable)
-   - For Google Sign-In, add your release SHA-1 fingerprint:
+   - Add your release SHA-1 fingerprint:
      ```bash
      keytool -list -v -keystore himraag-release.jks -alias himraag
      ```
    - Add the SHA-1 to: Firebase Console → Project Settings → Android app → Add fingerprint
+
+### Storage
+
+Storage is **not used** in the current free-tier setup. The `storage.rules` file is
+kept in the repo for future use but does not need to be deployed now.
 
 ## Seed Development Data
 
@@ -128,22 +153,22 @@ node seed_firestore.js
 
 Seeds: 5 artists, 3 albums, 10 songs, 6 categories.
 
-> Audio and artwork files are NOT included. Upload real MP3/JPG files to Firebase Storage under `audio/<songId>.mp3`, `artwork/<albumId>.jpg`, `artists/<artistId>.jpg`.
+Audio URLs default to SoundHelix royalty-free samples. Artwork uses picsum.photos
+placeholder images. Both are free public CDNs suitable for development and demo.
 
-## Firebase Deploy (full)
+## Firebase Deploy (production)
 
 ```bash
-firebase deploy
+firebase deploy --only firestore
 ```
 
-Deploys: Firestore rules, Firestore indexes, Storage rules (if Storage is initialized).
+Deploys Firestore rules and indexes. Storage rules are skipped until Storage is enabled.
 
 ## Play Store Submission
 
-1. Ensure `minSdk 24` in `android/app/build.gradle` (already set)
-2. Build signed AAB: see Release Build above
-3. Upload `app-release.aab` to Play Console → Internal Testing track
-4. Complete store listing, privacy policy URL, and content rating questionnaire
+1. Build signed AAB: see Release Build above
+2. Upload `app-release.aab` to Play Console → Internal Testing track
+3. Complete store listing, privacy policy URL, and content rating questionnaire
 
 ## Environment Checklist
 
@@ -153,11 +178,9 @@ Deploys: Firestore rules, Firestore indexes, Storage rules (if Storage is initia
 [ ] Firebase Authentication initialized (Console → Get Started)
 [ ] Anonymous auth provider enabled
 [ ] Google auth provider enabled + SHA-1 fingerprint added
-[ ] Firebase Storage initialized (Console → Get Started)
-[ ] storage.rules deployed: firebase deploy --only storage
 [ ] Release keystore created and local.properties configured
-[ ] Algolia --dart-define keys set at build time
 [ ] Firestore seeded: node scripts/seed_firestore.js
+[ ] firebase deploy --only firestore
 [ ] flutter analyze → 0 errors
 [ ] flutter build appbundle --release → app-release.aab produced
 ```

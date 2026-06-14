@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/audio_player_service.dart';
+import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
 import '../../../library/providers/library_providers.dart';
+import '../../../songs/providers/download_providers.dart';
 import '../../providers/player_providers.dart';
 import '../widgets/lyrics_view.dart';
 import '../widgets/queue_view.dart';
@@ -461,6 +463,7 @@ class _SongOptionsSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(playerControllerProvider);
+    final isDownloaded = ref.watch(isDownloadedProvider(song.id));
 
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 8, 0, 24),
@@ -519,14 +522,40 @@ class _SongOptionsSheet extends ConsumerWidget {
               Navigator.pop(context);
             },
           ),
-          _OptionTile(
-            icon: Icons.album_rounded,
-            label: 'Go to Album',
-            onTap: () {
-              Navigator.pop(context);
-              context.push('/album/${song.albumId}');
-            },
-          ),
+          if (song.isDownloadable && !isDownloaded)
+            _OptionTile(
+              icon: Icons.download_rounded,
+              label: 'Download',
+              onTap: () {
+                Navigator.pop(context);
+                ref.read(downloadServiceProvider).downloadSong(song).listen(
+                      (_) {},
+                      onError: (_) {},
+                      cancelOnError: false,
+                    );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Downloading "${song.title}"…'),
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+              },
+            ),
+          if (isDownloaded)
+            _OptionTile(
+              icon: Icons.offline_pin_rounded,
+              label: 'Downloaded',
+              onTap: () => Navigator.pop(context),
+            ),
+          if (song.albumId.isNotEmpty)
+            _OptionTile(
+              icon: Icons.album_rounded,
+              label: 'Go to Album',
+              onTap: () {
+                Navigator.pop(context);
+                context.push('/album/${song.albumId}');
+              },
+            ),
           _OptionTile(
             icon: Icons.person_rounded,
             label: 'Go to Artist',
