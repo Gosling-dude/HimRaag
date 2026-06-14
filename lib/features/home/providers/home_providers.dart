@@ -7,6 +7,7 @@ import '../../../data/remote/firebase_song_datasource.dart';
 import '../../../domain/models/album.dart';
 import '../../../domain/models/artist.dart';
 import '../../../domain/models/song.dart';
+import '../../library/providers/library_providers.dart';
 
 final firestoreProvider =
     Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
@@ -72,3 +73,11 @@ final artistAlbumsProvider =
     FutureProvider.family<List<Album>, String>((ref, artistId) async {
   return ref.watch(albumDatasourceProvider).getAlbumsByArtist(artistId);
 });
+
+final favoriteSongsProvider = FutureProvider<List<Song>>((ref) async {
+  final favoriteIds = ref.watch(favoritesProvider).toList();
+  if (favoriteIds.isEmpty) return [];
+  return ref.watch(songDatasourceProvider).getSongsByIds(favoriteIds);
+});
+
+final selectedRegionProvider = StateProvider<String>((ref) => 'All');

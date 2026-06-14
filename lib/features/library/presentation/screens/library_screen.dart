@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/providers/player_providers.dart';
+import '../../../home/providers/home_providers.dart';
 import '../../providers/library_providers.dart';
 import '../widgets/song_list_tile.dart';
 
@@ -193,8 +194,35 @@ class _FavoritesTab extends ConsumerWidget {
       );
     }
 
-    return Center(
-      child: Text('${favorites.length} favorites saved'),
+    final songsAsync = ref.watch(favoriteSongsProvider);
+
+    return songsAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (_, __) => Center(
+        child: Text('${favorites.length} favorite${favorites.length == 1 ? '' : 's'}'),
+      ),
+      data: (songs) {
+        if (songs.isEmpty) {
+          return Center(
+            child: Text('${favorites.length} favorite${favorites.length == 1 ? '' : 's'} (tap refresh)'),
+          );
+        }
+        return ListView.builder(
+          padding: const EdgeInsets.only(bottom: 80),
+          itemCount: songs.length,
+          itemBuilder: (context, index) {
+            final song = songs[index];
+            return SongListTile(
+              song: song,
+              onTap: () => ref.read(playerControllerProvider).playSong(
+                    song,
+                    queue: songs,
+                    queueIndex: index,
+                  ),
+            );
+          },
+        );
+      },
     );
   }
 }

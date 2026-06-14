@@ -15,8 +15,8 @@ import '../widgets/artist_card.dart';
 import '../widgets/featured_banner.dart';
 import '../widgets/region_chip.dart';
 import '../widgets/section_header.dart';
-import '../widgets/song_card.dart';
 import '../widgets/shimmer_loading.dart';
+import '../widgets/song_card.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -24,6 +24,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider);
+    final selectedRegion = ref.watch(selectedRegionProvider);
 
     return Scaffold(
       body: RefreshIndicator(
@@ -34,14 +35,21 @@ class HomeScreen extends ConsumerWidget {
           ref.invalidate(newReleasesProvider);
           ref.invalidate(featuredAlbumsProvider);
           ref.invalidate(featuredArtistsProvider);
+          if (selectedRegion != 'All') {
+            ref.invalidate(regionSongsProvider(selectedRegion));
+          }
         },
         child: CustomScrollView(
           slivers: [
             _HomeAppBar(userName: user?.displayLabel),
             const _FeaturedSection(),
             const _RegionPicker(),
-            const _TrendingSection(),
-            const _NewReleasesSection(),
+            if (selectedRegion != 'All')
+              _RegionSongsSection(region: selectedRegion)
+            else ...[
+              const _TrendingSection(),
+              const _NewReleasesSection(),
+            ],
             const _AlbumsSection(),
             const _ArtistsSection(),
             const _FestivalSection(),
@@ -100,8 +108,8 @@ class _HomeAppBar extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.notifications_outlined),
-                  onPressed: () {},
+                  icon: const Icon(Icons.search_rounded),
+                  onPressed: () => context.push('/search'),
                 ),
               ],
             ),
@@ -126,26 +134,20 @@ class _FeaturedSection extends ConsumerWidget {
           return FeaturedBanner(songs: songs);
         },
         loading: () => const ShimmerBanner(),
-        error: (_, __) => const SizedBox.shrink(),
+        error: (e, _) => const SizedBox.shrink(),
       ),
     );
   }
 }
 
-class _RegionPicker extends ConsumerStatefulWidget {
+class _RegionPicker extends ConsumerWidget {
   const _RegionPicker();
 
   @override
-  ConsumerState<_RegionPicker> createState() => _RegionPickerState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selected = ref.watch(selectedRegionProvider);
+    final regions = ['All', ...AppConstants.pahadiRegions];
 
-class _RegionPickerState extends ConsumerState<_RegionPicker> {
-  String _selected = 'All';
-
-  final _regions = ['All', ...AppConstants.pahadiRegions];
-
-  @override
-  Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,16 +162,51 @@ class _RegionPickerState extends ConsumerState<_RegionPicker> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              itemCount: _regions.length,
+              itemCount: regions.length,
               separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
-                final region = _regions[index];
+                final region = regions[index];
                 return RegionChip(
                   label: region,
-                  isSelected: _selected == region,
-                  onTap: () => setState(() => _selected = region),
+                  isSelected: selected == region,
+                  onTap: () =>
+                      ref.read(selectedRegionProvider.notifier).state = region,
                 );
               },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RegionSongsSection extends ConsumerWidget {
+  const _RegionSongsSection({required this.region});
+
+  final String region;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final songs = ref.watch(regionSongsProvider(region));
+
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+            child: SectionHeader(
+              title: '$region Songs',
+              onSeeAll: () => context.push('/search'),
+            ),
+          ),
+          songs.when(
+            data: (list) => _HorizontalSongList(songs: list),
+            loading: () => const ShimmerHorizontalList(),
+            error: (e, _) => _ErrorWidget(
+              message: 'Could not load $region songs',
+              onRetry: () => ref.invalidate(regionSongsProvider(region)),
             ),
           ),
         ],
@@ -199,7 +236,10 @@ class _TrendingSection extends ConsumerWidget {
           trending.when(
             data: (songs) => _HorizontalSongList(songs: songs),
             loading: () => const ShimmerHorizontalList(),
-            error: (e, _) => _ErrorWidget(message: e.toString()),
+            error: (e, _) => _ErrorWidget(
+              message: 'Could not load trending songs',
+              onRetry: () => ref.invalidate(trendingSongsProvider),
+            ),
           ),
         ],
       ),
@@ -228,7 +268,10 @@ class _NewReleasesSection extends ConsumerWidget {
           newReleases.when(
             data: (songs) => _HorizontalSongList(songs: songs),
             loading: () => const ShimmerHorizontalList(),
-            error: (e, _) => _ErrorWidget(message: e.toString()),
+            error: (e, _) => _ErrorWidget(
+              message: 'Could not load new releases',
+              onRetry: () => ref.invalidate(newReleasesProvider),
+            ),
           ),
         ],
       ),
@@ -251,13 +294,16 @@ class _AlbumsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Popular Albums',
-              onSeeAll: () {},
+              onSeeAll: () => context.push('/search'),
             ),
           ),
           albums.when(
             data: (albumList) => _HorizontalAlbumList(albums: albumList),
             loading: () => const ShimmerHorizontalList(),
-            error: (e, _) => _ErrorWidget(message: e.toString()),
+            error: (e, _) => _ErrorWidget(
+              message: 'Could not load albums',
+              onRetry: () => ref.invalidate(featuredAlbumsProvider),
+            ),
           ),
         ],
       ),
@@ -280,13 +326,16 @@ class _ArtistsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Featured Artists',
-              onSeeAll: () {},
+              onSeeAll: () => context.push('/search'),
             ),
           ),
           artists.when(
             data: (artistList) => _HorizontalArtistList(artists: artistList),
             loading: () => const ShimmerHorizontalList(),
-            error: (e, _) => _ErrorWidget(message: e.toString()),
+            error: (e, _) => _ErrorWidget(
+              message: 'Could not load artists',
+              onRetry: () => ref.invalidate(featuredArtistsProvider),
+            ),
           ),
         ],
       ),
@@ -307,8 +356,10 @@ class _FestivalSection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 12),
-            child:
-                SectionHeader(title: 'Festival Collections', onSeeAll: () {}),
+            child: SectionHeader(
+              title: 'Festival Collections',
+              onSeeAll: () => context.push('/search'),
+            ),
           ),
           GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -349,7 +400,7 @@ class _FestivalCard extends StatelessWidget {
     final gradient = colors[name.hashCode % colors.length];
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () => context.push('/search'),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: gradient),
@@ -387,7 +438,12 @@ class _HorizontalSongList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (songs.isEmpty) return const SizedBox.shrink();
+    if (songs.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(20),
+        child: Text('No songs available'),
+      );
+    }
 
     return SizedBox(
       height: 200,
@@ -418,7 +474,12 @@ class _HorizontalAlbumList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (albums.isEmpty) return const SizedBox.shrink();
+    if (albums.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(20),
+        child: Text('No albums available'),
+      );
+    }
 
     return SizedBox(
       height: 190,
@@ -440,7 +501,12 @@ class _HorizontalArtistList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (artists.isEmpty) return const SizedBox.shrink();
+    if (artists.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(20),
+        child: Text('No artists available'),
+      );
+    }
 
     return SizedBox(
       height: 140,
@@ -456,19 +522,34 @@ class _HorizontalArtistList extends StatelessWidget {
 }
 
 class _ErrorWidget extends StatelessWidget {
-  const _ErrorWidget({required this.message});
+  const _ErrorWidget({required this.message, this.onRetry});
 
   final String message;
+  final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Text(
-        'Failed to load content',
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.textSecondaryDark,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: Row(
+        children: [
+          const Icon(Icons.wifi_off_rounded,
+              color: AppColors.textSecondaryDark, size: 18),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.textSecondaryDark,
+                  ),
             ),
+          ),
+          if (onRetry != null)
+            TextButton(
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
+        ],
       ),
     );
   }
