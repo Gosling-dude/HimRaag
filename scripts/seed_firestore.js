@@ -15,12 +15,15 @@
  *       after uploading actual audio files.
  */
 
-const admin = require('firebase-admin');
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore, FieldValue, Timestamp } = require('firebase-admin/firestore');
+const { getStorage } = require('firebase-admin/storage');
 
 // ─── Initialize ───────────────────────────────────────────────────────────────
 
-const serviceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS
-  ? require(process.env.GOOGLE_APPLICATION_CREDENTIALS)
+const serviceAccountPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+const serviceAccount = serviceAccountPath
+  ? JSON.parse(require('fs').readFileSync(serviceAccountPath, 'utf8'))
   : null;
 
 if (!serviceAccount) {
@@ -31,14 +34,14 @@ if (!serviceAccount) {
   process.exit(1);
 }
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+initializeApp({
+  credential: cert(serviceAccount),
   projectId: 'himraag-prod',
   storageBucket: 'himraag-prod.firebasestorage.app',
 });
 
-const db = admin.firestore();
-const storage = admin.storage().bucket();
+const db = getFirestore();
+const storage = getStorage().bucket();
 
 // ─── Helper ───────────────────────────────────────────────────────────────────
 
@@ -63,7 +66,7 @@ const artists = [
     monthlyListeners: 50000,
     isVerified: true,
     socialLinks: {},
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'artist_meena_rana',
@@ -78,7 +81,7 @@ const artists = [
     monthlyListeners: 25000,
     isVerified: true,
     socialLinks: {},
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'artist_pritam_bharatwan',
@@ -93,7 +96,7 @@ const artists = [
     monthlyListeners: 20000,
     isVerified: true,
     socialLinks: {},
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'artist_hema_negi_karasi',
@@ -108,7 +111,7 @@ const artists = [
     monthlyListeners: 30000,
     isVerified: true,
     socialLinks: {},
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'artist_mohan_upreti',
@@ -123,7 +126,7 @@ const artists = [
     monthlyListeners: 18000,
     isVerified: true,
     socialLinks: {},
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
 ];
 
@@ -146,7 +149,7 @@ const albums = [
     description: 'A collection of timeless Garhwali folk songs by the legendary Narendra Singh Negi.',
     tags: ['garhwali', 'folk', 'classic'],
     isApproved: true,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'album_kumaoni_doli',
@@ -164,7 +167,7 @@ const albums = [
     description: 'Wedding songs from the Kumaon hills by Padma Shri Hema Negi Karasi.',
     tags: ['kumaoni', 'wedding', 'folk'],
     isApproved: true,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'album_garhwali_bhakti',
@@ -182,13 +185,13 @@ const albums = [
     description: 'Devotional songs dedicated to the deities of the Himalayas.',
     tags: ['garhwali', 'devotional', 'bhakti'],
     isApproved: true,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
 ];
 
 // ─── Songs ────────────────────────────────────────────────────────────────────
 
-const now = admin.firestore.Timestamp.now();
+const now = Timestamp.now();
 
 const songs = [
   {
@@ -212,7 +215,7 @@ const songs = [
     isDownloadable: true,
     mood: 'joyful',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_ghogholi',
@@ -235,7 +238,7 @@ const songs = [
     isDownloadable: true,
     mood: 'joyful',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_raniban',
@@ -258,7 +261,7 @@ const songs = [
     isDownloadable: true,
     mood: 'peaceful',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_nyoli',
@@ -281,7 +284,7 @@ const songs = [
     isDownloadable: true,
     mood: 'melancholic',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_chholia',
@@ -304,7 +307,7 @@ const songs = [
     isDownloadable: true,
     mood: 'celebratory',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_bhagwati_stuti',
@@ -327,7 +330,7 @@ const songs = [
     isDownloadable: true,
     mood: 'devotional',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_pahadi_dil',
@@ -350,7 +353,7 @@ const songs = [
     isDownloadable: true,
     mood: 'nostalgic',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_basant_aayo',
@@ -373,7 +376,7 @@ const songs = [
     isDownloadable: true,
     mood: 'joyful',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_kumaoni_holi',
@@ -396,7 +399,7 @@ const songs = [
     isDownloadable: true,
     mood: 'celebratory',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
   {
     id: 'song_jaunsari_naati',
@@ -419,7 +422,7 @@ const songs = [
     isDownloadable: true,
     mood: 'energetic',
     releasedAt: now,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    createdAt: FieldValue.serverTimestamp(),
   },
 ];
 

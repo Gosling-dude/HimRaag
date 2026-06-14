@@ -79,7 +79,8 @@
       "collectionGroup": "artists",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "nameLowercase", "order": "ASCENDING" }
+        { "fieldPath": "nameLowercase", "order": "ASCENDING" },
+        { "fieldPath": "monthlyListeners", "order": "DESCENDING" }
       ]
     }
   ],

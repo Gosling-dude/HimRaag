@@ -43,3 +43,6 @@ lib/firebase_options.dart
 # Misc
 *.log
 coverage/
+
+# Scripts
+scripts/node_modules/
