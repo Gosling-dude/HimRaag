@@ -5,19 +5,20 @@
  *   npm install firebase-admin
  *
  * Usage:
- *   node scripts/seed_firestore.js
+ *   GOOGLE_APPLICATION_CREDENTIALS=/path/to/sa.json node scripts/seed_firestore.js
  *
- * Requires:
- *   GOOGLE_APPLICATION_CREDENTIALS env var pointing to a service account JSON.
- *   Or: set serviceAccountPath below to the path of your service account JSON.
+ * Audio URLs point to SoundHelix royalty-free samples (for development/demo).
+ * Image URLs use picsum.photos with seeded IDs (consistent, placeholder images).
  *
- * NOTE: Audio URLs use placeholder paths. Replace with real Firebase Storage URLs
- *       after uploading actual audio files.
+ * To migrate to real Firebase Storage:
+ *   1. Upload MP3s to gs://himraag-prod.firebasestorage.app/audio/<songId>.mp3
+ *   2. Upload artwork to gs://himraag-prod.firebasestorage.app/artwork/<albumId>.jpg
+ *   3. Upload artist images to gs://himraag-prod.firebasestorage.app/artists/<artistId>.jpg
+ *   4. Run this script again after updating the URL constants below.
  */
 
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore, FieldValue, Timestamp } = require('firebase-admin/firestore');
-const { getStorage } = require('firebase-admin/storage');
 
 // ─── Initialize ───────────────────────────────────────────────────────────────
 
@@ -37,11 +38,9 @@ if (!serviceAccount) {
 initializeApp({
   credential: cert(serviceAccount),
   projectId: 'himraag-prod',
-  storageBucket: 'himraag-prod.firebasestorage.app',
 });
 
 const db = getFirestore();
-const storage = getStorage().bucket();
 
 // ─── Helper ───────────────────────────────────────────────────────────────────
 
@@ -50,6 +49,41 @@ async function upsert(collection, id, data) {
   console.log(`  ✓ ${collection}/${id}`);
 }
 
+// ─── URL Constants ───────────────────────────────────────────────────────────
+// SoundHelix: royalty-free, publicly accessible MP3 samples
+// picsum.photos: seeded placeholder images (same seed = same image always)
+
+const AUDIO = {
+  song_bedu_pako:      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  song_ghogholi:       'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+  song_raniban:        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+  song_nyoli:          'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+  song_chholia:        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+  song_bhagwati_stuti: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+  song_pahadi_dil:     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+  song_basant_aayo:    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+  song_kumaoni_holi:   'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+  song_jaunsari_naati: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+};
+
+const ART = {
+  album_pahadi_jhankar:  'https://picsum.photos/seed/pahadi_jhankar/500/500',
+  album_kumaoni_doli:    'https://picsum.photos/seed/kumaoni_doli/500/500',
+  album_garhwali_bhakti: 'https://picsum.photos/seed/garhwali_bhakti/500/500',
+  song_raniban:          'https://picsum.photos/seed/raniban/500/500',
+  song_basant_aayo:      'https://picsum.photos/seed/basant_aayo/500/500',
+  song_kumaoni_holi:     'https://picsum.photos/seed/kumaoni_holi/500/500',
+  song_jaunsari_naati:   'https://picsum.photos/seed/jaunsari_naati/500/500',
+};
+
+const IMG = {
+  artist_narendra_singh_negi: 'https://picsum.photos/seed/negi/400/400',
+  artist_meena_rana:          'https://picsum.photos/seed/meena/400/400',
+  artist_pritam_bharatwan:    'https://picsum.photos/seed/pritam/400/400',
+  artist_hema_negi_karasi:    'https://picsum.photos/seed/hema/400/400',
+  artist_mohan_upreti:        'https://picsum.photos/seed/mohan/400/400',
+};
+
 // ─── Artists ──────────────────────────────────────────────────────────────────
 
 const artists = [
@@ -57,7 +91,7 @@ const artists = [
     id: 'artist_narendra_singh_negi',
     name: 'Narendra Singh Negi',
     nameLowercase: 'narendra singh negi',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artists%2Fnarendra_singh_negi.jpg?alt=media',
+    imageUrl: IMG.artist_narendra_singh_negi,
     region: 'Garhwali',
     bio: 'Narendra Singh Negi is the most celebrated Garhwali folk singer and lyricist, known as the voice of Uttarakhand.',
     songCount: 200,
@@ -72,7 +106,7 @@ const artists = [
     id: 'artist_meena_rana',
     name: 'Meena Rana',
     nameLowercase: 'meena rana',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artists%2Fmeena_rana.jpg?alt=media',
+    imageUrl: IMG.artist_meena_rana,
     region: 'Garhwali',
     bio: 'Meena Rana is one of the finest female voices in Uttarakhandi folk music.',
     songCount: 80,
@@ -87,7 +121,7 @@ const artists = [
     id: 'artist_pritam_bharatwan',
     name: 'Pritam Bharatwan',
     nameLowercase: 'pritam bharatwan',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artists%2Fpritam_bharatwan.jpg?alt=media',
+    imageUrl: IMG.artist_pritam_bharatwan,
     region: 'Garhwali',
     bio: 'Pritam Bharatwan is known for his soulful Garhwali ballads and has won numerous state awards.',
     songCount: 60,
@@ -102,7 +136,7 @@ const artists = [
     id: 'artist_hema_negi_karasi',
     name: 'Hema Negi Karasi',
     nameLowercase: 'hema negi karasi',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artists%2Fhema_negi_karasi.jpg?alt=media',
+    imageUrl: IMG.artist_hema_negi_karasi,
     region: 'Kumaoni',
     bio: 'Hema Negi Karasi is a Padma Shri awardee who has kept Kumaoni folk music alive across generations.',
     songCount: 100,
@@ -117,7 +151,7 @@ const artists = [
     id: 'artist_mohan_upreti',
     name: 'Mohan Upreti',
     nameLowercase: 'mohan upreti',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artists%2Fmohan_upreti.jpg?alt=media',
+    imageUrl: IMG.artist_mohan_upreti,
     region: 'Kumaoni',
     bio: 'Mohan Upreti was a pioneer who brought Kumaoni folk music to national and international audiences.',
     songCount: 70,
@@ -139,7 +173,7 @@ const albums = [
     titleLowercase: 'pahadi jhankar',
     artistId: 'artist_narendra_singh_negi',
     artistName: 'Narendra Singh Negi',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fpahadi_jhankar.jpg?alt=media',
+    artworkUrl: ART.album_pahadi_jhankar,
     region: 'Garhwali',
     language: 'Garhwali',
     genre: 'Folk',
@@ -157,7 +191,7 @@ const albums = [
     titleLowercase: 'kumaoni doli',
     artistId: 'artist_hema_negi_karasi',
     artistName: 'Hema Negi Karasi',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fkumaoni_doli.jpg?alt=media',
+    artworkUrl: ART.album_kumaoni_doli,
     region: 'Kumaoni',
     language: 'Kumaoni',
     genre: 'Folk',
@@ -175,7 +209,7 @@ const albums = [
     titleLowercase: 'garhwali bhakti sangeet',
     artistId: 'artist_pritam_bharatwan',
     artistName: 'Pritam Bharatwan',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fgarhwali_bhakti.jpg?alt=media',
+    artworkUrl: ART.album_garhwali_bhakti,
     region: 'Garhwali',
     language: 'Garhwali',
     genre: 'Devotional',
@@ -202,8 +236,8 @@ const songs = [
     artistName: 'Narendra Singh Negi',
     albumId: 'album_pahadi_jhankar',
     albumTitle: 'Pahadi Jhankar',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_bedu_pako.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fpahadi_jhankar.jpg?alt=media',
+    audioUrl: AUDIO.song_bedu_pako,
+    artworkUrl: ART.album_pahadi_jhankar,
     durationMs: 324000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -225,8 +259,8 @@ const songs = [
     artistName: 'Narendra Singh Negi',
     albumId: 'album_pahadi_jhankar',
     albumTitle: 'Pahadi Jhankar',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_ghogholi.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fpahadi_jhankar.jpg?alt=media',
+    audioUrl: AUDIO.song_ghogholi,
+    artworkUrl: ART.album_pahadi_jhankar,
     durationMs: 285000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -248,8 +282,8 @@ const songs = [
     artistName: 'Meena Rana',
     albumId: '',
     albumTitle: '',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_raniban.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Franiban.jpg?alt=media',
+    audioUrl: AUDIO.song_raniban,
+    artworkUrl: ART.song_raniban,
     durationMs: 256000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -271,8 +305,8 @@ const songs = [
     artistName: 'Hema Negi Karasi',
     albumId: 'album_kumaoni_doli',
     albumTitle: 'Kumaoni Doli',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_nyoli.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fkumaoni_doli.jpg?alt=media',
+    audioUrl: AUDIO.song_nyoli,
+    artworkUrl: ART.album_kumaoni_doli,
     durationMs: 315000,
     region: 'Kumaoni',
     language: 'Kumaoni',
@@ -294,8 +328,8 @@ const songs = [
     artistName: 'Hema Negi Karasi',
     albumId: 'album_kumaoni_doli',
     albumTitle: 'Kumaoni Doli',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_chholia.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fkumaoni_doli.jpg?alt=media',
+    audioUrl: AUDIO.song_chholia,
+    artworkUrl: ART.album_kumaoni_doli,
     durationMs: 290000,
     region: 'Kumaoni',
     language: 'Kumaoni',
@@ -317,8 +351,8 @@ const songs = [
     artistName: 'Pritam Bharatwan',
     albumId: 'album_garhwali_bhakti',
     albumTitle: 'Garhwali Bhakti Sangeet',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_bhagwati_stuti.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fgarhwali_bhakti.jpg?alt=media',
+    audioUrl: AUDIO.song_bhagwati_stuti,
+    artworkUrl: ART.album_garhwali_bhakti,
     durationMs: 420000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -340,8 +374,8 @@ const songs = [
     artistName: 'Pritam Bharatwan',
     albumId: 'album_garhwali_bhakti',
     albumTitle: 'Garhwali Bhakti Sangeet',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_pahadi_dil.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fgarhwali_bhakti.jpg?alt=media',
+    audioUrl: AUDIO.song_pahadi_dil,
+    artworkUrl: ART.album_garhwali_bhakti,
     durationMs: 310000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -363,8 +397,8 @@ const songs = [
     artistName: 'Meena Rana',
     albumId: '',
     albumTitle: '',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_basant_aayo.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fbasant_aayo.jpg?alt=media',
+    audioUrl: AUDIO.song_basant_aayo,
+    artworkUrl: ART.song_basant_aayo,
     durationMs: 245000,
     region: 'Garhwali',
     language: 'Garhwali',
@@ -386,8 +420,8 @@ const songs = [
     artistName: 'Mohan Upreti',
     albumId: '',
     albumTitle: '',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_kumaoni_holi.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fkumaoni_holi.jpg?alt=media',
+    audioUrl: AUDIO.song_kumaoni_holi,
+    artworkUrl: ART.song_kumaoni_holi,
     durationMs: 198000,
     region: 'Kumaoni',
     language: 'Kumaoni',
@@ -409,8 +443,8 @@ const songs = [
     artistName: 'Narendra Singh Negi',
     albumId: '',
     albumTitle: '',
-    audioUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/audio%2Fsong_jaunsari_naati.mp3?alt=media',
-    artworkUrl: 'https://firebasestorage.googleapis.com/v0/b/himraag-prod.firebasestorage.app/o/artwork%2Fjaunsari_naati.jpg?alt=media',
+    audioUrl: AUDIO.song_jaunsari_naati,
+    artworkUrl: ART.song_jaunsari_naati,
     durationMs: 360000,
     region: 'Jaunsari',
     language: 'Jaunsari',
@@ -429,12 +463,12 @@ const songs = [
 // ─── Categories ───────────────────────────────────────────────────────────────
 
 const categories = [
-  { id: 'folk', name: 'Folk', icon: 'music_note', color: '#6B3FA0' },
-  { id: 'devotional', name: 'Devotional', icon: 'self_improvement', color: '#E8A020' },
-  { id: 'festival', name: 'Festival', icon: 'celebration', color: '#2E7D32' },
-  { id: 'wedding', name: 'Wedding', icon: 'favorite', color: '#C62828' },
-  { id: 'seasonal', name: 'Seasonal', icon: 'wb_sunny', color: '#F57F17' },
-  { id: 'instrumental', name: 'Instrumental', icon: 'piano', color: '#1565C0' },
+  { id: 'folk',         name: 'Folk',         icon: 'music_note',      color: '#6B3FA0' },
+  { id: 'devotional',  name: 'Devotional',   icon: 'self_improvement', color: '#E8A020' },
+  { id: 'festival',    name: 'Festival',     icon: 'celebration',      color: '#2E7D32' },
+  { id: 'wedding',     name: 'Wedding',      icon: 'favorite',         color: '#C62828' },
+  { id: 'seasonal',    name: 'Seasonal',     icon: 'wb_sunny',         color: '#F57F17' },
+  { id: 'instrumental',name: 'Instrumental', icon: 'piano',            color: '#1565C0' },
 ];
 
 // ─── Run ─────────────────────────────────────────────────────────────────────
@@ -466,15 +500,16 @@ async function seed() {
     await upsert('categories', id, data);
   }
 
-  console.log('\n✅ Seeding complete!\n');
-  console.log('NEXT STEPS:');
-  console.log('  1. Upload MP3 files to Firebase Storage under: audio/<songId>.mp3');
-  console.log('  2. Upload artwork JPGs under: artwork/<albumId>.jpg');
-  console.log('  3. Upload artist images under: artists/<artistId>.jpg');
-  console.log('  4. Update song/album audioUrl and artworkUrl fields with real Storage URLs');
-  console.log('  5. Deploy Firestore rules: firebase deploy --only firestore:rules');
-  console.log('  6. Deploy Firestore indexes: firebase deploy --only firestore:indexes');
-  console.log('  7. Deploy Storage rules: firebase deploy --only storage');
+  console.log('\n✅ Seeding complete!');
+  console.log('\nCurrent audio URLs: SoundHelix royalty-free samples');
+  console.log('Current image URLs: picsum.photos placeholder images');
+  console.log('\nTo migrate to Firebase Storage (requires Blaze plan):');
+  console.log('  1. Enable Storage at: https://console.firebase.google.com/project/himraag-prod/storage');
+  console.log('  2. Upload real MP3s to: gs://himraag-prod.firebasestorage.app/audio/<songId>.mp3');
+  console.log('  3. Upload artwork to:  gs://himraag-prod.firebasestorage.app/artwork/<albumId>.jpg');
+  console.log('  4. Upload artist images: gs://himraag-prod.firebasestorage.app/artists/<artistId>.jpg');
+  console.log('  5. Update AUDIO/ART/IMG constants in this file with Firebase Storage URLs');
+  console.log('  6. Re-run: GOOGLE_APPLICATION_CREDENTIALS=... node scripts/seed_firestore.js');
 }
 
 seed().catch((err) => {
