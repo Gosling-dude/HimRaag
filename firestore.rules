@@ -17,6 +17,10 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
+    function isArtist() {
+      return isSignedIn() && request.auth.token.role == 'artist';
+    }
+
     // ─── Songs ─────────────────────────────────────────────────────────────────
     // Public music catalog — all songs readable without authentication.
     // Firestore range queries (prefix search) on titleLowercase require the
@@ -37,9 +41,20 @@ service cloud.firestore {
 
     // ─── Artists ───────────────────────────────────────────────────────────────
 
+    // An artist with the `role: artist` claim may update (not create/delete)
+    // the profile doc they own. Ownership is fixed: ownerUid cannot be changed,
+    // and moderation fields (approvalStatus, isPublished, isVerified) stay
+    // admin-only even on self-update.
     match /artists/{artistId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin()
+        || (isArtist()
+            && resource.data.ownerUid == request.auth.uid
+            && request.resource.data.ownerUid == resource.data.ownerUid
+            && request.resource.data.approvalStatus == resource.data.approvalStatus
+            && request.resource.data.isPublished == resource.data.isPublished
+            && request.resource.data.isVerified == resource.data.isVerified);
     }
 
     // ─── Playlists ─────────────────────────────────────────────────────────────
@@ -84,6 +99,35 @@ service cloud.firestore {
     match /banners/{docId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+    }
+
+    // ─── Submissions ─────────────────────────────────────────────────────────
+    // Artist-contributor upload workflow. An artist creates submissions tied to
+    // their uid and may read their own; admins read and moderate all. The
+    // submitter cannot self-approve — only admins change `status`.
+
+    match /submissions/{submissionId} {
+      allow read: if isAdmin() || isOwner(resource.data.submittedBy);
+      allow create: if isArtist()
+        && request.resource.data.submittedBy == request.auth.uid
+        && request.resource.data.status == 'pending';
+      allow update: if isAdmin()
+        || (isOwner(resource.data.submittedBy)
+            && resource.data.status == 'pending'
+            && request.resource.data.status == 'pending'
+            && request.resource.data.submittedBy == resource.data.submittedBy);
+      allow delete: if isAdmin();
+    }
+
+    // ─── Audit Logs ──────────────────────────────────────────────────────────
+    // Append-only moderation/audit trail. Readable by admins; entries are
+    // written by the admin SDK (seed/import scripts) or by an admin client.
+    // Never updatable or deletable from the client.
+
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
     }
   }
 }

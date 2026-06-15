@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/catalog_visibility.dart';
 import '../../../data/remote/firebase_album_datasource.dart';
 import '../../../data/remote/firebase_artist_datasource.dart';
 import '../../../data/remote/firebase_song_datasource.dart';
@@ -25,28 +26,34 @@ final artistDatasourceProvider = Provider<FirebaseArtistDatasource>((ref) {
 });
 
 final featuredSongsProvider = FutureProvider<List<Song>>((ref) async {
-  return ref.watch(songDatasourceProvider).getFeaturedSongs();
+  final songs = await ref.watch(songDatasourceProvider).getFeaturedSongs();
+  return songs.visibleToConsumers();
 });
 
 final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
-  return ref.watch(songDatasourceProvider).getTrendingSongs();
+  final songs = await ref.watch(songDatasourceProvider).getTrendingSongs();
+  return songs.visibleToConsumers();
 });
 
 final newReleasesProvider = FutureProvider<List<Song>>((ref) async {
-  return ref.watch(songDatasourceProvider).getNewReleases();
+  final songs = await ref.watch(songDatasourceProvider).getNewReleases();
+  return songs.visibleToConsumers();
 });
 
 final featuredAlbumsProvider = FutureProvider<List<Album>>((ref) async {
-  return ref.watch(albumDatasourceProvider).getFeaturedAlbums();
+  final albums = await ref.watch(albumDatasourceProvider).getFeaturedAlbums();
+  return albums.visibleToConsumers();
 });
 
 final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
-  return ref.watch(artistDatasourceProvider).getFeaturedArtists();
+  final artists = await ref.watch(artistDatasourceProvider).getFeaturedArtists();
+  return artists.visibleToConsumers();
 });
 
 final regionSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, region) async {
-  return ref.watch(songDatasourceProvider).getSongsByRegion(region);
+  final songs = await ref.watch(songDatasourceProvider).getSongsByRegion(region);
+  return songs.visibleToConsumers();
 });
 
 final albumDetailProvider =
@@ -56,7 +63,8 @@ final albumDetailProvider =
 
 final albumSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, albumId) async {
-  return ref.watch(songDatasourceProvider).getSongsByAlbum(albumId);
+  final songs = await ref.watch(songDatasourceProvider).getSongsByAlbum(albumId);
+  return songs.visibleToConsumers();
 });
 
 final artistDetailProvider =
@@ -66,18 +74,21 @@ final artistDetailProvider =
 
 final artistSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, artistId) async {
-  return ref.watch(songDatasourceProvider).getSongsByArtist(artistId);
+  final songs = await ref.watch(songDatasourceProvider).getSongsByArtist(artistId);
+  return songs.visibleToConsumers();
 });
 
 final artistAlbumsProvider =
     FutureProvider.family<List<Album>, String>((ref, artistId) async {
-  return ref.watch(albumDatasourceProvider).getAlbumsByArtist(artistId);
+  final albums = await ref.watch(albumDatasourceProvider).getAlbumsByArtist(artistId);
+  return albums.visibleToConsumers();
 });
 
 final favoriteSongsProvider = FutureProvider<List<Song>>((ref) async {
   final favoriteIds = ref.watch(favoritesProvider).toList();
   if (favoriteIds.isEmpty) return [];
-  return ref.watch(songDatasourceProvider).getSongsByIds(favoriteIds);
+  final songs = await ref.watch(songDatasourceProvider).getSongsByIds(favoriteIds);
+  return songs.visibleToConsumers();
 });
 
 final selectedRegionProvider = StateProvider<String>((ref) => 'All');

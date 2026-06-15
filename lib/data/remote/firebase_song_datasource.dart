@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../core/constants/content_constants.dart';
 import '../../core/constants/firebase_constants.dart';
 import '../../domain/models/song.dart';
 import 'dto/song_dto.dart';
@@ -194,5 +195,49 @@ class FirebaseSongDatasource {
         .map((snapshot) => snapshot.docs
             .map((doc) => SongDto.fromFirestore(doc).toDomain())
             .toList());
+  }
+
+  // ── Admin / content-management operations ────────────────────────────────
+  // These are used by the Flutter Web admin dashboard. Reads are unfiltered
+  // (no isApproved gate) so moderators can see pending/rejected/demo content.
+  // Writes are guarded by Firestore security rules (admin custom claim).
+
+  /// Fetch the full catalog for the admin tables, newest first by title.
+  /// Paginated via [limit]/[startAfterTitle] (orders by titleLowercase).
+  Future<List<Song>> getAllSongsForAdmin({
+    int limit = 200,
+    String? startAfterTitle,
+  }) async {
+    Query<Map<String, dynamic>> q =
+        _songs.orderBy('titleLowercase').limit(limit);
+    if (startAfterTitle != null) {
+      q = q.startAfter([startAfterTitle.toLowerCase()]);
+    }
+    final snapshot = await q.get();
+    return snapshot.docs
+        .map((doc) => SongDto.fromFirestore(doc).toDomain())
+        .toList();
+  }
+
+  Future<void> upsertSong(Song song) async {
+    final dto = SongDto.fromDomain(song);
+    await _songs.doc(song.id).set(
+      {...dto.toFirestore(), 'updatedAt': FieldValue.serverTimestamp()},
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> setApprovalStatus(String songId, ApprovalStatus status) async {
+    await _songs.doc(songId).update({
+      'approvalStatus': status.wire,
+      'isApproved': status.isApproved,
+      // Approving publishes; any other state un-publishes.
+      'isPublished': status.isApproved,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> deleteSong(String songId) async {
+    await _songs.doc(songId).delete();
   }
 }

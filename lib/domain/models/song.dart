@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../core/constants/content_constants.dart';
+
 class Song extends Equatable {
   const Song({
     required this.id,
@@ -23,6 +25,15 @@ class Song extends Equatable {
     this.mood,
     this.albumArtist,
     this.localPath,
+    this.slug = '',
+    this.license = LicenseType.demoOnly,
+    this.attribution = '',
+    this.licenseUrl,
+    this.sourceUrl,
+    this.approvalStatus = ApprovalStatus.pending,
+    this.isPublished = false,
+    this.rightsCleared = false,
+    this.submittedBy,
   });
 
   final String id;
@@ -46,6 +57,27 @@ class Song extends Equatable {
   final String? mood;
   final String? albumArtist;
   final String? localPath;
+
+  // ── Content-system metadata (licensing, moderation, provenance) ──────────
+  final String slug;
+  final LicenseType license;
+
+  /// Exact attribution text, stored verbatim. Required for licenses where
+  /// [LicenseType.requiresAttribution] is true.
+  final String attribution;
+  final String? licenseUrl;
+  final String? sourceUrl;
+  final ApprovalStatus approvalStatus;
+
+  /// Public visibility gate. Demo content is always false.
+  final bool isPublished;
+  final bool rightsCleared;
+
+  /// UID of the artist/admin who submitted the track, when applicable.
+  final String? submittedBy;
+
+  /// True only for placeholder content that must never be published.
+  bool get isDemo => license == LicenseType.demoOnly;
 
   bool get isDownloaded => localPath != null;
 
@@ -77,6 +109,15 @@ class Song extends Equatable {
     String? mood,
     String? albumArtist,
     String? localPath,
+    String? slug,
+    LicenseType? license,
+    String? attribution,
+    String? licenseUrl,
+    String? sourceUrl,
+    ApprovalStatus? approvalStatus,
+    bool? isPublished,
+    bool? rightsCleared,
+    String? submittedBy,
   }) {
     return Song(
       id: id ?? this.id,
@@ -100,6 +141,15 @@ class Song extends Equatable {
       mood: mood ?? this.mood,
       albumArtist: albumArtist ?? this.albumArtist,
       localPath: localPath ?? this.localPath,
+      slug: slug ?? this.slug,
+      license: license ?? this.license,
+      attribution: attribution ?? this.attribution,
+      licenseUrl: licenseUrl ?? this.licenseUrl,
+      sourceUrl: sourceUrl ?? this.sourceUrl,
+      approvalStatus: approvalStatus ?? this.approvalStatus,
+      isPublished: isPublished ?? this.isPublished,
+      rightsCleared: rightsCleared ?? this.rightsCleared,
+      submittedBy: submittedBy ?? this.submittedBy,
     );
   }
 
@@ -126,5 +176,14 @@ class Song extends Equatable {
         mood,
         albumArtist,
         localPath,
+        slug,
+        license,
+        attribution,
+        licenseUrl,
+        sourceUrl,
+        approvalStatus,
+        isPublished,
+        rightsCleared,
+        submittedBy,
       ];
 }

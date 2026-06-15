@@ -20,7 +20,7 @@ Use this checklist before each release track promotion. Items marked **[BLOCKING
 
 - [ ] **[BLOCKING]** Firestore rules deployed: `firebase deploy --only firestore`
 - [ ] **[BLOCKING]** Firestore indexes deployed (included in above command)
-- [ ] **[BLOCKING]** Firestore seeded with content: `node scripts/seed_firestore.js`
+- [ ] **[BLOCKING]** Firestore seeded with content: `GOOGLE_APPLICATION_CREDENTIALS=... node scripts/seed_firestore.js --commit` (omit `--commit` for a dry-run validation)
 - [ ] **[BLOCKING]** All audio URLs in Firestore return HTTP 200 with `Content-Type: audio/mpeg`
 - [ ] **[BLOCKING]** All artwork URLs in Firestore return HTTP 200 with `Content-Type: image/*`
 - [ ] **[RECOMMENDED]** Audio URLs return `Accept-Ranges: bytes` (required for seeking)
@@ -97,6 +97,25 @@ Minimum gate before inviting internal testers:
 | L-14 | Playlist creation UI | P3 |
 
 _See `KNOWN_LIMITATIONS.md` for full descriptions._
+
+---
+
+## Content System & Demo Catalog
+
+The seed catalog is **demo-only** (`license=DEMO_ONLY`, `isPublished=false`) and
+must never ship publicly. See `docs/CONTENT_SYSTEM.md`.
+
+- [ ] **[BLOCKING]** Release build sets `--dart-define=HIMRAAG_INTERNAL=false`
+      (or all `DEMO_ONLY` docs are purged) so demo content is excluded
+- [ ] **[BLOCKING]** Replace demo entries with licensed content via the import
+      pipeline; every published song has a cleared license + exact `attribution`
+- [ ] **[BLOCKING]** `node scripts/validate_catalog.js` → 0 rights issues,
+      0 broken URLs, 0 orphan refs before promotion
+- [ ] **[RECOMMENDED]** Admin web app: finalize `firebase_options.dart` `web`
+      block (`flutterfire configure --platforms=web`) and deploy to Firebase
+      Hosting (free tier) if the dashboard is hosted
+- [ ] **[RECOMMENDED]** Admin/artist accounts provisioned via
+      `scripts/set_claims.js`; no stray admin claims on test accounts
 
 ---
 
