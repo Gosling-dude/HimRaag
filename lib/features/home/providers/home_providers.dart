@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/app_config.dart';
 import '../../../data/catalog_visibility.dart';
+import '../../../data/local/local_catalog_datasource.dart';
 import '../../../data/remote/firebase_album_datasource.dart';
 import '../../../data/remote/firebase_artist_datasource.dart';
 import '../../../data/remote/firebase_song_datasource.dart';
@@ -11,6 +12,18 @@ import '../../../domain/models/album.dart';
 import '../../../domain/models/artist.dart';
 import '../../../domain/models/song.dart';
 import '../../library/providers/library_providers.dart';
+
+/// Union of [local] (imported) + [remote] (Firestore) items, de-duplicated by
+/// id with local taking precedence and appearing first (imported songs have
+/// playCount 0 and would otherwise sort to the bottom of Home rows).
+List<T> _mergeById<T>(List<T> local, List<T> remote, String Function(T) id) {
+  final seen = <String>{};
+  final out = <T>[];
+  for (final item in [...local, ...remote]) {
+    if (seen.add(id(item))) out.add(item);
+  }
+  return out;
+}
 
 /// Diagnostics: logs how many records the datasource returned vs how many
 /// survive the consumer visibility filter, plus the demo-content flag. In a
@@ -39,29 +52,39 @@ final artistDatasourceProvider = Provider<FirebaseArtistDatasource>((ref) {
 });
 
 final featuredSongsProvider = FutureProvider<List<Song>>((ref) async {
-  final songs = await ref.watch(songDatasourceProvider).getFeaturedSongs();
-  return _logVisibility('featuredSongs', songs, songs.visibleToConsumers());
+  final remote = await ref.watch(songDatasourceProvider).getFeaturedSongs();
+  final local = await ref.watch(localSongsProvider.future);
+  final merged = _mergeById(local, remote, (s) => s.id);
+  return _logVisibility('featuredSongs', merged, merged.visibleToConsumers());
 });
 
 final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
-  final songs = await ref.watch(songDatasourceProvider).getTrendingSongs();
-  return _logVisibility('trendingSongs', songs, songs.visibleToConsumers());
+  final remote = await ref.watch(songDatasourceProvider).getTrendingSongs();
+  final local = await ref.watch(localSongsProvider.future);
+  final merged = _mergeById(local, remote, (s) => s.id);
+  return _logVisibility('trendingSongs', merged, merged.visibleToConsumers());
 });
 
 final newReleasesProvider = FutureProvider<List<Song>>((ref) async {
-  final songs = await ref.watch(songDatasourceProvider).getNewReleases();
-  return _logVisibility('newReleases', songs, songs.visibleToConsumers());
+  final remote = await ref.watch(songDatasourceProvider).getNewReleases();
+  final local = await ref.watch(localSongsProvider.future);
+  final merged = _mergeById(local, remote, (s) => s.id);
+  return _logVisibility('newReleases', merged, merged.visibleToConsumers());
 });
 
 final featuredAlbumsProvider = FutureProvider<List<Album>>((ref) async {
-  final albums = await ref.watch(albumDatasourceProvider).getFeaturedAlbums();
-  return _logVisibility('featuredAlbums', albums, albums.visibleToConsumers());
+  final remote = await ref.watch(albumDatasourceProvider).getFeaturedAlbums();
+  final local = await ref.watch(localAlbumsProvider.future);
+  final merged = _mergeById(local, remote, (a) => a.id);
+  return _logVisibility('featuredAlbums', merged, merged.visibleToConsumers());
 });
 
 final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
-  final artists = await ref.watch(artistDatasourceProvider).getFeaturedArtists();
+  final remote = await ref.watch(artistDatasourceProvider).getFeaturedArtists();
+  final local = await ref.watch(localArtistsProvider.future);
+  final merged = _mergeById(local, remote, (a) => a.id);
   return _logVisibility(
-      'featuredArtists', artists, artists.visibleToConsumers());
+      'featuredArtists', merged, merged.visibleToConsumers());
 });
 
 final regionSongsProvider =
@@ -72,30 +95,41 @@ final regionSongsProvider =
 
 final albumDetailProvider =
     FutureProvider.family<Album?, String>((ref, albumId) async {
-  return ref.watch(albumDatasourceProvider).getAlbumById(albumId);
+  final remote = await ref.watch(albumDatasourceProvider).getAlbumById(albumId);
+  if (remote != null) return remote;
+  return ref.watch(localCatalogProvider).albumById(albumId);
 });
 
 final albumSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, albumId) async {
-  final songs = await ref.watch(songDatasourceProvider).getSongsByAlbum(albumId);
-  return songs.visibleToConsumers();
+  final remote =
+      await ref.watch(songDatasourceProvider).getSongsByAlbum(albumId);
+  final local = await ref.watch(localCatalogProvider).songsForAlbum(albumId);
+  return _mergeById(local, remote, (s) => s.id).visibleToConsumers();
 });
 
 final artistDetailProvider =
     FutureProvider.family<Artist?, String>((ref, artistId) async {
-  return ref.watch(artistDatasourceProvider).getArtistById(artistId);
+  final remote =
+      await ref.watch(artistDatasourceProvider).getArtistById(artistId);
+  if (remote != null) return remote;
+  return ref.watch(localCatalogProvider).artistById(artistId);
 });
 
 final artistSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, artistId) async {
-  final songs = await ref.watch(songDatasourceProvider).getSongsByArtist(artistId);
-  return songs.visibleToConsumers();
+  final remote =
+      await ref.watch(songDatasourceProvider).getSongsByArtist(artistId);
+  final local = await ref.watch(localCatalogProvider).songsForArtist(artistId);
+  return _mergeById(local, remote, (s) => s.id).visibleToConsumers();
 });
 
 final artistAlbumsProvider =
     FutureProvider.family<List<Album>, String>((ref, artistId) async {
-  final albums = await ref.watch(albumDatasourceProvider).getAlbumsByArtist(artistId);
-  return albums.visibleToConsumers();
+  final remote =
+      await ref.watch(albumDatasourceProvider).getAlbumsByArtist(artistId);
+  final local = await ref.watch(localCatalogProvider).albumsForArtist(artistId);
+  return _mergeById(local, remote, (a) => a.id).visibleToConsumers();
 });
 
 final favoriteSongsProvider = FutureProvider<List<Song>>((ref) async {

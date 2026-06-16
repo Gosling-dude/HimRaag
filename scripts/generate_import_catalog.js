@@ -41,6 +41,10 @@ const SCAN = path.join(__dirname, 'seed_data', 'scan_result.json');
 const ASSET_DIR = path.join(ROOT, 'assets', 'audio');
 const ASSET_KEY_PREFIX = 'assets/audio';
 const OUT = path.join(__dirname, 'seed_data', 'imported_catalog.json');
+// Bundled-asset copy the Flutter app loads at runtime (LocalCatalogDatasource),
+// so imported songs reach Home/Search/Album/Artist without a Firestore write.
+const ASSET_CATALOG_DIR = path.join(ROOT, 'assets', 'catalog');
+const ASSET_CATALOG = path.join(ASSET_CATALOG_DIR, 'imported_catalog.json');
 
 const PLACEHOLDER_ARTIST = 'Unknown Artist';
 const PLACEHOLDER_ALBUM = 'Imported Recordings';
@@ -212,10 +216,14 @@ function main() {
     songs,
   };
 
-  fs.writeFileSync(OUT, JSON.stringify(catalog, null, 2));
+  const json = JSON.stringify(catalog, null, 2);
+  fs.writeFileSync(OUT, json);
+  fs.mkdirSync(ASSET_CATALOG_DIR, { recursive: true });
+  fs.writeFileSync(ASSET_CATALOG, json);
 
   console.log(`✅ Copied ${copied} audio file(s) → ${path.relative(ROOT, ASSET_DIR)}/`);
   console.log(`✅ Wrote ${path.relative(ROOT, OUT)}`);
+  console.log(`✅ Wrote ${path.relative(ROOT, ASSET_CATALOG)} (bundled for the app)`);
   console.log(`   ${songs.length} songs · ${albums.length} album · ${artists.length} artist`);
   console.log('   Validate:  node scripts/import.js --json scripts/seed_data/imported_catalog.json --no-network');
 }
