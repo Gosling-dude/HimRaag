@@ -46,3 +46,8 @@ coverage/
 
 # Scripts
 scripts/node_modules/
+
+# Local-audio import source folder. Raw drop-zone for files to import; the
+# bundled, app-shipped copies live under assets/audio/ (which IS tracked).
+# Re-import any time with: node scripts/seed_imported.js "<folder>"
+music/

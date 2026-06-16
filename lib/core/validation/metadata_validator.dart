@@ -67,6 +67,12 @@ class MetadataValidator {
   static bool looksLikeUrl(String? v) =>
       RegExp(r'^https?://.+', caseSensitive: false).hasMatch(v ?? '');
 
+  /// Audio may be remote (http/https) or bundled locally (Flutter asset/file).
+  /// Mirrors `looksLikeAudioUrl` in `scripts/lib/validator.js`.
+  static bool looksLikeAudioUrl(String? v) =>
+      RegExp(r'^(https?|asset|file)://.+', caseSensitive: false)
+          .hasMatch(v ?? '');
+
   static int? _toInt(dynamic v) {
     if (v is int) return v;
     if (v is num) return v.toInt();
@@ -95,11 +101,19 @@ class MetadataValidator {
     final language = _canon(t['language'] as String?, ContentConstants.languages);
     final genre = _canon(t['genre'] as String?, AppConstants.pahadiGenres);
 
-    if (region.isNotEmpty && !AppConstants.pahadiRegions.contains(region)) {
+    if (region.isNotEmpty &&
+        region != ContentConstants.needsReview &&
+        !AppConstants.pahadiRegions.contains(region)) {
       errors.add('region "$region" is not an allowed Pahadi region');
+    } else if (region == ContentConstants.needsReview) {
+      warnings.add('region is "Needs Review" — assign a region in the dashboard');
     }
-    if (language.isNotEmpty && !ContentConstants.languages.contains(language)) {
+    if (language.isNotEmpty &&
+        language != ContentConstants.needsReview &&
+        !ContentConstants.languages.contains(language)) {
       errors.add('language "$language" is not an allowed language');
+    } else if (language == ContentConstants.needsReview) {
+      warnings.add('language is "Needs Review" — assign a language in the dashboard');
     }
     if (genre.isNotEmpty && !AppConstants.pahadiGenres.contains(genre)) {
       warnings.add('genre "$genre" is not in the standard genre list');
@@ -133,8 +147,8 @@ class MetadataValidator {
       errors.add('approvalStatus "$status" is invalid');
     }
 
-    if (!looksLikeUrl(t['audioUrl'] as String?)) {
-      errors.add('audioUrl must be an http(s) URL');
+    if (!looksLikeAudioUrl(t['audioUrl'] as String?)) {
+      errors.add('audioUrl must be an http(s), asset:// or file:// URL');
     }
     if (!looksLikeUrl(t['artworkUrl'] as String?)) {
       errors.add('artworkUrl must be an http(s) URL');

@@ -182,11 +182,12 @@ The user must sign out/in for the claim to take effect. The same claims gate the
 Firestore security rules.
 
 ### Admin dashboard
-Overview (counts + data-quality) · Songs/Albums/Artists tables with search +
-filter (region / language / approval status) · create/edit (full metadata form
-with client-side validation) · approve/reject · batch CSV/JSON import (validate →
-preview → commit) · Data Quality · Audit log. Every mutation writes an audit
-entry.
+Overview (counts + data-quality + needs-review) · Songs/Albums/Artists tables
+with search + filter (region / language / approval status) · create/edit (full
+metadata form with client-side validation) · approve/reject · batch CSV/JSON
+import (validate → preview → commit) · **Metadata Review** (bulk-assign artist /
+album / language / region / genre to many tracks) · Data Quality · Audit log.
+Every mutation writes an audit entry.
 
 ### Artist dashboard
 Profile + bio + rights-note editing (own doc only) · album list · track list ·
@@ -224,3 +225,44 @@ The schema is designed so demo content can be swapped for licensed content
 Because ids are deterministic and writes are upserts, re-imports are safe and the
 approval workflow, region/language requirements, audit log, and moderation gates
 all stay in force at any scale.
+
+---
+
+## 7. Local-audio import (bundled assets)
+
+For audio files you hold on disk (no hosting/CDN), the local-audio pipeline
+bundles them into the app and registers them in the catalog. Audio plays through
+the **unchanged** player: `audioUrl` is an `asset:///assets/audio/<file>` URL,
+which just_audio resolves natively (the validator accepts `asset://`/`file://`
+in addition to `http(s)`).
+
+### One-command workflow
+
+```bash
+# 1. drop files into a folder, then (dry-run: scan + bundle + validate):
+node scripts/seed_imported.js "D:\path\to\music"
+
+# 2. write to Firestore (or paste the catalog into Admin → Import):
+GOOGLE_APPLICATION_CREDENTIALS=/path/sa.json node scripts/seed_imported.js --commit
+```
+
+It chains three steps (each runnable standalone):
+
+1. `scan_audio.js <folder>` — recursively scans `.mp3/.wav/.m4a/.aac/.flac`,
+   decodes real durations + embedded tags (via `music-metadata`), and writes
+   `scripts/seed_data/scan_result.json` plus `IMPORT_REPORT.md` /
+   `METADATA_QUALITY_REPORT.md`.
+2. `generate_import_catalog.js` — copies each file to `assets/audio/<slug>.<ext>`
+   and emits `scripts/seed_data/imported_catalog.json`.
+3. `import.js --json … --no-network` — validates (and `--commit` writes).
+
+### Placeholder policy & review
+
+Files with no usable tags are imported with safe placeholders: `title` from the
+filename, `artistName="Unknown Artist"`, `albumTitle="Imported Recordings"`,
+`region="Needs Review"`, `language="Needs Review"`, `genre="Folk"`. They are
+imported **approved + visible** (so they appear in Home/Search/Library
+immediately) and tagged `needs-metadata-review`. The dashboard's **Metadata
+Review** section lists them and offers bulk-assign of artist/album/language/
+region/genre — assigning real values clears the review tag automatically. No
+manual Firestore editing is required.

@@ -8,6 +8,7 @@ import '../admin_widgets.dart';
 import 'catalog_section.dart';
 import 'import_section.dart';
 import 'insight_sections.dart';
+import 'review_section.dart';
 
 /// Full admin console: navigation rail + section content.
 class AdminDashboard extends ConsumerStatefulWidget {
@@ -29,6 +30,7 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
     (Icons.people_outline, Icons.people, 'Artists'),
     (Icons.inbox_outlined, Icons.inbox, 'Submissions'),
     (Icons.upload_file_outlined, Icons.upload_file, 'Import'),
+    (Icons.rate_review_outlined, Icons.rate_review, 'Review'),
     (Icons.health_and_safety_outlined, Icons.health_and_safety, 'Data Quality'),
     (Icons.history_outlined, Icons.history, 'Audit'),
   ];
@@ -48,8 +50,10 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
       case 5:
         return const ImportSection();
       case 6:
-        return const DataQualitySection();
+        return const ReviewSection();
       case 7:
+        return const DataQualitySection();
+      case 8:
         return const AuditSection();
       default:
         return const _OverviewSection();
@@ -121,6 +125,7 @@ class _OverviewSection extends ConsumerWidget {
     final artists = ref.watch(adminArtistsProvider);
     final subs = ref.watch(pendingSubmissionsProvider);
     final quality = ref.watch(dataQualityProvider);
+    final review = ref.watch(metadataReviewProvider);
 
     String count(AsyncValue<List> a) =>
         a.maybeWhen(data: (d) => d.length.toString(), orElse: () => '—');
@@ -158,6 +163,18 @@ class _OverviewSection extends ConsumerWidget {
                     MetricCard(label: 'Pending approval', value: pending, icon: Icons.pending_actions, color: AppColors.warning),
                     MetricCard(label: 'Demo tracks', value: demo, icon: Icons.science_outlined, color: AppColors.info),
                     MetricCard(label: 'Submissions', value: count(subs), icon: Icons.inbox, color: AppColors.primaryLight),
+                    MetricCard(
+                      label: 'Needs metadata review',
+                      value: review.maybeWhen(
+                          data: (r) => r.needsReview.length.toString(),
+                          orElse: () => '—'),
+                      icon: Icons.rate_review,
+                      color: review.maybeWhen(
+                          data: (r) => r.isEmpty
+                              ? AppColors.success
+                              : AppColors.warning,
+                          orElse: () => AppColors.primary),
+                    ),
                     MetricCard(
                       label: 'Data-quality issues',
                       value: quality.maybeWhen(

@@ -14,6 +14,7 @@ const {
   REGIONS,
   LANGUAGES,
   GENRES,
+  NEEDS_REVIEW,
 } = require('./constants');
 
 // ─── Slug ──────────────────────────────────────────────────────────────────
@@ -55,6 +56,18 @@ function canonicalize(value, allowed) {
 
 function looksLikeUrl(value) {
   return /^https?:\/\/.+/i.test(String(value || ''));
+}
+
+/** Audio may be remote (http/https) or bundled locally (Flutter asset / file).
+ *  Local schemes are produced by the local-audio import pipeline. */
+function looksLikeAudioUrl(value) {
+  return /^(https?|asset|file):\/\/.+/i.test(String(value || '')) ||
+    /^asset:\/\/\/.+/i.test(String(value || ''));
+}
+
+/** True for locally-bundled audio (no network reachability check applies). */
+function isLocalAudio(value) {
+  return /^(asset|file):/i.test(String(value || ''));
 }
 
 async function checkUrlReachable(url, expectContentTypePrefix) {
@@ -130,11 +143,15 @@ function validateTrack(raw, opts = {}) {
   t.language = canonicalize(t.language, LANGUAGES);
   t.genre = canonicalize(t.genre, GENRES);
 
-  if (t.region && !REGIONS.includes(t.region)) {
+  if (t.region && t.region !== NEEDS_REVIEW && !REGIONS.includes(t.region)) {
     errors.push(`region "${t.region}" is not an allowed Pahadi region`);
+  } else if (t.region === NEEDS_REVIEW) {
+    warnings.push('region is "Needs Review" — assign a region in the dashboard');
   }
-  if (t.language && !LANGUAGES.includes(t.language)) {
+  if (t.language && t.language !== NEEDS_REVIEW && !LANGUAGES.includes(t.language)) {
     errors.push(`language "${t.language}" is not an allowed language`);
+  } else if (t.language === NEEDS_REVIEW) {
+    warnings.push('language is "Needs Review" — assign a language in the dashboard');
   }
   if (t.genre && !GENRES.includes(t.genre)) {
     warnings.push(`genre "${t.genre}" is not in the standard genre list`);
@@ -168,8 +185,8 @@ function validateTrack(raw, opts = {}) {
   }
 
   // URLs (shape only here; reachability is a separate async pass).
-  if (t.audioUrl && !looksLikeUrl(t.audioUrl)) {
-    errors.push('audioUrl must be an http(s) URL');
+  if (t.audioUrl && !looksLikeAudioUrl(t.audioUrl)) {
+    errors.push('audioUrl must be an http(s), asset:// or file:// URL');
   }
   if (t.artworkUrl && !looksLikeUrl(t.artworkUrl)) {
     errors.push('artworkUrl must be an http(s) URL');
@@ -204,13 +221,18 @@ function validateTrack(raw, opts = {}) {
   return { ok: errors.length === 0, errors, warnings, normalized: t };
 }
 
-/** Async reachability check for a normalized track. */
+/** Async reachability check for a normalized track. Locally-bundled audio
+ *  (asset:// / file://) is skipped — there is nothing to reach over HTTP. */
 async function checkLinks(track) {
   const issues = [];
-  const audio = await checkUrlReachable(track.audioUrl, 'audio');
-  if (!audio.ok) issues.push(`audioUrl unreachable: ${audio.reason}`);
-  const art = await checkUrlReachable(track.artworkUrl, 'image');
-  if (!art.ok) issues.push(`artworkUrl unreachable: ${art.reason}`);
+  if (!isLocalAudio(track.audioUrl)) {
+    const audio = await checkUrlReachable(track.audioUrl, 'audio');
+    if (!audio.ok) issues.push(`audioUrl unreachable: ${audio.reason}`);
+  }
+  if (track.artworkUrl && looksLikeUrl(track.artworkUrl)) {
+    const art = await checkUrlReachable(track.artworkUrl, 'image');
+    if (!art.ok) issues.push(`artworkUrl unreachable: ${art.reason}`);
+  }
   return issues;
 }
 
@@ -250,6 +272,8 @@ module.exports = {
   albumId,
   canonicalize,
   looksLikeUrl,
+  looksLikeAudioUrl,
+  isLocalAudio,
   checkUrlReachable,
   validateTrack,
   checkLinks,

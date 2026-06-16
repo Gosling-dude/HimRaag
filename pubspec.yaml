@@ -57,6 +57,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   flutter_lints: ^4.0.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.12
@@ -69,3 +71,4 @@ flutter:
     - assets/icons/
     - assets/animations/
     - assets/fonts/
+    - assets/audio/

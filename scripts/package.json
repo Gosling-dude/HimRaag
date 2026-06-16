@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "firebase-admin": "^14.0.0"
+    "firebase-admin": "^14.0.0",
+    "music-metadata": "^7.14.0"
   }
 }

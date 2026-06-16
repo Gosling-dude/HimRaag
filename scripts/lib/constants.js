@@ -36,6 +36,13 @@ const MANDATORY_REGIONS = ['Garhwali', 'Kumaoni', 'Jaunsari', 'Himachali'];
 
 const LANGUAGES = [...REGIONS, 'Pahadi'];
 
+// Sentinel used by the local-audio import pipeline for tracks whose region /
+// language could not be determined from tags or filename. The metadata-review
+// workflow in the admin dashboard surfaces every track carrying this value.
+// Accepted by validation but intentionally NOT shown as a consumer-facing
+// region chip (it is absent from AppConstants.pahadiRegions).
+const NEEDS_REVIEW = 'Needs Review';
+
 const GENRES = [
   'Folk',
   'Devotional',
@@ -64,6 +71,7 @@ module.exports = {
   MANDATORY_REGIONS,
   LANGUAGES,
   GENRES,
+  NEEDS_REVIEW,
   COLLECTIONS,
   PROJECT_ID,
 };

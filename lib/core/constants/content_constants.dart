@@ -124,6 +124,18 @@ class ContentConstants {
     'Himachali',
   ];
 
+  /// Sentinel for tracks (typically locally-imported audio with no embedded
+  /// tags) whose region/language must still be assigned by a moderator. It is
+  /// accepted by [MetadataValidator] but is deliberately absent from the
+  /// consumer-facing region chips ([AppConstants.pahadiRegions]). The admin
+  /// metadata-review workflow lists every track carrying this value. Mirrors
+  /// `NEEDS_REVIEW` in `scripts/lib/constants.js`.
+  static const String needsReview = 'Needs Review';
+
+  /// Tag attached to imported tracks that still require metadata cleanup. The
+  /// admin review queue uses it as an explicit, persisted flag.
+  static const String needsReviewTag = 'needs-metadata-review';
+
   /// Firestore collections introduced by the content system.
   static const String submissionsCollection = 'submissions';
   static const String auditLogsCollection = 'auditLogs';
