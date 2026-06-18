@@ -56,6 +56,8 @@ class AlbumDetailScreen extends ConsumerWidget {
                       CachedNetworkImage(
                         imageUrl: album.artworkUrl,
                         fit: BoxFit.cover,
+                        placeholder: (_, __) =>
+                            Container(color: AppColors.surfaceDark),
                         errorWidget: (_, __, ___) => Container(
                             color: AppColors.primary.withValues(alpha: 0.3)),
                       ),
@@ -76,7 +78,7 @@ class AlbumDetailScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              album.title,
+                              album.displayTitle,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,

@@ -1,4 +1,12 @@
 /**
+ * DEPRECATED — do not run. Superseded by `scripts/fetch_real_art.js`.
+ *
+ * This generator bakes title/artist/region/HimRaag *text* into branded poster
+ * covers, which is exactly the look the production art direction removed. Real,
+ * text-free artwork (JioSaavn official covers + Wikimedia photos) is now produced
+ * by `fetch_real_art.js`. Kept only for reference. Running it re-introduces the
+ * poster text — guarded below behind ALLOW_BRANDED_COVERS=1.
+ *
  * Regenerate professional cover art for the whole catalog and re-upload to R2.
  *
  * - Songs:   overwrite existing artwork/<key>.png with a branded cover
@@ -24,7 +32,9 @@ const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { loadR2, publicSummary, firebaseServiceAccountPath } = require('./lib/credentials');
 const { slugify } = require('./lib/validator');
-const { makeCover } = require('./lib/cover_art');
+const { makeSongCover, makeArtistCover } = require('./lib/cover_art');
+
+const ART_VER = 'v3'; // bump to cache-bust client-side image caches
 const { PROJECT_ID } = require('./lib/constants');
 
 const repoRoot = path.dirname(__dirname);
@@ -46,6 +56,11 @@ function verifyUrl(url) {
 }
 
 async function main() {
+  if (process.env.ALLOW_BRANDED_COVERS !== '1') {
+    console.error('DEPRECATED: this script bakes poster text into covers. Use scripts/fetch_real_art.js instead.');
+    console.error('To override (not recommended), set ALLOW_BRANDED_COVERS=1.');
+    process.exit(1);
+  }
   const cfg = loadR2();
   const sum = publicSummary();
   const client = new S3Client({
@@ -73,9 +88,8 @@ async function main() {
   for (const doc of songSnap.docs) {
     const s = doc.data();
     const region = s.region && s.region !== 'Needs Review' ? s.region : (s.language || 'Pahadi');
-    let key = keyFromUrl(s.artworkUrl, cfg.publicUrl);
-    if (!key) { key = `artwork/${s.slug || slugify(s.title)}.png`; }
-    const png = makeCover({ title: s.title, subtitle: s.artistName, region, seed: doc.id });
+    const key = `artwork/${s.slug || slugify(s.title)}-${ART_VER}.png`;
+    const png = makeSongCover({ title: s.title, subtitle: s.artistName, region, seed: doc.id });
     await put(key, png);
     const url = publicUrl(key);
     if (s.artworkUrl !== url) { sBatch.update(doc.ref, { artworkUrl: url }); sPending++; }
@@ -92,9 +106,9 @@ async function main() {
   for (const doc of artistSnap.docs) {
     const a = doc.data();
     const slug = a.slug || slugify(a.name);
-    const key = `artists/${slug}.png`;
+    const key = `artists/${slug}-${ART_VER}.png`;
     const region = a.region && a.region !== 'Needs Review' ? a.region : 'Pahadi';
-    const png = makeCover({ title: a.name, subtitle: region, region, seed: doc.id });
+    const png = makeArtistCover({ title: a.name, region, seed: doc.id });
     await put(key, png);
     const url = publicUrl(key);
     aBatch.update(doc.ref, { imageUrl: url }); aPending++;
@@ -111,9 +125,9 @@ async function main() {
   for (const doc of albumSnap.docs) {
     const a = doc.data();
     const slug = a.slug || slugify(a.title);
-    const key = `albums/${slug}.png`;
+    const key = `albums/${slug}-${ART_VER}.png`;
     const region = a.region && a.region !== 'Needs Review' ? a.region : (a.language || 'Pahadi');
-    const png = makeCover({ title: a.title, subtitle: a.artistName, region, seed: doc.id });
+    const png = makeSongCover({ title: a.title, subtitle: a.artistName, region, seed: doc.id });
     await put(key, png);
     const url = publicUrl(key);
     alBatch.update(doc.ref, { artworkUrl: url }); alPending++;

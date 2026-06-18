@@ -563,12 +563,12 @@ class _HorizontalArtistList extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 140,
+      height: 162,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         itemCount: artists.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 16),
+        separatorBuilder: (_, __) => const SizedBox(width: 14),
         itemBuilder: (context, index) => ArtistCard(artist: artists[index]),
       ),
     );

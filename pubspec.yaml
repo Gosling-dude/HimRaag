@@ -62,6 +62,22 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.12
+  flutter_launcher_icons: ^0.13.1
+
+# App icon (temporary: user photo). Regenerate with:
+#   dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/icons/app_icon.jpg"
+  android: true
+  min_sdk_android: 21
+  remove_alpha_ios: true
+  adaptive_icon_background: "#0D0D14"
+  adaptive_icon_foreground: "assets/icons/app_icon.jpg"
+  web:
+    generate: true
+    image_path: "assets/icons/app_icon.jpg"
+    background_color: "#0D0D14"
+    theme_color: "#6B3FA0"
 
 flutter:
   uses-material-design: true

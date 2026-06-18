@@ -1,6 +1,6 @@
 # HimRaag — UI / Asset Verification Report (Phase 9)
 
-_Generated: 2026-06-18T14:39:14.052Z_
+_Generated: 2026-06-18T16:04:56.072Z_
 
 All consumer-facing Cloudflare R2 URLs probed (HTTP Range GET).
 

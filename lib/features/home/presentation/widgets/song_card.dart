@@ -1,8 +1,8 @@
-﻿import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../../../domain/models/song.dart';
 
 class SongCard extends StatelessWidget {
@@ -22,20 +22,22 @@ class SongCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: song.artworkUrl,
-                    width: 140,
-                    height: 140,
-                    fit: BoxFit.cover,
-                    errorWidget: (_, __, ___) => Container(
-                      width: 140,
-                      height: 140,
-                      color: AppColors.primary.withValues(alpha: 0.3),
-                      child: const Icon(Icons.music_note_rounded,
-                          color: AppColors.primary, size: 48),
-                    ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: AppArtwork(
+                    url: song.artworkUrl,
+                    size: 140,
+                    radius: 12,
+                    label: song.title,
                   ),
                 ),
                 if (song.isDownloaded)
@@ -57,14 +59,19 @@ class SongCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               song.title,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               song.displayArtist,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.textSecondaryDark,
+                  ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

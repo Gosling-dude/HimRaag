@@ -1,9 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/providers/player_providers.dart';
 
@@ -34,21 +34,11 @@ class SongListTile extends ConsumerWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: song.artworkUrl,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-              errorWidget: (_, __, ___) => Container(
-                width: 52,
-                height: 52,
-                color: AppColors.primary.withValues(alpha: 0.3),
-                child: const Icon(Icons.music_note,
-                    color: AppColors.primary, size: 26),
-              ),
-            ),
+          AppArtwork(
+            url: song.artworkUrl,
+            size: 52,
+            radius: 8,
+            label: song.title,
           ),
           if (isCurrentlyPlaying)
             Positioned.fill(

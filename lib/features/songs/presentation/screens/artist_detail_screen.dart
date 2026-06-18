@@ -42,6 +42,8 @@ class ArtistDetailScreen extends ConsumerWidget {
                       CachedNetworkImage(
                         imageUrl: artist.imageUrl,
                         fit: BoxFit.cover,
+                        placeholder: (_, __) =>
+                            Container(color: AppColors.surfaceDark),
                         errorWidget: (_, __, ___) => Container(
                           color: AppColors.primary.withValues(alpha: 0.3),
                           child: const Icon(Icons.person_rounded,

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../../../data/services/audio_player_service.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
@@ -159,6 +160,7 @@ class _BlurredBackground extends StatelessWidget {
           CachedNetworkImage(
             imageUrl: artworkUrl,
             fit: BoxFit.cover,
+            placeholder: (_, __) => Container(color: AppColors.backgroundDark),
             errorWidget: (_, __, ___) =>
                 Container(color: AppColors.backgroundDark),
           ),
@@ -206,7 +208,8 @@ class _PlayerControlsState extends ConsumerState<_PlayerControls> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          _ArtworkWidget(artworkUrl: widget.song.artworkUrl),
+          _ArtworkWidget(
+              artworkUrl: widget.song.artworkUrl, label: widget.song.title),
           const SizedBox(height: 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -355,9 +358,10 @@ class _PlayerControlsState extends ConsumerState<_PlayerControls> {
 }
 
 class _ArtworkWidget extends StatelessWidget {
-  const _ArtworkWidget({required this.artworkUrl});
+  const _ArtworkWidget({required this.artworkUrl, this.label = ''});
 
   final String artworkUrl;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -374,18 +378,7 @@ class _ArtworkWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: CachedNetworkImage(
-          imageUrl: artworkUrl,
-          fit: BoxFit.cover,
-          errorWidget: (_, __, ___) => Container(
-            color: AppColors.primary.withValues(alpha: 0.4),
-            child: const Icon(Icons.music_note_rounded,
-                color: Colors.white, size: 80),
-          ),
-        ),
-      ),
+      child: AppArtwork(url: artworkUrl, size: 260, radius: 16, label: label),
     );
   }
 }
@@ -484,17 +477,8 @@ class _SongOptionsSheet extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: CachedNetworkImage(
-                    imageUrl: song.artworkUrl,
-                    width: 48,
-                    height: 48,
-                    fit: BoxFit.cover,
-                    errorWidget: (_, __, ___) => Container(
-                        color: AppColors.primary, width: 48, height: 48),
-                  ),
-                ),
+                AppArtwork(
+                    url: song.artworkUrl, size: 48, radius: 8, label: song.title),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(

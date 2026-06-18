@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../providers/player_providers.dart';
 
 class MiniPlayer extends ConsumerWidget {
@@ -38,21 +38,11 @@ class MiniPlayer extends ConsumerWidget {
         child: Row(
           children: [
             const SizedBox(width: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: song.artworkUrl,
-                width: 48,
-                height: 48,
-                fit: BoxFit.cover,
-                errorWidget: (_, __, ___) => Container(
-                  width: 48,
-                  height: 48,
-                  color: AppColors.primary.withValues(alpha: 0.3),
-                  child: const Icon(Icons.music_note,
-                      color: AppColors.primary, size: 24),
-                ),
-              ),
+            AppArtwork(
+              url: song.artworkUrl,
+              size: 48,
+              radius: 8,
+              label: song.title,
             ),
             const SizedBox(width: 12),
             Expanded(

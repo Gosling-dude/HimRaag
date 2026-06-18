@@ -97,6 +97,7 @@ class _BannerItem extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: song.artworkUrl,
               fit: BoxFit.cover,
+              placeholder: (_, __) => Container(color: AppColors.surfaceDark),
               errorWidget: (_, __, ___) =>
                   Container(color: AppColors.primary.withValues(alpha: 0.3)),
             ),
