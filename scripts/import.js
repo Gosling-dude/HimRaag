@@ -192,10 +192,34 @@ function deriveEntities(songs, providedArtists, providedAlbums) {
 
 // ─── Firestore write helpers ───────────────────────────────────────────────────
 
+/** Lowercase, strip diacritics + punctuation → a normalized comparable string. */
+function normalize(value) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '') // combining marks
+    .toLowerCase()
+    .replace(/[^a-z0-9ऀ-ॿ\s]/g, ' ') // keep latin + devanagari
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Build a deduped keyword array for prefix/substring search in Firestore. */
+function searchTerms(...parts) {
+  const set = new Set();
+  for (const p of parts) {
+    const norm = normalize(p);
+    if (!norm) continue;
+    set.add(norm);
+    for (const tok of norm.split(' ')) if (tok.length > 1) set.add(tok);
+  }
+  return [...set];
+}
+
 function songToFirestore(s) {
   return {
     title: s.title,
     titleLowercase: s.title.toLowerCase(),
+    titleNormalized: normalize(s.title),
     artistId: s.artistId,
     artistName: s.artistName,
     albumId: s.albumId || '',
@@ -210,6 +234,9 @@ function songToFirestore(s) {
     playCount: s.playCount || 0,
     tags: s.tags || [],
     isApproved: s.approvalStatus === 'approved',
+    // Imported content defaults to a pending-review state; the admin dashboard's
+    // Metadata Review queue surfaces every doc with reviewRequired=true.
+    reviewRequired: s.reviewRequired === true,
     isDownloadable: s.isDownloadable !== false,
     slug: s.slug,
     license: s.license,
@@ -217,11 +244,13 @@ function songToFirestore(s) {
     approvalStatus: s.approvalStatus,
     isPublished: !!s.isPublished,
     rightsCleared: !!s.rightsCleared,
+    searchKeywords: searchTerms(s.title, s.artistName, s.albumTitle, s.region, s.language, s.genre),
     ...(s.lyrics ? { lyrics: s.lyrics } : {}),
     ...(s.mood ? { mood: s.mood } : {}),
     ...(s.licenseUrl ? { licenseUrl: s.licenseUrl } : {}),
     ...(s.sourceUrl ? { sourceUrl: s.sourceUrl } : {}),
     ...(s.submittedBy ? { submittedBy: s.submittedBy } : {}),
+    ...(s.sourceFile ? { sourceFile: s.sourceFile } : {}),
   };
 }
 
@@ -321,11 +350,23 @@ async function main() {
   console.log('\n📝 Committing to Firestore...');
   await commitBatch(COLLECTIONS.artists, artists, (a) => {
     const { id, ...rest } = a;
-    return { id, ...rest, nameLowercase: (a.name || '').toLowerCase() };
+    return {
+      id,
+      ...rest,
+      nameLowercase: (a.name || '').toLowerCase(),
+      nameNormalized: normalize(a.name),
+      searchKeywords: searchTerms(a.name, a.region, ...(a.genres || [])),
+    };
   });
   await commitBatch(COLLECTIONS.albums, albums, (a) => {
     const { id, ...rest } = a;
-    return { id, ...rest, titleLowercase: (a.title || '').toLowerCase() };
+    return {
+      id,
+      ...rest,
+      titleLowercase: (a.title || '').toLowerCase(),
+      titleNormalized: normalize(a.title),
+      searchKeywords: searchTerms(a.title, a.artistName, a.region, a.language, a.genre),
+    };
   });
   await commitBatch(COLLECTIONS.songs, valid, (s) => ({ id: s.id, ...songToFirestore(s) }));
 

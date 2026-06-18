@@ -15,7 +15,7 @@ void main() {
   test('bundled catalog loads the imported songs at runtime', () async {
     final songs = await ds.songs();
     expect(songs, isNotEmpty);
-    expect(songs.length, 15);
+    expect(songs.length, 19);
     final titles = songs.map((s) => s.title).toList();
     expect(titles.any((t) => t.contains('AANKHI MICHOLI')), isTrue);
     expect(titles.any((t) => t.contains('Main Pahadan')), isTrue);
@@ -39,8 +39,11 @@ void main() {
     for (final s in songs) {
       expect(s.isApproved, isTrue, reason: s.title);
       expect(s.license.cleared, isTrue, reason: s.title);
-      expect(s.audioUrl, startsWith('asset:///assets/audio/'),
-          reason: s.title);
+      // Audio now streams from Cloudflare R2 (bundled MP3s removed).
+      expect(s.audioUrl, startsWith('https://'), reason: s.title);
+      expect(s.audioUrl, contains('r2.dev/audio/'), reason: s.title);
+      // Imported content is flagged for owner review.
+      expect(s.reviewRequired, isTrue, reason: s.title);
     }
   });
 

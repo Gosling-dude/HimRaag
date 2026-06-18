@@ -33,6 +33,7 @@ class Song extends Equatable {
     this.approvalStatus = ApprovalStatus.pending,
     this.isPublished = false,
     this.rightsCleared = false,
+    this.reviewRequired = false,
     this.submittedBy,
   });
 
@@ -72,6 +73,10 @@ class Song extends Equatable {
   /// Public visibility gate. Demo content is always false.
   final bool isPublished;
   final bool rightsCleared;
+
+  /// True when imported content still needs owner metadata review. Surfaces the
+  /// track in the Admin Dashboard → Metadata Review queue.
+  final bool reviewRequired;
 
   /// UID of the artist/admin who submitted the track, when applicable.
   final String? submittedBy;
@@ -117,6 +122,7 @@ class Song extends Equatable {
     ApprovalStatus? approvalStatus,
     bool? isPublished,
     bool? rightsCleared,
+    bool? reviewRequired,
     String? submittedBy,
   }) {
     return Song(
@@ -149,6 +155,7 @@ class Song extends Equatable {
       approvalStatus: approvalStatus ?? this.approvalStatus,
       isPublished: isPublished ?? this.isPublished,
       rightsCleared: rightsCleared ?? this.rightsCleared,
+      reviewRequired: reviewRequired ?? this.reviewRequired,
       submittedBy: submittedBy ?? this.submittedBy,
     );
   }
@@ -184,6 +191,7 @@ class Song extends Equatable {
         approvalStatus,
         isPublished,
         rightsCleared,
+        reviewRequired,
         submittedBy,
       ];
 }

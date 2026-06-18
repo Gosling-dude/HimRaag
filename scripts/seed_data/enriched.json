@@ -1,0 +1,1142 @@
+{
+  "generatedAt": "2026-06-18T09:24:50.629Z",
+  "source": "D:/Personal Projects/HimRaag/music",
+  "count": 19,
+  "confidenceThreshold": 0.6,
+  "tracks": [
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\AANKHI_MICHOLI(256k).mp3",
+      "filename": "AANKHI_MICHOLI(256k).mp3",
+      "durationMs": 375480,
+      "title": "AANKHI MICHOLI",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Needs Review",
+      "language": "Needs Review",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "region uncertain",
+        "language uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.26,
+      "fields": {
+        "title": {
+          "value": "AANKHI MICHOLI",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Needs Review",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "language": {
+          "value": "Needs Review",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "aankhi-micholi",
+      "id": "song_unknown_artist__aankhi_micholi",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Aaja_Aaja(256k).mp3",
+      "filename": "Aaja_Aaja(256k).mp3",
+      "durationMs": 197280,
+      "title": "Aaja Aaja",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Needs Review",
+      "language": "Needs Review",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "region uncertain",
+        "language uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.26,
+      "fields": {
+        "title": {
+          "value": "Aaja Aaja",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Needs Review",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "language": {
+          "value": "Needs Review",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "aaja-aaja",
+      "id": "song_unknown_artist__aaja_aaja",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3",
+      "filename": "Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3",
+      "durationMs": 170040,
+      "title": "Ang Songi",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Kinnauri",
+      "language": "Kinnauri",
+      "genre": "Folk",
+      "releaseYear": 2026,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.62,
+      "fields": {
+        "title": {
+          "value": "Ang Songi",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Kinnauri",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Kinnauri",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": 2026,
+          "source": "filename",
+          "conf": 0.85
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "ang-songi",
+      "id": "song_unknown_artist__ang_songi",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Baadri___Latest_Pahari_Jaunsari_Dj_Song_2021___Sardar_Singh_Sharma___Himachali_Song____Y_Series___(256k).mp3",
+      "filename": "Baadri___Latest_Pahari_Jaunsari_Dj_Song_2021___Sardar_Singh_Sharma___Himachali_Song____Y_Series___(256k).mp3",
+      "durationMs": 579792,
+      "title": "Baadri",
+      "artistName": "Sardar Singh Sharma",
+      "albumTitle": "Baadri",
+      "region": "Jaunsari",
+      "language": "Jaunsari",
+      "genre": "Folk",
+      "releaseYear": 2021,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Baadri",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Sardar Singh Sharma",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Jaunsari",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Jaunsari",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": 2021,
+          "source": "filename",
+          "conf": 0.85
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "baadri",
+      "id": "song_sardar_singh_sharma__baadri",
+      "artistId": "artist_sardar_singh_sharma",
+      "albumId": "album_sardar_singh_sharma__baadri"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Bamniye(256k).mp3",
+      "filename": "Bamniye(256k).mp3",
+      "durationMs": 300504,
+      "title": "Bamniye",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.54,
+      "fields": {
+        "title": {
+          "value": "Bamniye",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "bamniye",
+      "id": "song_unknown_artist__bamniye",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Dhire_Dhire_O_Chanda___Kumauni_Song___Lalit_Mohan_Joshi___Lofi_Song___Slowed___Reverb___#pahadisong(256k).mp3",
+      "filename": "Dhire_Dhire_O_Chanda___Kumauni_Song___Lalit_Mohan_Joshi___Lofi_Song___Slowed___Reverb___#pahadisong(256k).mp3",
+      "durationMs": 439872,
+      "title": "Dhire Dhire O Chanda",
+      "artistName": "Lalit Mohan Joshi",
+      "albumTitle": "Dhire Dhire O Chanda",
+      "region": "Kumaoni",
+      "language": "Kumaoni",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Dhire Dhire O Chanda",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Lalit Mohan Joshi",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "dhire-dhire-o-chanda",
+      "id": "song_lalit_mohan_joshi__dhire_dhire_o_chanda",
+      "artistId": "artist_lalit_mohan_joshi",
+      "albumId": "album_lalit_mohan_joshi__dhire_dhire_o_chanda"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Fukla_Chane_Bindiya(256k).mp3",
+      "filename": "Fukla_Chane_Bindiya(256k).mp3",
+      "durationMs": 313776,
+      "title": "Fukla Chane Bindiya",
+      "artistName": "Sanjay Sharma",
+      "albumTitle": "Fukla Chane Bindiya",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": 2022,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.7,
+      "fields": {
+        "title": {
+          "value": "Fukla Chane Bindiya",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Sanjay Sharma",
+          "source": "web",
+          "conf": 0.8
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": 2022,
+          "source": "web",
+          "conf": 0.5
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "fukla-chane-bindiya",
+      "id": "song_sanjay_sharma__fukla_chane_bindiya",
+      "artistId": "artist_sanjay_sharma",
+      "albumId": "album_sanjay_sharma__fukla_chane_bindiya"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jai_Bolya_Devta(256k).mp3",
+      "filename": "Jai_Bolya_Devta(256k).mp3",
+      "durationMs": 254544,
+      "title": "Jai Bolya Devta",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Devotional",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.62,
+      "fields": {
+        "title": {
+          "value": "Jai Bolya Devta",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Devotional",
+          "source": "filename",
+          "conf": 0.8
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "jai-bolya-devta",
+      "id": "song_unknown_artist__jai_bolya_devta",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhauliye(256k).mp3",
+      "filename": "Jhauliye(256k).mp3",
+      "durationMs": 179976,
+      "title": "Jhauliye",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.54,
+      "fields": {
+        "title": {
+          "value": "Jhauliye",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "jhauliye",
+      "id": "song_unknown_artist__jhauliye",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhuriye(256k).mp3",
+      "filename": "Jhuriye(256k).mp3",
+      "durationMs": 301560,
+      "title": "Jhuriye",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.54,
+      "fields": {
+        "title": {
+          "value": "Jhuriye",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "jhuriye",
+      "id": "song_unknown_artist__jhuriye",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jumi_Jimi_O_Rohru_Ri_Jatre(256k).mp3",
+      "filename": "Jumi_Jimi_O_Rohru_Ri_Jatre(256k).mp3",
+      "durationMs": 311568,
+      "title": "Jumi Jimi O Rohru Ri Jatre",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Himachali",
+      "genre": "Festival",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.62,
+      "fields": {
+        "title": {
+          "value": "Jumi Jimi O Rohru Ri Jatre",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Festival",
+          "source": "filename",
+          "conf": 0.8
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "jumi-jimi-o-rohru-ri-jatre",
+      "id": "song_unknown_artist__jumi_jimi_o_rohru_ri_jatre",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3",
+      "filename": "Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3",
+      "durationMs": 138264,
+      "title": "Kolang",
+      "artistName": "Palak, Hardik",
+      "albumTitle": "Kolang",
+      "region": "Himachali",
+      "language": "Himachali",
+      "genre": "Folk",
+      "releaseYear": 2026,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Kolang",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Palak, Hardik",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Himachali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": 2026,
+          "source": "filename",
+          "conf": 0.85
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "kolang",
+      "id": "song_palak_hardik__kolang",
+      "artistId": "artist_palak_hardik",
+      "albumId": "album_palak_hardik__kolang"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3",
+      "filename": "Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3",
+      "durationMs": 336024,
+      "title": "Main Pahadan",
+      "artistName": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "albumTitle": "Main Pahadan",
+      "region": "Kumaoni",
+      "language": "Kumaoni",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Main Pahadan",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "main-pahadan",
+      "id": "song_diksha_dhaundiyal_pooja_dhaundiyal__main_pahadan",
+      "artistId": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "albumId": "album_diksha_dhaundiyal_pooja_dhaundiyal__main_pahadan"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Meri_Salma(256k).mp3",
+      "filename": "Meri_Salma(256k).mp3",
+      "durationMs": 291936,
+      "title": "Meri Salma",
+      "artistName": "Unknown Artist",
+      "albumTitle": "Imported Recordings",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artist uncertain",
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.54,
+      "fields": {
+        "title": {
+          "value": "Meri Salma",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Unknown Artist",
+          "source": "placeholder",
+          "conf": 0
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Imported Recordings",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "meri-salma",
+      "id": "song_unknown_artist__meri_salma",
+      "artistId": "artist_unknown_artist",
+      "albumId": "album_unknown_artist__imported_recordings"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3",
+      "filename": "Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3",
+      "durationMs": 96624,
+      "title": "Rekha",
+      "artistName": "Zorawar Hunk",
+      "albumTitle": "Rekha",
+      "region": "Himachali",
+      "language": "Pahadi",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.7,
+      "fields": {
+        "title": {
+          "value": "Rekha",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Zorawar Hunk",
+          "source": "web",
+          "conf": 0.8
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Pahadi",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "rekha",
+      "id": "song_zorawar_hunk__rekha",
+      "artistId": "artist_zorawar_hunk",
+      "albumId": "album_zorawar_hunk__rekha"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3",
+      "filename": "Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3",
+      "durationMs": 376416,
+      "title": "Satpuli Ka Mela",
+      "artistName": "Rohit Chauhan",
+      "albumTitle": "Satpuli Ka Mela",
+      "region": "Garhwali",
+      "language": "Garhwali",
+      "genre": "Festival",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.88,
+      "fields": {
+        "title": {
+          "value": "Satpuli Ka Mela",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Rohit Chauhan",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Garhwali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Garhwali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Festival",
+          "source": "filename",
+          "conf": 0.8
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "satpuli-ka-mela",
+      "id": "song_rohit_chauhan__satpuli_ka_mela",
+      "artistId": "artist_rohit_chauhan",
+      "albumId": "album_rohit_chauhan__satpuli_ka_mela"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3",
+      "filename": "Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3",
+      "durationMs": 177288,
+      "title": "Sushma Meri Janiye",
+      "artistName": "Thakur Dass Rathi",
+      "albumTitle": "Sushma Meri Janiye",
+      "region": "Himachali",
+      "language": "Himachali",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.72,
+      "fields": {
+        "title": {
+          "value": "Sushma Meri Janiye",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Thakur Dass Rathi",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "language": {
+          "value": "Himachali",
+          "source": "web",
+          "conf": 0.7
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "sushma-meri-janiye",
+      "id": "song_thakur_dass_rathi__sushma_meri_janiye",
+      "artistId": "artist_thakur_dass_rathi",
+      "albumId": "album_thakur_dass_rathi__sushma_meri_janiye"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3",
+      "filename": "Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3",
+      "durationMs": 316680,
+      "title": "Teri Surmyali Aankhi",
+      "artistName": "Jitendra Tomkyal",
+      "albumTitle": "Teri Surmyali Aankhi",
+      "region": "Kumaoni",
+      "language": "Kumaoni",
+      "genre": "Folk",
+      "releaseYear": null,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Teri Surmyali Aankhi",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Jitendra Tomkyal",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Kumaoni",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": null,
+          "source": "placeholder",
+          "conf": 0
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "teri-surmyali-aankhi",
+      "id": "song_jitendra_tomkyal__teri_surmyali_aankhi",
+      "artistId": "artist_jitendra_tomkyal",
+      "albumId": "album_jitendra_tomkyal__teri_surmyali_aankhi"
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3",
+      "filename": "driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3",
+      "durationMs": 186744,
+      "title": "Driver Horon Bajade Ho - Seema Raniye",
+      "artistName": "Surinder Sharma",
+      "albumTitle": "Driver Horon Bajade Ho - Seema Raniye",
+      "region": "Himachali",
+      "language": "Himachali",
+      "genre": "Folk",
+      "releaseYear": 2024,
+      "hasArtwork": false,
+      "reviewRequired": true,
+      "reviewReasons": [
+        "artwork is placeholder"
+      ],
+      "overallConfidence": 0.8,
+      "fields": {
+        "title": {
+          "value": "Driver Horon Bajade Ho - Seema Raniye",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "artist": {
+          "value": "Surinder Sharma",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "region": {
+          "value": "Himachali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "language": {
+          "value": "Himachali",
+          "source": "filename",
+          "conf": 0.9
+        },
+        "year": {
+          "value": 2024,
+          "source": "filename",
+          "conf": 0.85
+        },
+        "genre": {
+          "value": "Folk",
+          "source": "default",
+          "conf": 0.4
+        },
+        "album": {
+          "value": "Singles",
+          "source": "derived",
+          "conf": 0.5
+        }
+      },
+      "slug": "driver-horon-bajade-ho-seema-raniye",
+      "id": "song_surinder_sharma__driver_horon_bajade_ho_seema_raniye",
+      "artistId": "artist_surinder_sharma",
+      "albumId": "album_surinder_sharma__driver_horon_bajade_ho_seema_raniye"
+    }
+  ]
+}

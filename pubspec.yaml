@@ -71,5 +71,6 @@ flutter:
     - assets/icons/
     - assets/animations/
     - assets/fonts/
-    - assets/audio/
+    # Audio is no longer bundled — tracks stream from Cloudflare R2 (see
+    # assets/catalog/imported_catalog.json audioUrl). This removed ~67 MB.
     - assets/catalog/

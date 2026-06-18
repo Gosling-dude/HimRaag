@@ -180,6 +180,7 @@ final metadataReviewProvider = FutureProvider<MetadataReviewReport>((ref) async 
   final songs = await ref.watch(adminSongsProvider.future);
 
   bool flagged(Song s) =>
+      s.reviewRequired ||
       s.tags.contains(ContentConstants.needsReviewTag) ||
       _missingArtist(s) ||
       _missingAlbum(s) ||

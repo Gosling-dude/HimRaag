@@ -1,34 +1,23 @@
 /**
- * HimRaag — local-audio → catalog generator.
+ * HimRaag — catalog generator (R2 + Firestore architecture).
  *
- * Turns the output of `scan_audio.js` (scripts/seed_data/scan_result.json) into
- * an import-ready catalog and bundles the audio for the Flutter app:
+ * Merges Phase 2 enrichment (scripts/seed_data/enriched.json) with the Phase 3
+ * R2 upload manifest (scripts/seed_data/r2_manifest.json) into:
  *
- *   1. Copies every scanned audio file into  assets/audio/<slug>.<ext>
- *      (sanitized ASCII names so they are valid Flutter asset keys).
- *   2. Emits  scripts/seed_data/imported_catalog.json  with songs + derived
- *      artists/albums, ready for:
- *        node scripts/import.js --json scripts/seed_data/imported_catalog.json --no-network
- *      …or pasting the `songs` array into the Admin Dashboard → Import.
+ *   1. assets/catalog/imported_catalog.json     (bundled, app runtime source)
+ *      scripts/seed_data/imported_catalog.json  (same content, for reference)
+ *        → audioUrl/artworkUrl point at Cloudflare R2 (NO bundled MP3s)
+ *        → license LICENSED, approved + published  → visible in-app immediately
+ *        → reviewRequired=true, tagged needs-metadata-review
  *
- * Placeholder policy (files have NO usable embedded tags):
- *   - title            = cleaned filename (underscores → spaces, "(256k)" removed)
- *   - artistName       = "Unknown Artist"
- *   - albumTitle       = "Imported Recordings"
- *   - region/language  = "Needs Review"  (sentinel — assign in dashboard)
- *   - genre            = "Folk"          (safe default; review-flagged)
- *   - audioUrl         = asset:///assets/audio/<slug>.<ext>
- *   - artworkUrl       = deterministic picsum placeholder
- *   - durationMs       = real decoded duration from the scan (never 0)
- *   - license          = LICENSED, rightsCleared = true
- *   - approvalStatus   = approved, isApproved/isPublished = true  → visible
- *   - tags             = ['imported', 'needs-metadata-review']    → review queue
+ *   2. scripts/seed_data/firestore_import.json   (Firestore seed, Phase 4)
+ *        → same records, but approvalStatus=pending, isApproved=false,
+ *          isPublished=false, reviewRequired=true  → Metadata Review queue
  *
- * Deterministic: re-running yields identical ids/asset names (safe to re-run).
+ * Audio streams from R2; this generator NO LONGER copies MP3s into assets/audio.
  *
  * Usage:  node scripts/generate_import_catalog.js
  */
-
 'use strict';
 
 const fs = require('fs');
@@ -37,195 +26,190 @@ const { slugify, songId, artistId, albumId } = require('./lib/validator');
 const { NEEDS_REVIEW } = require('./lib/constants');
 
 const ROOT = path.resolve(__dirname, '..');
-const SCAN = path.join(__dirname, 'seed_data', 'scan_result.json');
-const ASSET_DIR = path.join(ROOT, 'assets', 'audio');
-const ASSET_KEY_PREFIX = 'assets/audio';
-const OUT = path.join(__dirname, 'seed_data', 'imported_catalog.json');
-// Bundled-asset copy the Flutter app loads at runtime (LocalCatalogDatasource),
-// so imported songs reach Home/Search/Album/Artist without a Firestore write.
+const ENRICHED = path.join(__dirname, 'seed_data', 'enriched.json');
+const MANIFEST = path.join(__dirname, 'seed_data', 'r2_manifest.json');
+const OUT_SEED = path.join(__dirname, 'seed_data', 'imported_catalog.json');
+const OUT_FS = path.join(__dirname, 'seed_data', 'firestore_import.json');
 const ASSET_CATALOG_DIR = path.join(ROOT, 'assets', 'catalog');
 const ASSET_CATALOG = path.join(ASSET_CATALOG_DIR, 'imported_catalog.json');
 
 const PLACEHOLDER_ARTIST = 'Unknown Artist';
 const PLACEHOLDER_ALBUM = 'Imported Recordings';
-const DEFAULT_GENRE = 'Folk';
-const REVIEW_TAG = 'needs-metadata-review';
 const LICENSE = 'LICENSED';
+const REVIEW_TAG = 'needs-metadata-review';
 const YEAR = new Date().getFullYear();
 
 const ATTRIBUTION =
-  'Locally-imported recording supplied by the app owner. Embedded metadata was ' +
-  'absent; title derived from filename. Region, language, artist and album are ' +
-  'placeholders pending metadata review in the Admin Dashboard.';
+  'Locally-imported recording supplied by the app owner. Audio streams from ' +
+  'Cloudflare R2. Metadata derived from filename + public sources during import; ' +
+  'pending owner review in the Admin Dashboard.';
 
-/** Human-readable title from a filename (no extension). */
-function cleanTitle(filename) {
-  let t = filename.replace(/\.[^.]+$/, ''); // strip extension
-  t = t.replace(/\(?\d{2,3}k\)?/gi, ''); // strip "(256k)" / "256k"
-  t = t.replace(/[_]+/g, ' '); // underscores → spaces
-  t = t.replace(/\s{2,}/g, ' ').trim(); // collapse whitespace
-  // Keep it readable but bounded.
-  if (t.length > 90) t = t.slice(0, 90).trim();
-  return t || filename;
-}
-
-/** Sanitized, unique, ASCII asset filename for a record. */
-function assetNameFor(record, used) {
-  const base = slugify(record.filename.replace(/\.[^.]+$/, '')) || 'track';
-  let name = `${base}${record.ext}`;
-  let i = 2;
-  while (used.has(name)) {
-    name = `${base}-${i++}${record.ext}`;
+function load(file, label) {
+  if (!fs.existsSync(file)) {
+    console.error(`Missing ${label}: ${file}`);
+    process.exit(1);
   }
-  used.add(name);
-  return name;
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-function artImg(seed) {
-  return `https://picsum.photos/seed/${seed}/600/600`;
+function albumFor(artistName) {
+  return artistName === PLACEHOLDER_ARTIST
+    ? PLACEHOLDER_ALBUM
+    : `${artistName} — Singles`;
 }
 
 function main() {
-  if (!fs.existsSync(SCAN)) {
-    console.error(`Missing ${SCAN}. Run: node scripts/scan_audio.js "<music folder>"`);
-    process.exit(1);
-  }
-  const scan = JSON.parse(fs.readFileSync(SCAN, 'utf8'));
-  const records = scan.records || [];
-  if (!records.length) {
-    console.error('No scanned records found.');
-    process.exit(1);
-  }
+  const enriched = load(ENRICHED, 'enriched.json').tracks;
+  const manifest = load(MANIFEST, 'r2_manifest.json');
+  const urlByFile = new Map(manifest.objects.map((o) => [o.sourceFile, o]));
 
-  fs.mkdirSync(ASSET_DIR, { recursive: true });
-
-  const usedNames = new Set();
   const songs = [];
-  let copied = 0;
-
-  for (const r of records) {
-    if (r.parseError) {
-      console.warn(`  ⚠️  skipping unparseable file: ${r.filename} (${r.parseError})`);
+  for (const t of enriched) {
+    const obj = urlByFile.get(t.sourceFile);
+    if (!obj) {
+      console.warn(`  ⚠️  no R2 object for ${t.filename} — skipped`);
       continue;
     }
-    const durationMs = Math.round((r.durationSec || 0) * 1000);
-    if (durationMs <= 0) {
-      console.warn(`  ⚠️  skipping zero-duration file: ${r.filename}`);
-      continue;
-    }
-
-    const assetName = assetNameFor(r, usedNames);
-    const dest = path.join(ASSET_DIR, assetName);
-    fs.copyFileSync(r.fullPath, dest);
-    copied++;
-
-    const title = cleanTitle(r.filename);
-    const artworkUrl = artImg(`himraag_${slugify(title)}`);
-    const id = songId(PLACEHOLDER_ARTIST, title);
-
+    const albumTitle = albumFor(t.artistName);
+    const tags = ['imported', REVIEW_TAG];
+    if (t.region === NEEDS_REVIEW) tags.push('needs-region');
     songs.push({
-      id,
-      title,
-      slug: slugify(title),
-      artistId: artistId(PLACEHOLDER_ARTIST),
-      artistName: PLACEHOLDER_ARTIST,
-      albumId: albumId(PLACEHOLDER_ARTIST, PLACEHOLDER_ALBUM),
-      albumTitle: PLACEHOLDER_ALBUM,
-      audioUrl: `asset:///${ASSET_KEY_PREFIX}/${assetName}`,
-      artworkUrl,
-      durationMs,
-      region: NEEDS_REVIEW,
-      language: NEEDS_REVIEW,
-      genre: DEFAULT_GENRE,
-      releaseYear: Number.isFinite(r.year) ? r.year : YEAR,
+      id: songId(t.artistName, t.title),
+      title: t.title,
+      slug: slugify(t.title),
+      artistId: artistId(t.artistName),
+      artistName: t.artistName,
+      albumId: albumId(t.artistName, albumTitle),
+      albumTitle,
+      audioUrl: obj.audioUrl, // Cloudflare R2
+      artworkUrl: obj.artworkUrl, // Cloudflare R2
+      durationMs: t.durationMs,
+      region: t.region,
+      language: t.language,
+      genre: t.genre,
+      releaseYear: Number.isFinite(t.releaseYear) ? t.releaseYear : YEAR,
       playCount: 0,
-      tags: ['imported', REVIEW_TAG],
+      tags,
       license: LICENSE,
       attribution: ATTRIBUTION,
-      approvalStatus: 'approved',
-      isPublished: true,
       rightsCleared: true,
       isDownloadable: true,
-      // Provenance — kept for traceability / future re-imports.
-      sourceFile: r.fullPath,
-      assetPath: `${ASSET_KEY_PREFIX}/${assetName}`,
+      reviewRequired: true,
+      // Provenance.
+      sourceFile: t.sourceFile,
+      enrichmentConfidence: t.overallConfidence,
     });
   }
 
-  // ── Derived placeholder artist + album (single bucket for all imports) ──────
-  const artists = [
-    {
-      id: artistId(PLACEHOLDER_ARTIST),
-      name: PLACEHOLDER_ARTIST,
-      imageUrl: artImg('himraag_unknown_artist'),
-      region: NEEDS_REVIEW,
-      bio: 'Placeholder profile for locally-imported recordings whose artist is '
-        + 'not yet identified. Reassign tracks to real artists in the dashboard.',
-      songCount: songs.length,
-      albumCount: 1,
-      genres: [DEFAULT_GENRE],
-      monthlyListeners: 0,
-      isVerified: false,
-      socialLinks: {},
-      slug: slugify(PLACEHOLDER_ARTIST),
-      approvalStatus: 'approved',
-      isPublished: true,
-      rightsNote: 'Imported placeholder — reassign before public release.',
-    },
-  ];
+  // ── Derive artists (dedup by id) ────────────────────────────────────────
+  const artistMap = new Map();
+  for (const s of songs) {
+    if (!artistMap.has(s.artistId)) {
+      artistMap.set(s.artistId, {
+        id: s.artistId,
+        name: s.artistName,
+        imageUrl: s.artworkUrl,
+        region: s.region,
+        bio: s.artistName === PLACEHOLDER_ARTIST
+          ? 'Placeholder profile for imported recordings whose artist is not yet '
+            + 'identified. Reassign tracks to real artists in the dashboard.'
+          : `${s.artistName} — ${s.region} Pahadi artist (imported catalog).`,
+        songCount: 0,
+        albumCount: 0,
+        genres: [],
+        monthlyListeners: 0,
+        isVerified: false,
+        socialLinks: {},
+        slug: slugify(s.artistName),
+        rightsNote: 'Imported — pending review.',
+      });
+    }
+    const a = artistMap.get(s.artistId);
+    a.songCount += 1;
+    if (!a.genres.includes(s.genre)) a.genres.push(s.genre);
+  }
 
-  const totalDurationMs = songs.reduce((s, x) => s + x.durationMs, 0);
-  const albums = [
-    {
-      id: albumId(PLACEHOLDER_ARTIST, PLACEHOLDER_ALBUM),
-      title: PLACEHOLDER_ALBUM,
-      artistId: artistId(PLACEHOLDER_ARTIST),
-      artistName: PLACEHOLDER_ARTIST,
-      artworkUrl: artImg('himraag_imported_recordings'),
-      region: NEEDS_REVIEW,
-      language: NEEDS_REVIEW,
-      genre: DEFAULT_GENRE,
-      releaseYear: YEAR,
-      songCount: songs.length,
-      totalDurationMs,
-      description: 'Auto-created bucket for locally-imported audio pending '
-        + 'metadata review. Move tracks to real albums in the dashboard.',
-      tags: ['imported', REVIEW_TAG],
-      slug: slugify(PLACEHOLDER_ALBUM),
-      license: LICENSE,
-      attribution: ATTRIBUTION,
-      approvalStatus: 'approved',
-      isPublished: true,
-      rightsCleared: true,
-    },
-  ];
+  // ── Derive albums (dedup by id) ─────────────────────────────────────────
+  const albumMap = new Map();
+  for (const s of songs) {
+    if (!albumMap.has(s.albumId)) {
+      albumMap.set(s.albumId, {
+        id: s.albumId,
+        title: s.albumTitle,
+        artistId: s.artistId,
+        artistName: s.artistName,
+        artworkUrl: s.artworkUrl,
+        region: s.region,
+        language: s.language,
+        genre: s.genre,
+        releaseYear: s.releaseYear,
+        songCount: 0,
+        totalDurationMs: 0,
+        description: `${s.albumTitle} — imported recordings pending review.`,
+        tags: ['imported', REVIEW_TAG],
+        slug: slugify(s.albumTitle),
+        license: LICENSE,
+        attribution: ATTRIBUTION,
+        rightsCleared: true,
+      });
+    }
+    const al = albumMap.get(s.albumId);
+    al.songCount += 1;
+    al.totalDurationMs += s.durationMs;
+  }
+  for (const al of albumMap.values()) {
+    const a = artistMap.get(al.artistId);
+    if (a) a.albumCount += 1;
+  }
 
-  const catalog = {
-    _meta: {
-      generatedAt: new Date().toISOString(),
-      source: scan.folder,
-      note: 'Locally-imported audio. Bundled as Flutter assets under '
-        + 'assets/audio/. Visible in-app (approved) and flagged '
-        + `"${REVIEW_TAG}" for metadata review.`,
-      songCount: songs.length,
-      albumCount: albums.length,
-      artistCount: artists.length,
-    },
-    artists,
-    albums,
-    songs,
+  const artists = [...artistMap.values()];
+  const albums = [...albumMap.values()];
+
+  // ── Two visibility profiles ─────────────────────────────────────────────
+  // App catalog: approved + published → visible to consumers immediately.
+  const appProfile = { approvalStatus: 'approved', isApproved: true, isPublished: true };
+  // Firestore: pending review → Metadata Review queue (not a public source).
+  const fsProfile = { approvalStatus: 'pending', isApproved: false, isPublished: false };
+
+  const withProfile = (arr, p) => arr.map((x) => ({ ...x, ...p }));
+
+  const meta = (note) => ({
+    generatedAt: new Date().toISOString(),
+    source: 'enriched.json + r2_manifest.json',
+    audioHost: manifest.publicUrl,
+    note,
+    songCount: songs.length,
+    albumCount: albums.length,
+    artistCount: artists.length,
+  });
+
+  const appCatalog = {
+    _meta: meta('Imported Pahadi catalog. Audio/artwork on Cloudflare R2 (no '
+      + `bundled MP3s). Visible in-app (LICENSED) and flagged "${REVIEW_TAG}".`),
+    artists: withProfile(artists, appProfile),
+    albums: withProfile(albums, appProfile),
+    songs: withProfile(songs, appProfile),
   };
 
-  const json = JSON.stringify(catalog, null, 2);
-  fs.writeFileSync(OUT, json);
-  fs.mkdirSync(ASSET_CATALOG_DIR, { recursive: true });
-  fs.writeFileSync(ASSET_CATALOG, json);
+  const fsImport = {
+    _meta: meta('Firestore seed — imported content defaults to PENDING REVIEW.'),
+    artists: withProfile(artists, fsProfile),
+    albums: withProfile(albums, fsProfile),
+    songs: withProfile(songs, fsProfile),
+  };
 
-  console.log(`✅ Copied ${copied} audio file(s) → ${path.relative(ROOT, ASSET_DIR)}/`);
-  console.log(`✅ Wrote ${path.relative(ROOT, OUT)}`);
-  console.log(`✅ Wrote ${path.relative(ROOT, ASSET_CATALOG)} (bundled for the app)`);
-  console.log(`   ${songs.length} songs · ${albums.length} album · ${artists.length} artist`);
-  console.log('   Validate:  node scripts/import.js --json scripts/seed_data/imported_catalog.json --no-network');
+  fs.mkdirSync(ASSET_CATALOG_DIR, { recursive: true });
+  const appJson = JSON.stringify(appCatalog, null, 2);
+  fs.writeFileSync(ASSET_CATALOG, appJson);
+  fs.writeFileSync(OUT_SEED, appJson);
+  fs.writeFileSync(OUT_FS, JSON.stringify(fsImport, null, 2));
+
+  console.log(`✅ ${songs.length} songs · ${albums.length} albums · ${artists.length} artists`);
+  console.log(`✅ App catalog  → ${path.relative(ROOT, ASSET_CATALOG)} (R2 URLs, visible)`);
+  console.log(`✅ Firestore in → ${path.relative(ROOT, OUT_FS)} (pending review)`);
+  console.log(`   Audio host: ${manifest.publicUrl}`);
+  console.log('   Seed Firestore:  GOOGLE_APPLICATION_CREDENTIALS=<sa.json> \\');
+  console.log('     node scripts/import.js --json scripts/seed_data/firestore_import.json --commit');
 }
 
 main();

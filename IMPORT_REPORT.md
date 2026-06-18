@@ -1,10 +1,10 @@
 # HimRaag — Audio Import Report
 
-_Generated: 2026-06-16T17:18:07.888Z_
+_Generated: 2026-06-18T08:17:46.222Z_
 
-**Source folder:** `D:\Personal Projects\HimRaag\music`
+**Source folder:** `D:/Personal Projects/HimRaag/music`
 
-**Files found:** 15 (complete: 0, partial: 0, missing: 15)
+**Files found:** 19 (complete: 0, partial: 0, missing: 19)
 
 Extensions scanned: .mp3 .wav .m4a .aac .flac
 
@@ -276,7 +276,83 @@ Extensions scanned: .mp3 .wav .m4a .aac .flac
 | Embedded artwork | not present |
 | Metadata quality | **missing** |
 
-## 15. driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
+## 15. Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+
+| Field | Value |
+|---|---|
+| Full path | `D:\Personal Projects\HimRaag\music\Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3` |
+| Filename | Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3 |
+| Duration | 01:37 |
+| File size | 1.47 MB (1546412 bytes) |
+| Bitrate | 128 kbps |
+| Codec | MPEG 1 Layer 3 |
+| Sample rate | 48000 Hz |
+| Embedded title | — (missing) |
+| Embedded artist | — (missing) |
+| Embedded album | — (missing) |
+| Year | — (missing) |
+| Genre | — (missing) |
+| Embedded artwork | not present |
+| Metadata quality | **missing** |
+
+## 16. Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+
+| Field | Value |
+|---|---|
+| Full path | `D:\Personal Projects\HimRaag\music\Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3` |
+| Filename | Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3 |
+| Duration | 06:16 |
+| File size | 5.74 MB (6023084 bytes) |
+| Bitrate | 128 kbps |
+| Codec | MPEG 1 Layer 3 |
+| Sample rate | 48000 Hz |
+| Embedded title | — (missing) |
+| Embedded artist | — (missing) |
+| Embedded album | — (missing) |
+| Year | — (missing) |
+| Genre | — (missing) |
+| Embedded artwork | not present |
+| Metadata quality | **missing** |
+
+## 17. Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+
+| Field | Value |
+|---|---|
+| Full path | `D:\Personal Projects\HimRaag\music\Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3` |
+| Filename | Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3 |
+| Duration | 02:57 |
+| File size | 2.71 MB (2837036 bytes) |
+| Bitrate | 128 kbps |
+| Codec | MPEG 1 Layer 3 |
+| Sample rate | 48000 Hz |
+| Embedded title | — (missing) |
+| Embedded artist | — (missing) |
+| Embedded album | — (missing) |
+| Year | — (missing) |
+| Genre | — (missing) |
+| Embedded artwork | not present |
+| Metadata quality | **missing** |
+
+## 18. Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
+
+| Field | Value |
+|---|---|
+| Full path | `D:\Personal Projects\HimRaag\music\Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3` |
+| Filename | Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3 |
+| Duration | 05:17 |
+| File size | 4.83 MB (5067308 bytes) |
+| Bitrate | 128 kbps |
+| Codec | MPEG 1 Layer 3 |
+| Sample rate | 48000 Hz |
+| Embedded title | — (missing) |
+| Embedded artist | — (missing) |
+| Embedded album | — (missing) |
+| Year | — (missing) |
+| Genre | — (missing) |
+| Embedded artwork | not present |
+| Metadata quality | **missing** |
+
+## 19. driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
 | Field | Value |
 |---|---|

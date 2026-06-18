@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:himraag/core/constants/content_constants.dart';
 import 'package:himraag/core/validation/metadata_validator.dart';
 
 /// Headless verification of the locally-imported audio catalog.
@@ -32,14 +31,16 @@ void main() {
     expect(songs.length, catalog['_meta']['songCount']);
   });
 
-  test('every song bundles an asset file that exists on disk', () {
+  test('every song streams from Cloudflare R2 (no bundled MP3s)', () {
     for (final s in songs.cast<Map<String, dynamic>>()) {
       final url = s['audioUrl'] as String;
-      expect(url, startsWith('asset:///assets/audio/'),
-          reason: '${s['title']} must use an asset URL');
-      final path = url.replaceFirst('asset:///', '');
-      expect(File(path).existsSync(), isTrue,
-          reason: 'missing bundled asset: $path (${s['title']})');
+      expect(url, startsWith('https://'),
+          reason: '${s['title']} must use an R2 https URL');
+      expect(url, contains('r2.dev/audio/'),
+          reason: '${s['title']} must stream from R2');
+      final art = s['artworkUrl'] as String;
+      expect(art, contains('r2.dev/artwork/'),
+          reason: '${s['title']} artwork must be on R2');
     }
   });
 
@@ -57,11 +58,14 @@ void main() {
       expect(s['isPublished'], true, reason: '${s['title']}');
       expect(s['license'], 'LICENSED', reason: '${s['title']}');
       expect(s['rightsCleared'], true, reason: '${s['title']}');
+      // Imported content is flagged for owner metadata review.
+      expect(s['reviewRequired'], true, reason: '${s['title']}');
       expect((s['tags'] as List).contains('needs-metadata-review'), isTrue,
           reason: '${s['title']} should be flagged for review');
-      expect(s['region'], ContentConstants.needsReview, reason: '${s['title']}');
-      expect(s['language'], ContentConstants.needsReview,
-          reason: '${s['title']}');
+      // Region/language are now enriched (real values), except a couple that
+      // remain "Needs Review" — either is acceptable here.
+      expect(s['region'], isNotEmpty, reason: '${s['title']}');
+      expect(s['language'], isNotEmpty, reason: '${s['title']}');
     }
   });
 

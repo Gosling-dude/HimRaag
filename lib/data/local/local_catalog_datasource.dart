@@ -134,6 +134,7 @@ class LocalCatalogDatasource {
       approvalStatus: status,
       isPublished: m['isPublished'] == true,
       rightsCleared: m['rightsCleared'] == true,
+      reviewRequired: m['reviewRequired'] == true,
     );
   }
 

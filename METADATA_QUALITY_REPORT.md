@@ -1,14 +1,14 @@
 # HimRaag — Metadata Quality Report
 
-_Generated: 2026-06-16T17:18:07.889Z_
+_Generated: 2026-06-18T08:17:46.224Z_
 
-**Total files:** 15
+**Total files:** 19
 
 | Bucket | Count | Definition |
 |---|---|---|
 | ✅ Complete | 0 | embedded title **and** artist **and** album |
 | ⚠️ Partial | 0 | some but not all of title/artist/album |
-| ❌ Missing | 15 | none of title/artist/album embedded |
+| ❌ Missing | 19 | none of title/artist/album embedded |
 
 ---
 
@@ -20,7 +20,7 @@ _None._
 
 _None._
 
-## ❌ Missing metadata (15)
+## ❌ Missing metadata (19)
 
 | File | Title | Artist | Album | Year | Genre | Art | Duration |
 |---|---|---|---|---|---|---|---|
@@ -38,13 +38,17 @@ _None._
 | Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3 | — | — | — | — | — | no | 02:18 |
 | Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3 | — | — | — | — | — | no | 05:36 |
 | Meri_Salma(256k).mp3 | — | — | — | — | — | no | 04:52 |
+| Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3 | — | — | — | — | — | no | 01:37 |
+| Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3 | — | — | — | — | — | no | 06:16 |
+| Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3 | — | — | — | — | — | no | 02:57 |
+| Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3 | — | — | — | — | — | no | 05:17 |
 | driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3 | — | — | — | — | — | no | 03:07 |
 
 ---
 
 ## Fields needing review
 
-### Missing artist (15)
+### Missing artist (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -59,9 +63,13 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
-### Missing album (15)
+### Missing album (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -76,9 +84,13 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
-### Missing title (15)
+### Missing title (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -93,9 +105,13 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
-### Missing artwork (15)
+### Missing artwork (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -110,9 +126,13 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
-### Missing year (15)
+### Missing year (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -127,9 +147,13 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
-### Missing genre (15)
+### Missing genre (19)
 - AANKHI_MICHOLI(256k).mp3
 - Aaja_Aaja(256k).mp3
 - Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3
@@ -144,6 +168,10 @@ _None._
 - Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3
 - Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3
 - Meri_Salma(256k).mp3
+- Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3
+- Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3
+- Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3
+- Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3
 - driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3
 
 > **Region** and **Language** are never embedded in audio tags — every imported track is flagged `region = Needs Review`, `language = Needs Review` and must be assigned from the Admin Dashboard.

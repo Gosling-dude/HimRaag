@@ -33,6 +33,7 @@ class SongDto {
     this.approvalStatus = 'pending',
     this.isPublished = false,
     this.rightsCleared = false,
+    this.reviewRequired = false,
     this.submittedBy,
   });
 
@@ -66,6 +67,7 @@ class SongDto {
   final String approvalStatus;
   final bool isPublished;
   final bool rightsCleared;
+  final bool reviewRequired;
   final String? submittedBy;
 
   factory SongDto.fromFirestore(DocumentSnapshot doc) {
@@ -103,6 +105,7 @@ class SongDto {
       approvalStatus: rawStatus ?? (approvedFlag ? 'approved' : 'pending'),
       isPublished: data['isPublished'] as bool? ?? false,
       rightsCleared: data['rightsCleared'] as bool? ?? false,
+      reviewRequired: data['reviewRequired'] as bool? ?? false,
       submittedBy: data['submittedBy'] as String?,
     );
   }
@@ -137,6 +140,7 @@ class SongDto {
         approvalStatus: ApprovalStatus.fromWire(approvalStatus),
         isPublished: isPublished,
         rightsCleared: rightsCleared,
+        reviewRequired: reviewRequired,
         submittedBy: submittedBy,
       );
 
@@ -169,6 +173,7 @@ class SongDto {
         approvalStatus: song.approvalStatus.wire,
         isPublished: song.isPublished,
         rightsCleared: song.rightsCleared,
+        reviewRequired: song.reviewRequired,
         submittedBy: song.submittedBy,
       );
 
@@ -198,6 +203,7 @@ class SongDto {
         'approvalStatus': approvalStatus,
         'isPublished': isPublished,
         'rightsCleared': rightsCleared,
+        'reviewRequired': reviewRequired,
         if (lyrics != null) 'lyrics': lyrics,
         if (mood != null) 'mood': mood,
         if (albumArtist != null) 'albumArtist': albumArtist,
