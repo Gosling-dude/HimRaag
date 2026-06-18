@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/audio_player_service.dart';
 import '../../../../data/services/download_service.dart';
@@ -113,7 +114,7 @@ class _FullPlayerScreenState extends ConsumerState<FullPlayerScreen>
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              song.region,
+              song.displayRegion,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 11,
@@ -226,7 +227,7 @@ class _PlayerControlsState extends ConsumerState<_PlayerControls> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      widget.song.artistName,
+                      widget.song.displayArtist,
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.white.withValues(alpha: 0.7),
@@ -503,7 +504,7 @@ class _SongOptionsSheet extends ConsumerWidget {
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600)),
-                      Text(song.artistName,
+                      Text(song.displayArtist,
                           style: TextStyle(
                               color: Colors.white.withValues(alpha: 0.6),
                               fontSize: 13)),

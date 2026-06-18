@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../home/presentation/widgets/album_card.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
@@ -66,7 +67,7 @@ class ArtistDetailScreen extends ConsumerWidget {
                             Row(
                               children: [
                                 Text(
-                                  artist.name,
+                                  artist.displayName,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 28,
@@ -82,7 +83,9 @@ class ArtistDetailScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '${artist.region} • ${artist.monthlyListeners} listeners/month',
+                              artist.monthlyListeners > 0
+                                  ? '${artist.displayRegion} • ${_formatListeners(artist.monthlyListeners)} monthly listeners'
+                                  : artist.displayRegion,
                               style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.7),
                                   fontSize: 13),
@@ -172,4 +175,11 @@ class ArtistDetailScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+/// Compact listener count, e.g. 1234 -> "1.2K", 2500000 -> "2.5M".
+String _formatListeners(int n) {
+  if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(1)}M';
+  if (n >= 1000) return '${(n / 1000).toStringAsFixed(1)}K';
+  return '$n';
 }

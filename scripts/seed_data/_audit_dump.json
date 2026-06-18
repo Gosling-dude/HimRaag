@@ -1,0 +1,2347 @@
+{
+  "songs": [
+    {
+      "id": "song_basant_aayo",
+      "titleLowercase": "basant aayo re",
+      "mood": "joyful",
+      "albumId": "",
+      "artistId": "artist_meena_rana",
+      "language": "Garhwali",
+      "title": "Basant Aayo Re",
+      "tags": [
+        "seasonal",
+        "spring",
+        "garhwali",
+        "festival"
+      ],
+      "playCount": 7000,
+      "isDownloadable": true,
+      "genre": "Seasonal",
+      "albumTitle": "",
+      "artistName": "Meena Rana",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 245000,
+      "releaseYear": 2021,
+      "createdAt": {
+        "_seconds": 1781410500,
+        "_nanoseconds": 792000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/basant-aayo-re.png"
+    },
+    {
+      "id": "song_bedu_pako",
+      "titleLowercase": "bedu pako baramasa",
+      "mood": "joyful",
+      "albumId": "album_pahadi_jhankar",
+      "artistId": "artist_narendra_singh_negi",
+      "language": "Garhwali",
+      "title": "Bedu Pako Baramasa",
+      "tags": [
+        "classic",
+        "folk",
+        "garhwali",
+        "harvest"
+      ],
+      "playCount": 15000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Jhankar",
+      "artistName": "Narendra Singh Negi",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 324000,
+      "releaseYear": 2010,
+      "createdAt": {
+        "_seconds": 1781410494,
+        "_nanoseconds": 940000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/bedu-pako-baramasa.png"
+    },
+    {
+      "id": "song_bhagwati_stuti",
+      "titleLowercase": "bhagwati stuti",
+      "mood": "devotional",
+      "albumId": "album_garhwali_bhakti",
+      "artistId": "artist_pritam_bharatwan",
+      "language": "Garhwali",
+      "title": "Bhagwati Stuti",
+      "tags": [
+        "devotional",
+        "garhwali",
+        "bhakti",
+        "goddess"
+      ],
+      "playCount": 20000,
+      "isDownloadable": true,
+      "genre": "Devotional",
+      "albumTitle": "Garhwali Bhakti Sangeet",
+      "artistName": "Pritam Bharatwan",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 420000,
+      "releaseYear": 2018,
+      "createdAt": {
+        "_seconds": 1781410499,
+        "_nanoseconds": 157000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/bhagwati-stuti.png"
+    },
+    {
+      "id": "song_chholia",
+      "titleLowercase": "chholia",
+      "mood": "celebratory",
+      "albumId": "album_kumaoni_doli",
+      "artistId": "artist_hema_negi_karasi",
+      "language": "Kumaoni",
+      "title": "Chholia",
+      "tags": [
+        "kumaoni",
+        "folk"
+      ],
+      "playCount": 9000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "Kumaoni Doli",
+      "artistName": "Hema Negi Karasi",
+      "isApproved": true,
+      "region": "Kumaoni",
+      "durationMs": 290000,
+      "releaseYear": 2015,
+      "createdAt": {
+        "_seconds": 1781410498,
+        "_nanoseconds": 239000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/chholia.png"
+    },
+    {
+      "id": "song_diksha_dhaundiyal_pooja_dhaundiyal__main_pahadan",
+      "titleLowercase": "main pahadan",
+      "searchKeywords": [
+        "main pahadan",
+        "main",
+        "pahadan",
+        "diksha dhaundiyal pooja dhaundiyal",
+        "diksha",
+        "dhaundiyal",
+        "pooja",
+        "diksha dhaundiyal pooja dhaundiyal singles",
+        "singles",
+        "kumaoni",
+        "folk"
+      ],
+      "albumId": "album_diksha_dhaundiyal_pooja_dhaundiyal__diksha_dhaundiyal_pooja_dhaundiyal_singles",
+      "artistId": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "language": "Kumaoni",
+      "title": "Main Pahadan",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Diksha Dhaundiyal, Pooja Dhaundiyal — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "main pahadan",
+      "slug": "main-pahadan",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "region": "Kumaoni",
+      "durationMs": 336024,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "diksha dhaundiyal, pooja dhaundiyal",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "diksha dhaundiyal, pooja dhaundiyal — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_ghogholi",
+      "titleLowercase": "ghogholi",
+      "mood": "joyful",
+      "albumId": "album_pahadi_jhankar",
+      "artistId": "artist_narendra_singh_negi",
+      "language": "Garhwali",
+      "title": "Ghogholi",
+      "tags": [
+        "folk",
+        "garhwali"
+      ],
+      "playCount": 12000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Jhankar",
+      "artistName": "Narendra Singh Negi",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 285000,
+      "releaseYear": 2010,
+      "createdAt": {
+        "_seconds": 1781410495,
+        "_nanoseconds": 698000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ghogholi.png"
+    },
+    {
+      "id": "song_jaunsari_naati",
+      "titleLowercase": "jaunsari naati",
+      "mood": "energetic",
+      "albumId": "",
+      "artistId": "artist_narendra_singh_negi",
+      "language": "Jaunsari",
+      "title": "Jaunsari Naati",
+      "tags": [
+        "jaunsari",
+        "folk",
+        "dance"
+      ],
+      "playCount": 6000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "",
+      "artistName": "Narendra Singh Negi",
+      "isApproved": true,
+      "region": "Jaunsari",
+      "durationMs": 360000,
+      "releaseYear": 2012,
+      "createdAt": {
+        "_seconds": 1781410502,
+        "_nanoseconds": 462000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jaunsari-naati.png"
+    },
+    {
+      "id": "song_jitendra_tomkyal__teri_surmyali_aankhi",
+      "titleLowercase": "teri surmyali aankhi",
+      "searchKeywords": [
+        "teri surmyali aankhi",
+        "teri",
+        "surmyali",
+        "aankhi",
+        "jitendra tomkyal",
+        "jitendra",
+        "tomkyal",
+        "jitendra tomkyal singles",
+        "singles",
+        "kumaoni",
+        "folk"
+      ],
+      "albumId": "album_jitendra_tomkyal__jitendra_tomkyal_singles",
+      "artistId": "artist_jitendra_tomkyal",
+      "language": "Kumaoni",
+      "title": "Teri Surmyali Aankhi",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Jitendra Tomkyal — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "teri surmyali aankhi",
+      "slug": "teri-surmyali-aankhi",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Jitendra Tomkyal",
+      "region": "Kumaoni",
+      "durationMs": 316680,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "jitendra tomkyal",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "jitendra tomkyal — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_kumaoni_holi",
+      "titleLowercase": "kumaoni holi geet",
+      "mood": "celebratory",
+      "albumId": "",
+      "artistId": "artist_mohan_upreti",
+      "language": "Kumaoni",
+      "title": "Kumaoni Holi Geet",
+      "tags": [
+        "kumaoni",
+        "holi",
+        "festival"
+      ],
+      "playCount": 11000,
+      "isDownloadable": true,
+      "genre": "Festival",
+      "albumTitle": "",
+      "artistName": "Mohan Upreti",
+      "isApproved": true,
+      "region": "Kumaoni",
+      "durationMs": 198000,
+      "releaseYear": 2005,
+      "createdAt": {
+        "_seconds": 1781410501,
+        "_nanoseconds": 567000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/kumaoni-holi-geet.png"
+    },
+    {
+      "id": "song_lalit_mohan_joshi__dhire_dhire_o_chanda",
+      "titleLowercase": "dhire dhire o chanda",
+      "searchKeywords": [
+        "dhire dhire o chanda",
+        "dhire",
+        "chanda",
+        "lalit mohan joshi",
+        "lalit",
+        "mohan",
+        "joshi",
+        "lalit mohan joshi singles",
+        "singles",
+        "kumaoni",
+        "folk"
+      ],
+      "albumId": "album_lalit_mohan_joshi__lalit_mohan_joshi_singles",
+      "artistId": "artist_lalit_mohan_joshi",
+      "language": "Kumaoni",
+      "title": "Dhire Dhire O Chanda",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Dhire_Dhire_O_Chanda___Kumauni_Song___Lalit_Mohan_Joshi___Lofi_Song___Slowed___Reverb___#pahadisong(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Lalit Mohan Joshi — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "dhire dhire o chanda",
+      "slug": "dhire-dhire-o-chanda",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Lalit Mohan Joshi",
+      "region": "Kumaoni",
+      "durationMs": 439872,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "lalit mohan joshi",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "lalit mohan joshi — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_nyoli",
+      "titleLowercase": "nyoli",
+      "mood": "melancholic",
+      "albumId": "album_kumaoni_doli",
+      "artistId": "artist_hema_negi_karasi",
+      "language": "Kumaoni",
+      "title": "Nyoli",
+      "tags": [
+        "kumaoni",
+        "folk",
+        "wedding"
+      ],
+      "playCount": 10000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "Kumaoni Doli",
+      "artistName": "Hema Negi Karasi",
+      "isApproved": true,
+      "region": "Kumaoni",
+      "durationMs": 315000,
+      "releaseYear": 2015,
+      "createdAt": {
+        "_seconds": 1781410497,
+        "_nanoseconds": 409000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/nyoli.png"
+    },
+    {
+      "id": "song_pahadi_dil",
+      "titleLowercase": "pahadi dil",
+      "mood": "nostalgic",
+      "albumId": "album_garhwali_bhakti",
+      "artistId": "artist_pritam_bharatwan",
+      "language": "Garhwali",
+      "title": "Pahadi Dil",
+      "tags": [
+        "contemporary",
+        "garhwali",
+        "folk"
+      ],
+      "playCount": 5000,
+      "isDownloadable": true,
+      "genre": "Contemporary Folk",
+      "albumTitle": "Garhwali Bhakti Sangeet",
+      "artistName": "Pritam Bharatwan",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 310000,
+      "releaseYear": 2018,
+      "createdAt": {
+        "_seconds": 1781410499,
+        "_nanoseconds": 923000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pahadi-dil.png"
+    },
+    {
+      "id": "song_palak_hardik__kolang",
+      "titleLowercase": "kolang",
+      "searchKeywords": [
+        "kolang",
+        "palak hardik",
+        "palak",
+        "hardik",
+        "palak hardik singles",
+        "singles",
+        "himachali",
+        "folk"
+      ],
+      "albumId": "album_palak_hardik__palak_hardik_singles",
+      "artistId": "artist_palak_hardik",
+      "language": "Himachali",
+      "title": "Kolang",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Palak, Hardik — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "kolang",
+      "slug": "kolang",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Palak, Hardik",
+      "region": "Himachali",
+      "durationMs": 138264,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "palak, hardik",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "palak, hardik — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_raniban",
+      "titleLowercase": "raniban",
+      "mood": "peaceful",
+      "albumId": "",
+      "artistId": "artist_meena_rana",
+      "language": "Garhwali",
+      "title": "Raniban",
+      "tags": [
+        "folk",
+        "garhwali",
+        "nature"
+      ],
+      "playCount": 8000,
+      "isDownloadable": true,
+      "genre": "Folk",
+      "albumTitle": "",
+      "artistName": "Meena Rana",
+      "isApproved": true,
+      "region": "Garhwali",
+      "durationMs": 256000,
+      "releaseYear": 2019,
+      "createdAt": {
+        "_seconds": 1781410496,
+        "_nanoseconds": 565000000
+      },
+      "releasedAt": {
+        "_seconds": 1781410485,
+        "_nanoseconds": 206000000
+      },
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/raniban.png"
+    },
+    {
+      "id": "song_rohit_chauhan__satpuli_ka_mela",
+      "titleLowercase": "satpuli ka mela",
+      "searchKeywords": [
+        "satpuli ka mela",
+        "satpuli",
+        "ka",
+        "mela",
+        "rohit chauhan",
+        "rohit",
+        "chauhan",
+        "rohit chauhan singles",
+        "singles",
+        "garhwali",
+        "festival"
+      ],
+      "albumId": "album_rohit_chauhan__rohit_chauhan_singles",
+      "artistId": "artist_rohit_chauhan",
+      "language": "Garhwali",
+      "title": "Satpuli Ka Mela",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Festival",
+      "albumTitle": "Rohit Chauhan — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "satpuli ka mela",
+      "slug": "satpuli-ka-mela",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Rohit Chauhan",
+      "region": "Garhwali",
+      "durationMs": 376416,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "rohit chauhan",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "rohit chauhan — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_sanjay_sharma__fukla_chane_bindiya",
+      "titleLowercase": "fukla chane bindiya",
+      "searchKeywords": [
+        "fukla chane bindiya",
+        "fukla",
+        "chane",
+        "bindiya",
+        "sanjay sharma",
+        "sanjay",
+        "sharma",
+        "sanjay sharma singles",
+        "singles",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_sanjay_sharma__sanjay_sharma_singles",
+      "artistId": "artist_sanjay_sharma",
+      "language": "Pahadi",
+      "title": "Fukla Chane Bindiya",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Fukla_Chane_Bindiya(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/fukla-chane-bindiya-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Sanjay Sharma — Singles",
+      "releaseYear": 2022,
+      "titleNormalized": "fukla chane bindiya",
+      "slug": "fukla-chane-bindiya",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/fukla-chane-bindiya-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Sanjay Sharma",
+      "region": "Himachali",
+      "durationMs": 313776,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "sanjay sharma",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "sanjay sharma — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_sardar_singh_sharma__baadri",
+      "titleLowercase": "baadri",
+      "searchKeywords": [
+        "baadri",
+        "sardar singh sharma",
+        "sardar",
+        "singh",
+        "sharma",
+        "sardar singh sharma singles",
+        "singles",
+        "jaunsari",
+        "folk"
+      ],
+      "albumId": "album_sardar_singh_sharma__sardar_singh_sharma_singles",
+      "artistId": "artist_sardar_singh_sharma",
+      "language": "Jaunsari",
+      "title": "Baadri",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Baadri___Latest_Pahari_Jaunsari_Dj_Song_2021___Sardar_Singh_Sharma___Himachali_Song____Y_Series___(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Sardar Singh Sharma — Singles",
+      "releaseYear": 2021,
+      "titleNormalized": "baadri",
+      "slug": "baadri",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Sardar Singh Sharma",
+      "region": "Jaunsari",
+      "durationMs": 579792,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "sardar singh sharma",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "sardar singh sharma — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_surinder_sharma__driver_horon_bajade_ho_seema_raniye",
+      "titleLowercase": "driver horon bajade ho - seema raniye",
+      "searchKeywords": [
+        "driver horon bajade ho seema raniye",
+        "driver",
+        "horon",
+        "bajade",
+        "ho",
+        "seema",
+        "raniye",
+        "surinder sharma",
+        "surinder",
+        "sharma",
+        "surinder sharma singles",
+        "singles",
+        "himachali",
+        "folk"
+      ],
+      "albumId": "album_surinder_sharma__surinder_sharma_singles",
+      "artistId": "artist_surinder_sharma",
+      "language": "Himachali",
+      "title": "Driver Horon Bajade Ho - Seema Raniye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Surinder Sharma — Singles",
+      "releaseYear": 2024,
+      "titleNormalized": "driver horon bajade ho seema raniye",
+      "slug": "driver-horon-bajade-ho-seema-raniye",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Surinder Sharma",
+      "region": "Himachali",
+      "durationMs": 186744,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "surinder sharma",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "surinder sharma — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_thakur_dass_rathi__sushma_meri_janiye",
+      "titleLowercase": "sushma meri janiye",
+      "searchKeywords": [
+        "sushma meri janiye",
+        "sushma",
+        "meri",
+        "janiye",
+        "thakur dass rathi",
+        "thakur",
+        "dass",
+        "rathi",
+        "thakur dass rathi singles",
+        "singles",
+        "himachali",
+        "folk"
+      ],
+      "albumId": "album_thakur_dass_rathi__thakur_dass_rathi_singles",
+      "artistId": "artist_thakur_dass_rathi",
+      "language": "Himachali",
+      "title": "Sushma Meri Janiye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Thakur Dass Rathi — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "sushma meri janiye",
+      "slug": "sushma-meri-janiye",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Thakur Dass Rathi",
+      "region": "Himachali",
+      "durationMs": 177288,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "thakur dass rathi",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "thakur dass rathi — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__aaja_aaja",
+      "titleLowercase": "aaja aaja",
+      "searchKeywords": [
+        "aaja aaja",
+        "aaja",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "needs review",
+        "needs",
+        "review",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Aaja Aaja",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Aaja_Aaja(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/aaja-aaja-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "aaja aaja",
+      "slug": "aaja-aaja",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/aaja-aaja-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 197280,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__aankhi_micholi",
+      "titleLowercase": "aankhi micholi",
+      "searchKeywords": [
+        "aankhi micholi",
+        "aankhi",
+        "micholi",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "needs review",
+        "needs",
+        "review",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "AANKHI MICHOLI",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\AANKHI_MICHOLI(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/aankhi-micholi-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "aankhi micholi",
+      "slug": "aankhi-micholi",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/aankhi-micholi-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 375480,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__ang_songi",
+      "titleLowercase": "ang songi",
+      "searchKeywords": [
+        "ang songi",
+        "ang",
+        "songi",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "kinnauri",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Kinnauri",
+      "title": "Ang Songi",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ang-songi-kinnauri-cover-song-reprise-2026-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "ang songi",
+      "slug": "ang-songi",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ang-songi-kinnauri-cover-song-reprise-2026-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Kinnauri",
+      "durationMs": 170040,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__bamniye",
+      "titleLowercase": "bamniye",
+      "searchKeywords": [
+        "bamniye",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Bamniye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Bamniye(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/bamniye-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "bamniye",
+      "slug": "bamniye",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/bamniye-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 300504,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__jai_bolya_devta",
+      "titleLowercase": "jai bolya devta",
+      "searchKeywords": [
+        "jai bolya devta",
+        "jai",
+        "bolya",
+        "devta",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "pahadi",
+        "devotional"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Jai Bolya Devta",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jai_Bolya_Devta(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jai-bolya-devta-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Devotional",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "jai bolya devta",
+      "slug": "jai-bolya-devta",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jai-bolya-devta-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 254544,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__jhauliye",
+      "titleLowercase": "jhauliye",
+      "searchKeywords": [
+        "jhauliye",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Jhauliye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhauliye(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhauliye-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "jhauliye",
+      "slug": "jhauliye",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhauliye-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 179976,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__jhuriye",
+      "titleLowercase": "jhuriye",
+      "searchKeywords": [
+        "jhuriye",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Jhuriye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhuriye(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhuriye-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "jhuriye",
+      "slug": "jhuriye",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhuriye-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 301560,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__jumi_jimi_o_rohru_ri_jatre",
+      "titleLowercase": "jumi jimi o rohru ri jatre",
+      "searchKeywords": [
+        "jumi jimi o rohru ri jatre",
+        "jumi",
+        "jimi",
+        "rohru",
+        "ri",
+        "jatre",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "festival"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Himachali",
+      "title": "Jumi Jimi O Rohru Ri Jatre",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jumi_Jimi_O_Rohru_Ri_Jatre(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jumi-jimi-o-rohru-ri-jatre-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Festival",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "jumi jimi o rohru ri jatre",
+      "slug": "jumi-jimi-o-rohru-ri-jatre",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jumi-jimi-o-rohru-ri-jatre-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 311568,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_unknown_artist__meri_salma",
+      "titleLowercase": "meri salma",
+      "searchKeywords": [
+        "meri salma",
+        "meri",
+        "salma",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "imported recordings",
+        "imported",
+        "recordings",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_unknown_artist__imported_recordings",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Meri Salma",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Meri_Salma(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/meri-salma-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Pahadi Folk Collection",
+      "releaseYear": 2026,
+      "titleNormalized": "meri salma",
+      "slug": "meri-salma",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/meri-salma-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "durationMs": 291936,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "unknown artist",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "imported recordings",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    },
+    {
+      "id": "song_zorawar_hunk__rekha",
+      "titleLowercase": "rekha",
+      "searchKeywords": [
+        "rekha",
+        "zorawar hunk",
+        "zorawar",
+        "hunk",
+        "zorawar hunk singles",
+        "singles",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "albumId": "album_zorawar_hunk__zorawar_hunk_singles",
+      "artistId": "artist_zorawar_hunk",
+      "language": "Pahadi",
+      "title": "Rekha",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/rekha-prod-zorawar-hunk-256k.mp3",
+      "isDownloadable": true,
+      "rightsCleared": true,
+      "genre": "Folk",
+      "albumTitle": "Zorawar Hunk — Singles",
+      "releaseYear": 2026,
+      "titleNormalized": "rekha",
+      "slug": "rekha",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/rekha-prod-zorawar-hunk-256k.png",
+      "license": "LICENSED",
+      "playCount": 0,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "artistName": "Zorawar Hunk",
+      "region": "Himachali",
+      "durationMs": 96624,
+      "approvalStatus": "approved",
+      "artistNameLowercase": "zorawar hunk",
+      "isPublished": true,
+      "isApproved": true,
+      "reviewRequired": false,
+      "albumTitleLowercase": "zorawar hunk — singles",
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      }
+    }
+  ],
+  "artists": [
+    {
+      "id": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "diksha dhaundiyal pooja dhaundiyal",
+        "diksha",
+        "dhaundiyal",
+        "pooja",
+        "kumaoni",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Diksha Dhaundiyal, Pooja Dhaundiyal — Kumaoni Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "diksha dhaundiyal pooja dhaundiyal",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "nameLowercase": "diksha dhaundiyal, pooja dhaundiyal",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Kumaoni",
+      "slug": "diksha-dhaundiyal-pooja-dhaundiyal",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/diksha-dhaundiyal-pooja-dhaundiyal.png"
+    },
+    {
+      "id": "artist_hema_negi_karasi",
+      "socialLinks": {},
+      "albumCount": 10,
+      "isVerified": true,
+      "genres": [
+        "Folk",
+        "Devotional",
+        "Festival"
+      ],
+      "monthlyListeners": 30000,
+      "name": "Hema Negi Karasi",
+      "bio": "Hema Negi Karasi is a Padma Shri awardee who has kept Kumaoni folk music alive across generations.",
+      "nameLowercase": "hema negi karasi",
+      "region": "Kumaoni",
+      "songCount": 100,
+      "createdAt": {
+        "_seconds": 1781410490,
+        "_nanoseconds": 294000000
+      },
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/hema-negi-karasi.png"
+    },
+    {
+      "id": "artist_jitendra_tomkyal",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "jitendra tomkyal",
+        "jitendra",
+        "tomkyal",
+        "kumaoni",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Jitendra Tomkyal — Kumaoni Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "jitendra tomkyal",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Jitendra Tomkyal",
+      "nameLowercase": "jitendra tomkyal",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Kumaoni",
+      "slug": "jitendra-tomkyal",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/jitendra-tomkyal.png"
+    },
+    {
+      "id": "artist_lalit_mohan_joshi",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "lalit mohan joshi",
+        "lalit",
+        "mohan",
+        "joshi",
+        "kumaoni",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Lalit Mohan Joshi — Kumaoni Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "lalit mohan joshi",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Lalit Mohan Joshi",
+      "nameLowercase": "lalit mohan joshi",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Kumaoni",
+      "slug": "lalit-mohan-joshi",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/lalit-mohan-joshi.png"
+    },
+    {
+      "id": "artist_meena_rana",
+      "socialLinks": {},
+      "albumCount": 8,
+      "isVerified": true,
+      "genres": [
+        "Folk",
+        "Festival",
+        "Wedding"
+      ],
+      "monthlyListeners": 25000,
+      "name": "Meena Rana",
+      "bio": "Meena Rana is one of the finest female voices in Uttarakhandi folk music.",
+      "nameLowercase": "meena rana",
+      "region": "Garhwali",
+      "songCount": 80,
+      "createdAt": {
+        "_seconds": 1781410488,
+        "_nanoseconds": 601000000
+      },
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/meena-rana.png"
+    },
+    {
+      "id": "artist_mohan_upreti",
+      "socialLinks": {},
+      "albumCount": 7,
+      "isVerified": true,
+      "genres": [
+        "Folk",
+        "Instrumental"
+      ],
+      "monthlyListeners": 18000,
+      "name": "Mohan Upreti",
+      "bio": "Mohan Upreti was a pioneer who brought Kumaoni folk music to national and international audiences.",
+      "nameLowercase": "mohan upreti",
+      "region": "Kumaoni",
+      "songCount": 70,
+      "createdAt": {
+        "_seconds": 1781410491,
+        "_nanoseconds": 559000000
+      },
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/mohan-upreti.png"
+    },
+    {
+      "id": "artist_narendra_singh_negi",
+      "socialLinks": {},
+      "albumCount": 20,
+      "isVerified": true,
+      "genres": [
+        "Folk",
+        "Devotional",
+        "Contemporary Folk"
+      ],
+      "monthlyListeners": 50000,
+      "name": "Narendra Singh Negi",
+      "bio": "Narendra Singh Negi is the most celebrated Garhwali folk singer and lyricist, known as the voice of Uttarakhand.",
+      "nameLowercase": "narendra singh negi",
+      "region": "Garhwali",
+      "songCount": 200,
+      "createdAt": {
+        "_seconds": 1781410488,
+        "_nanoseconds": 125000000
+      },
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/narendra-singh-negi.png"
+    },
+    {
+      "id": "artist_palak_hardik",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "palak hardik",
+        "palak",
+        "hardik",
+        "himachali",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Palak, Hardik — Himachali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "palak hardik",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Palak, Hardik",
+      "nameLowercase": "palak, hardik",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Himachali",
+      "slug": "palak-hardik",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/palak-hardik.png"
+    },
+    {
+      "id": "artist_pritam_bharatwan",
+      "socialLinks": {},
+      "albumCount": 6,
+      "isVerified": true,
+      "genres": [
+        "Folk",
+        "Devotional"
+      ],
+      "monthlyListeners": 20000,
+      "name": "Pritam Bharatwan",
+      "bio": "Pritam Bharatwan is known for his soulful Garhwali ballads and has won numerous state awards.",
+      "nameLowercase": "pritam bharatwan",
+      "region": "Garhwali",
+      "songCount": 60,
+      "createdAt": {
+        "_seconds": 1781410489,
+        "_nanoseconds": 874000000
+      },
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/pritam-bharatwan.png"
+    },
+    {
+      "id": "artist_rohit_chauhan",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "rohit chauhan",
+        "rohit",
+        "chauhan",
+        "garhwali",
+        "festival"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Rohit Chauhan — Garhwali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "rohit chauhan",
+      "genres": [
+        "Festival"
+      ],
+      "name": "Rohit Chauhan",
+      "nameLowercase": "rohit chauhan",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Garhwali",
+      "slug": "rohit-chauhan",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/rohit-chauhan.png"
+    },
+    {
+      "id": "artist_sanjay_sharma",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "sanjay sharma",
+        "sanjay",
+        "sharma",
+        "himachali",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Sanjay Sharma — Himachali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "sanjay sharma",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Sanjay Sharma",
+      "nameLowercase": "sanjay sharma",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Himachali",
+      "slug": "sanjay-sharma",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/sanjay-sharma.png"
+    },
+    {
+      "id": "artist_sardar_singh_sharma",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "sardar singh sharma",
+        "sardar",
+        "singh",
+        "sharma",
+        "jaunsari",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Sardar Singh Sharma — Jaunsari Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "sardar singh sharma",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Sardar Singh Sharma",
+      "nameLowercase": "sardar singh sharma",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Jaunsari",
+      "slug": "sardar-singh-sharma",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/sardar-singh-sharma.png"
+    },
+    {
+      "id": "artist_surinder_sharma",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "surinder sharma",
+        "surinder",
+        "sharma",
+        "himachali",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Surinder Sharma — Himachali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "surinder sharma",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Surinder Sharma",
+      "nameLowercase": "surinder sharma",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Himachali",
+      "slug": "surinder-sharma",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/surinder-sharma.png"
+    },
+    {
+      "id": "artist_thakur_dass_rathi",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "thakur dass rathi",
+        "thakur",
+        "dass",
+        "rathi",
+        "himachali",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Thakur Dass Rathi — Himachali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "thakur dass rathi",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Thakur Dass Rathi",
+      "nameLowercase": "thakur dass rathi",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Himachali",
+      "slug": "thakur-dass-rathi",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/thakur-dass-rathi.png"
+    },
+    {
+      "id": "artist_unknown_artist",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "unknown artist",
+        "unknown",
+        "artist",
+        "needs review",
+        "needs",
+        "review",
+        "folk",
+        "devotional",
+        "festival"
+      ],
+      "monthlyListeners": 0,
+      "bio": "A collection of traditional Pahadi folk recordings spanning the Himalayan regions — Garhwali, Kumaoni, Jaunsari and Himachali.",
+      "songCount": 18,
+      "nameNormalized": "unknown artist",
+      "genres": [
+        "Folk",
+        "Devotional",
+        "Festival"
+      ],
+      "name": "Pahadi Folk",
+      "nameLowercase": "unknown artist",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Pahadi",
+      "slug": "pahadi-folk",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/pahadi-folk.png"
+    },
+    {
+      "id": "artist_zorawar_hunk",
+      "socialLinks": {},
+      "albumCount": 2,
+      "searchKeywords": [
+        "zorawar hunk",
+        "zorawar",
+        "hunk",
+        "himachali",
+        "folk"
+      ],
+      "monthlyListeners": 0,
+      "bio": "Zorawar Hunk — Himachali Pahadi artist (imported catalog).",
+      "songCount": 2,
+      "nameNormalized": "zorawar hunk",
+      "genres": [
+        "Folk"
+      ],
+      "name": "Zorawar Hunk",
+      "nameLowercase": "zorawar hunk",
+      "rightsNote": "",
+      "isApproved": false,
+      "region": "Himachali",
+      "slug": "zorawar-hunk",
+      "approvalStatus": "approved",
+      "isVerified": true,
+      "isPublished": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artists/zorawar-hunk.png"
+    }
+  ],
+  "albums": [
+    {
+      "id": "album_diksha_dhaundiyal_pooja_dhaundiyal__diksha_dhaundiyal_pooja_dhaundiyal_singles",
+      "titleLowercase": "diksha dhaundiyal, pooja dhaundiyal — singles",
+      "searchKeywords": [
+        "diksha dhaundiyal pooja dhaundiyal singles",
+        "diksha",
+        "dhaundiyal",
+        "pooja",
+        "singles",
+        "diksha dhaundiyal pooja dhaundiyal",
+        "kumaoni",
+        "folk"
+      ],
+      "totalDurationMs": 672048,
+      "description": "Diksha Dhaundiyal, Pooja Dhaundiyal — Singles.",
+      "artistId": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "language": "Kumaoni",
+      "title": "Diksha Dhaundiyal, Pooja Dhaundiyal — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "region": "Kumaoni",
+      "releaseYear": 2026,
+      "titleNormalized": "diksha dhaundiyal pooja dhaundiyal singles",
+      "slug": "diksha-dhaundiyal-pooja-dhaundiyal-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/diksha-dhaundiyal-pooja-dhaundiyal-singles.png"
+    },
+    {
+      "id": "album_garhwali_bhakti",
+      "titleLowercase": "garhwali bhakti sangeet",
+      "totalDurationMs": 3600000,
+      "description": "Devotional songs dedicated to the deities of the Himalayas.",
+      "artistId": "artist_pritam_bharatwan",
+      "language": "Garhwali",
+      "title": "Garhwali Bhakti Sangeet",
+      "songCount": 10,
+      "tags": [
+        "garhwali",
+        "devotional",
+        "bhakti"
+      ],
+      "genre": "Devotional",
+      "artistName": "Pritam Bharatwan",
+      "isApproved": true,
+      "region": "Garhwali",
+      "releaseYear": 2018,
+      "createdAt": {
+        "_seconds": 1781410493,
+        "_nanoseconds": 915000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/garhwali-bhakti-sangeet.png"
+    },
+    {
+      "id": "album_jitendra_tomkyal__jitendra_tomkyal_singles",
+      "titleLowercase": "jitendra tomkyal — singles",
+      "searchKeywords": [
+        "jitendra tomkyal singles",
+        "jitendra",
+        "tomkyal",
+        "singles",
+        "jitendra tomkyal",
+        "kumaoni",
+        "folk"
+      ],
+      "totalDurationMs": 633360,
+      "description": "Jitendra Tomkyal — Singles.",
+      "artistId": "artist_jitendra_tomkyal",
+      "language": "Kumaoni",
+      "title": "Jitendra Tomkyal — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Jitendra Tomkyal",
+      "region": "Kumaoni",
+      "releaseYear": 2026,
+      "titleNormalized": "jitendra tomkyal singles",
+      "slug": "jitendra-tomkyal-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/jitendra-tomkyal-singles.png"
+    },
+    {
+      "id": "album_kumaoni_doli",
+      "titleLowercase": "kumaoni doli",
+      "totalDurationMs": 2100000,
+      "description": "Wedding songs from the Kumaon hills by Padma Shri Hema Negi Karasi.",
+      "artistId": "artist_hema_negi_karasi",
+      "language": "Kumaoni",
+      "title": "Kumaoni Doli",
+      "songCount": 6,
+      "tags": [
+        "kumaoni",
+        "wedding",
+        "folk"
+      ],
+      "genre": "Folk",
+      "artistName": "Hema Negi Karasi",
+      "isApproved": true,
+      "region": "Kumaoni",
+      "releaseYear": 2015,
+      "createdAt": {
+        "_seconds": 1781410493,
+        "_nanoseconds": 245000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/kumaoni-doli.png"
+    },
+    {
+      "id": "album_lalit_mohan_joshi__lalit_mohan_joshi_singles",
+      "titleLowercase": "lalit mohan joshi — singles",
+      "searchKeywords": [
+        "lalit mohan joshi singles",
+        "lalit",
+        "mohan",
+        "joshi",
+        "singles",
+        "lalit mohan joshi",
+        "kumaoni",
+        "folk"
+      ],
+      "totalDurationMs": 879744,
+      "description": "Lalit Mohan Joshi — Singles.",
+      "artistId": "artist_lalit_mohan_joshi",
+      "language": "Kumaoni",
+      "title": "Lalit Mohan Joshi — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Lalit Mohan Joshi",
+      "region": "Kumaoni",
+      "releaseYear": 2026,
+      "titleNormalized": "lalit mohan joshi singles",
+      "slug": "lalit-mohan-joshi-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/lalit-mohan-joshi-singles.png"
+    },
+    {
+      "id": "album_pahadi_jhankar",
+      "titleLowercase": "pahadi jhankar",
+      "totalDurationMs": 2880000,
+      "description": "A collection of timeless Garhwali folk songs by the legendary Narendra Singh Negi.",
+      "artistId": "artist_narendra_singh_negi",
+      "language": "Garhwali",
+      "title": "Pahadi Jhankar",
+      "songCount": 8,
+      "tags": [
+        "garhwali",
+        "folk",
+        "classic"
+      ],
+      "genre": "Folk",
+      "artistName": "Narendra Singh Negi",
+      "isApproved": true,
+      "region": "Garhwali",
+      "releaseYear": 2010,
+      "createdAt": {
+        "_seconds": 1781410492,
+        "_nanoseconds": 229000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/pahadi-jhankar.png"
+    },
+    {
+      "id": "album_palak_hardik__palak_hardik_singles",
+      "titleLowercase": "palak, hardik — singles",
+      "searchKeywords": [
+        "palak hardik singles",
+        "palak",
+        "hardik",
+        "singles",
+        "palak hardik",
+        "himachali",
+        "folk"
+      ],
+      "totalDurationMs": 276528,
+      "description": "Palak, Hardik — Singles.",
+      "artistId": "artist_palak_hardik",
+      "language": "Himachali",
+      "title": "Palak, Hardik — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Palak, Hardik",
+      "region": "Himachali",
+      "releaseYear": 2026,
+      "titleNormalized": "palak hardik singles",
+      "slug": "palak-hardik-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/palak-hardik-singles.png"
+    },
+    {
+      "id": "album_rohit_chauhan__rohit_chauhan_singles",
+      "titleLowercase": "rohit chauhan — singles",
+      "searchKeywords": [
+        "rohit chauhan singles",
+        "rohit",
+        "chauhan",
+        "singles",
+        "rohit chauhan",
+        "garhwali",
+        "festival"
+      ],
+      "totalDurationMs": 752832,
+      "description": "Rohit Chauhan — Singles.",
+      "artistId": "artist_rohit_chauhan",
+      "language": "Garhwali",
+      "title": "Rohit Chauhan — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Festival",
+      "artistName": "Rohit Chauhan",
+      "region": "Garhwali",
+      "releaseYear": 2026,
+      "titleNormalized": "rohit chauhan singles",
+      "slug": "rohit-chauhan-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/rohit-chauhan-singles.png"
+    },
+    {
+      "id": "album_sanjay_sharma__sanjay_sharma_singles",
+      "titleLowercase": "sanjay sharma — singles",
+      "searchKeywords": [
+        "sanjay sharma singles",
+        "sanjay",
+        "sharma",
+        "singles",
+        "sanjay sharma",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "totalDurationMs": 627552,
+      "description": "Sanjay Sharma — Singles.",
+      "artistId": "artist_sanjay_sharma",
+      "language": "Pahadi",
+      "title": "Sanjay Sharma — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Sanjay Sharma",
+      "region": "Himachali",
+      "releaseYear": 2022,
+      "titleNormalized": "sanjay sharma singles",
+      "slug": "sanjay-sharma-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/sanjay-sharma-singles.png"
+    },
+    {
+      "id": "album_sardar_singh_sharma__sardar_singh_sharma_singles",
+      "titleLowercase": "sardar singh sharma — singles",
+      "searchKeywords": [
+        "sardar singh sharma singles",
+        "sardar",
+        "singh",
+        "sharma",
+        "singles",
+        "sardar singh sharma",
+        "jaunsari",
+        "folk"
+      ],
+      "totalDurationMs": 1159584,
+      "description": "Sardar Singh Sharma — Singles.",
+      "artistId": "artist_sardar_singh_sharma",
+      "language": "Jaunsari",
+      "title": "Sardar Singh Sharma — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Sardar Singh Sharma",
+      "region": "Jaunsari",
+      "releaseYear": 2021,
+      "titleNormalized": "sardar singh sharma singles",
+      "slug": "sardar-singh-sharma-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/sardar-singh-sharma-singles.png"
+    },
+    {
+      "id": "album_surinder_sharma__surinder_sharma_singles",
+      "titleLowercase": "surinder sharma — singles",
+      "searchKeywords": [
+        "surinder sharma singles",
+        "surinder",
+        "sharma",
+        "singles",
+        "surinder sharma",
+        "himachali",
+        "folk"
+      ],
+      "totalDurationMs": 373488,
+      "description": "Surinder Sharma — Singles.",
+      "artistId": "artist_surinder_sharma",
+      "language": "Himachali",
+      "title": "Surinder Sharma — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Surinder Sharma",
+      "region": "Himachali",
+      "releaseYear": 2024,
+      "titleNormalized": "surinder sharma singles",
+      "slug": "surinder-sharma-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/surinder-sharma-singles.png"
+    },
+    {
+      "id": "album_thakur_dass_rathi__thakur_dass_rathi_singles",
+      "titleLowercase": "thakur dass rathi — singles",
+      "searchKeywords": [
+        "thakur dass rathi singles",
+        "thakur",
+        "dass",
+        "rathi",
+        "singles",
+        "thakur dass rathi",
+        "himachali",
+        "folk"
+      ],
+      "totalDurationMs": 354576,
+      "description": "Thakur Dass Rathi — Singles.",
+      "artistId": "artist_thakur_dass_rathi",
+      "language": "Himachali",
+      "title": "Thakur Dass Rathi — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Thakur Dass Rathi",
+      "region": "Himachali",
+      "releaseYear": 2026,
+      "titleNormalized": "thakur dass rathi singles",
+      "slug": "thakur-dass-rathi-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/thakur-dass-rathi-singles.png"
+    },
+    {
+      "id": "album_unknown_artist__imported_recordings",
+      "titleLowercase": "imported recordings",
+      "searchKeywords": [
+        "imported recordings",
+        "imported",
+        "recordings",
+        "unknown artist",
+        "unknown",
+        "artist",
+        "needs review",
+        "needs",
+        "review",
+        "folk"
+      ],
+      "totalDurationMs": 4765776,
+      "description": "A curated collection of traditional Pahadi folk songs.",
+      "artistId": "artist_unknown_artist",
+      "language": "Pahadi",
+      "title": "Pahadi Folk Collection",
+      "songCount": 18,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Pahadi Folk",
+      "region": "Himachali",
+      "releaseYear": 2026,
+      "titleNormalized": "imported recordings",
+      "slug": "pahadi-folk-collection",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/pahadi-folk-collection.png"
+    },
+    {
+      "id": "album_zorawar_hunk__zorawar_hunk_singles",
+      "titleLowercase": "zorawar hunk — singles",
+      "searchKeywords": [
+        "zorawar hunk singles",
+        "zorawar",
+        "hunk",
+        "singles",
+        "zorawar hunk",
+        "himachali",
+        "pahadi",
+        "folk"
+      ],
+      "totalDurationMs": 193248,
+      "description": "Zorawar Hunk — Singles.",
+      "artistId": "artist_zorawar_hunk",
+      "language": "Pahadi",
+      "title": "Zorawar Hunk — Singles",
+      "songCount": 2,
+      "tags": [
+        "folk",
+        "pahadi"
+      ],
+      "license": "LICENSED",
+      "rightsCleared": true,
+      "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+      "genre": "Folk",
+      "artistName": "Zorawar Hunk",
+      "region": "Himachali",
+      "releaseYear": 2026,
+      "titleNormalized": "zorawar hunk singles",
+      "slug": "zorawar-hunk-singles",
+      "approvalStatus": "approved",
+      "isPublished": true,
+      "isApproved": true,
+      "updatedAt": {
+        "_seconds": 1781781519,
+        "_nanoseconds": 928000000
+      },
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/albums/zorawar-hunk-singles.png"
+    }
+  ]
+}

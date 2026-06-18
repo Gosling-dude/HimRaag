@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/artist.dart';
 
@@ -55,7 +56,7 @@ class ArtistCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              artist.name,
+              artist.displayName,
               style: Theme.of(context).textTheme.labelMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

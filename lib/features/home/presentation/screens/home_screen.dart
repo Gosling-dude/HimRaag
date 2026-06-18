@@ -49,6 +49,7 @@ class HomeScreen extends ConsumerWidget {
             else ...[
               const _TrendingSection(),
               const _NewReleasesSection(),
+              const _CuratedRegionSections(),
             ],
             const _AlbumsSection(),
             const _ArtistsSection(),
@@ -339,6 +340,59 @@ class _ArtistsSection extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Curated editorial rows — one "<Region> Hits" carousel per region that has
+/// content. Regions without songs are skipped, so no empty sections appear.
+class _CuratedRegionSections extends ConsumerWidget {
+  const _CuratedRegionSections();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final regions = ref.watch(populatedRegionsProvider);
+    return regions.when(
+      data: (list) => SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => _CuratedRegionRow(region: list[index]),
+          childCount: list.length,
+        ),
+      ),
+      loading: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
+      error: (_, __) => const SliverToBoxAdapter(child: SizedBox.shrink()),
+    );
+  }
+}
+
+class _CuratedRegionRow extends ConsumerWidget {
+  const _CuratedRegionRow({required this.region});
+
+  final String region;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final songs = ref.watch(regionSongsProvider(region));
+    return songs.maybeWhen(
+      data: (list) {
+        if (list.isEmpty) return const SizedBox.shrink();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+              child: SectionHeader(
+                title: '$region Hits',
+                onSeeAll: () {
+                  ref.read(selectedRegionProvider.notifier).state = region;
+                },
+              ),
+            ),
+            _HorizontalSongList(songs: list),
+          ],
+        );
+      },
+      orElse: () => const SizedBox.shrink(),
     );
   }
 }

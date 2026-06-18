@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/app_config.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../data/catalog_visibility.dart';
 import '../../../data/local/local_catalog_datasource.dart';
 import '../../../data/remote/firebase_album_datasource.dart';
@@ -89,8 +90,24 @@ final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
 
 final regionSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, region) async {
-  final songs = await ref.watch(songDatasourceProvider).getSongsByRegion(region);
-  return songs.visibleToConsumers();
+  final remote = await ref.watch(songDatasourceProvider).getSongsByRegion(region);
+  final local = (await ref.watch(localSongsProvider.future))
+      .where((s) => s.region == region)
+      .toList();
+  return _mergeById(local, remote, (s) => s.id).visibleToConsumers();
+});
+
+/// Regions that actually have at least one visible song, in catalog order.
+/// Drives the curated "<Region> Hits" rows on Home — empty regions never
+/// render, so there are no blank sections.
+final populatedRegionsProvider = FutureProvider<List<String>>((ref) async {
+  final local = await ref.watch(localSongsProvider.future);
+  final remote = await ref.watch(trendingSongsProvider.future);
+  final present = {
+    for (final s in [...local, ...remote])
+      if (s.region.trim().isNotEmpty && s.region != 'Needs Review') s.region,
+  };
+  return AppConstants.pahadiRegions.where(present.contains).toList();
 });
 
 final albumDetailProvider =

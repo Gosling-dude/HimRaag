@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../providers/player_providers.dart';
 
@@ -69,7 +70,7 @@ class MiniPlayer extends ConsumerWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    song.artistName,
+                    song.displayArtist,
                     style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

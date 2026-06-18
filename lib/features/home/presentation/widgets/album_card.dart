@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/album.dart';
 
@@ -44,7 +45,7 @@ class AlbumCard extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '${album.artistName} • ${album.releaseYear}',
+              '${album.displayArtist} • ${album.releaseYear}',
               style: Theme.of(context).textTheme.bodySmall,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

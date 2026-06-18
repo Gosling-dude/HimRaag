@@ -42,8 +42,26 @@ void main() {
       // Audio now streams from Cloudflare R2 (bundled MP3s removed).
       expect(s.audioUrl, startsWith('https://'), reason: s.title);
       expect(s.audioUrl, contains('r2.dev/audio/'), reason: s.title);
-      // Imported content is flagged for owner review.
-      expect(s.reviewRequired, isTrue, reason: s.title);
+      // Catalog has been polished for release: review flags are cleared so the
+      // consumer UI shows clean, professional metadata (no "Needs Review").
+      expect(s.reviewRequired, isFalse, reason: s.title);
+    }
+  });
+
+  test('catalog carries no consumer-facing review/Unknown sentinels', () async {
+    final songs = await ds.songs();
+    final artists = await ds.artists();
+    final albums = await ds.albums();
+    for (final s in songs) {
+      expect(s.artistName, isNot('Unknown Artist'), reason: s.title);
+      expect(s.region, isNot('Needs Review'), reason: s.title);
+    }
+    for (final a in artists) {
+      expect(a.name, isNot('Unknown Artist'), reason: a.id);
+      expect(a.region, isNot('Needs Review'), reason: a.id);
+    }
+    for (final a in albums) {
+      expect(a.title, isNot('Imported Recordings'), reason: a.id);
     }
   });
 

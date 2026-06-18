@@ -1,6 +1,7 @@
 ﻿import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/song.dart';
 
@@ -62,7 +63,7 @@ class SongCard extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              song.artistName,
+              song.displayArtist,
               style: Theme.of(context).textTheme.bodySmall,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

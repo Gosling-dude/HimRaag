@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../providers/player_providers.dart';
 
@@ -115,7 +116,7 @@ class QueueView extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             subtitle: Text(
-                              song.artistName,
+                              song.displayArtist,
                               style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.5),
                                   fontSize: 12),

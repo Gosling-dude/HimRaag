@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/providers/player_providers.dart';
@@ -77,20 +78,20 @@ class SongListTile extends ConsumerWidget {
       subtitle: Row(
         children: [
           Text(
-            song.artistName,
+            song.displayArtist,
             style: Theme.of(context).textTheme.bodySmall,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          if (song.region.isNotEmpty) ...[
+          if (song.displayRegion.isNotEmpty) ...[
             Text(
               ' • ',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Text(
-              song.region,
+              song.displayRegion,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.regionColors[song.region],
+                    color: AppColors.regionColors[song.displayRegion],
                   ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
