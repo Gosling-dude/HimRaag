@@ -8,6 +8,7 @@ import '../../domain/models/app_user.dart';
 import '../../features/auth/providers/auth_providers.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/library/presentation/screens/library_screen.dart';
+import '../../features/songs/presentation/screens/all_songs_screen.dart';
 import '../../features/player/presentation/screens/full_player_screen.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
 import '../../features/songs/presentation/screens/album_detail_screen.dart';
@@ -100,6 +101,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             );
           },
         ),
+      ),
+      GoRoute(
+        path: '/all-songs',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AllSongsScreen(),
       ),
       GoRoute(
         path: '/album/:id',

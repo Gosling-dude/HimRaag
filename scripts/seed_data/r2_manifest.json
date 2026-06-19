@@ -1,162 +1,25 @@
 {
-  "generatedAt": "2026-06-18T09:48:11.536Z",
+  "generatedAt": "2026-06-19T05:30:31.461Z",
   "bucket": "himraag-audio",
   "publicUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev",
-  "count": 19,
+  "count": 68,
   "objects": [
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\AANKHI_MICHOLI(256k).mp3",
-      "title": "AANKHI MICHOLI",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\2.0_Mashup(256k).mp3",
+      "title": "2.0 Mashup",
       "artistName": "Unknown Artist",
-      "region": "Needs Review",
-      "keySlug": "aankhi-micholi-256k",
-      "audioKey": "audio/aankhi-micholi-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/aankhi-micholi-256k.mp3",
-      "artworkKey": "artwork/aankhi-micholi-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/aankhi-micholi-256k.png",
+      "region": "Pahadi",
+      "keySlug": "2-0-mashup-256k",
+      "audioKey": "audio/2-0-mashup-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/2-0-mashup-256k.mp3",
+      "artworkKey": "artwork/2-0-mashup-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/2-0-mashup-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/6008108"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1901"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Aaja_Aaja(256k).mp3",
-      "title": "Aaja Aaja",
-      "artistName": "Unknown Artist",
-      "region": "Needs Review",
-      "keySlug": "aaja-aaja-256k",
-      "audioKey": "audio/aaja-aaja-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/aaja-aaja-256k.mp3",
-      "artworkKey": "artwork/aaja-aaja-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/aaja-aaja-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/3156908"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/2030"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Ang_Songi___Kinnauri_Cover_Song___Reprise_2026(256k).mp3",
-      "title": "Ang Songi",
-      "artistName": "Unknown Artist",
-      "region": "Kinnauri",
-      "keySlug": "ang-songi-kinnauri-cover-song-reprise-2026-256k",
-      "audioKey": "audio/ang-songi-kinnauri-cover-song-reprise-2026-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ang-songi-kinnauri-cover-song-reprise-2026-256k.mp3",
-      "artworkKey": "artwork/ang-songi-kinnauri-cover-song-reprise-2026-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ang-songi-kinnauri-cover-song-reprise-2026-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/2721068"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1901"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Baadri___Latest_Pahari_Jaunsari_Dj_Song_2021___Sardar_Singh_Sharma___Himachali_Song____Y_Series___(256k).mp3",
-      "title": "Baadri",
-      "artistName": "Sardar Singh Sharma",
-      "region": "Jaunsari",
-      "keySlug": "baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-",
-      "audioKey": "audio/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.mp3",
-      "artworkKey": "artwork/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/baadri-latest-pahari-jaunsari-dj-song-2021-sardar-singh-sharma-himachali-song-y-.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/9277100"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1902"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Bamniye(256k).mp3",
-      "title": "Bamniye",
-      "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "bamniye-256k",
-      "audioKey": "audio/bamniye-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/bamniye-256k.mp3",
-      "artworkKey": "artwork/bamniye-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/bamniye-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/4808492"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1898"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Dhire_Dhire_O_Chanda___Kumauni_Song___Lalit_Mohan_Joshi___Lofi_Song___Slowed___Reverb___#pahadisong(256k).mp3",
-      "title": "Dhire Dhire O Chanda",
-      "artistName": "Lalit Mohan Joshi",
-      "region": "Kumaoni",
-      "keySlug": "dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha",
-      "audioKey": "audio/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.mp3",
-      "artworkKey": "artwork/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dhire-dhire-o-chanda-kumauni-song-lalit-mohan-joshi-lofi-song-slowed-reverb-paha.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/7038380"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1902"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Fukla_Chane_Bindiya(256k).mp3",
-      "title": "Fukla Chane Bindiya",
-      "artistName": "Sanjay Sharma",
-      "region": "Himachali",
-      "keySlug": "fukla-chane-bindiya-256k",
-      "audioKey": "audio/fukla-chane-bindiya-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/fukla-chane-bindiya-256k.mp3",
-      "artworkKey": "artwork/fukla-chane-bindiya-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/fukla-chane-bindiya-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/5020844"
+        "contentLength": "bytes 0-0/6064940"
       },
       "artworkVerify": {
         "ok": true,
@@ -166,20 +29,21 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jai_Bolya_Devta(256k).mp3",
-      "title": "Jai Bolya Devta",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\AK_47_Hath_Maa(256k).mp3",
+      "title": "AK 47 Hath Maa",
       "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "jai-bolya-devta-256k",
-      "audioKey": "audio/jai-bolya-devta-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jai-bolya-devta-256k.mp3",
-      "artworkKey": "artwork/jai-bolya-devta-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jai-bolya-devta-256k.png",
+      "region": "Pahadi",
+      "keySlug": "ak-47-hath-maa-256k",
+      "audioKey": "audio/ak-47-hath-maa-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ak-47-hath-maa-256k.mp3",
+      "artworkKey": "artwork/ak-47-hath-maa-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ak-47-hath-maa-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/4073132"
+        "contentLength": "bytes 0-0/4967084"
       },
       "artworkVerify": {
         "ok": true,
@@ -189,66 +53,69 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhauliye(256k).mp3",
-      "title": "Jhauliye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Baleno(256k).mp3",
+      "title": "Baleno",
       "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "jhauliye-256k",
-      "audioKey": "audio/jhauliye-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhauliye-256k.mp3",
-      "artworkKey": "artwork/jhauliye-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhauliye-256k.png",
+      "region": "Pahadi",
+      "keySlug": "baleno-256k",
+      "audioKey": "audio/baleno-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/baleno-256k.mp3",
+      "artworkKey": "artwork/baleno-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/baleno-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/2880044"
+        "contentLength": "bytes 0-0/4444460"
       },
       "artworkVerify": {
         "ok": true,
         "status": 206,
         "contentType": "image/png",
-        "contentLength": "bytes 0-0/1901"
+        "contentLength": "bytes 0-0/1899"
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jhuriye(256k).mp3",
-      "title": "Jhuriye",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Beluye_Bura_Aya_Zamana(256k).mp3",
+      "title": "Beluye Bura Aya Zamana",
       "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "jhuriye-256k",
-      "audioKey": "audio/jhuriye-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhuriye-256k.mp3",
-      "artworkKey": "artwork/jhuriye-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhuriye-256k.png",
+      "region": "Pahadi",
+      "keySlug": "beluye-bura-aya-zamana-256k",
+      "audioKey": "audio/beluye-bura-aya-zamana-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/beluye-bura-aya-zamana-256k.mp3",
+      "artworkKey": "artwork/beluye-bura-aya-zamana-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/beluye-bura-aya-zamana-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/4825388"
+        "contentLength": "bytes 0-0/3040556"
       },
       "artworkVerify": {
         "ok": true,
         "status": 206,
         "contentType": "image/png",
-        "contentLength": "bytes 0-0/1902"
+        "contentLength": "bytes 0-0/1898"
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Jumi_Jimi_O_Rohru_Ri_Jatre(256k).mp3",
-      "title": "Jumi Jimi O Rohru Ri Jatre",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Bol_Heera(256k).mp3",
+      "title": "Bol Heera",
       "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "jumi-jimi-o-rohru-ri-jatre-256k",
-      "audioKey": "audio/jumi-jimi-o-rohru-ri-jatre-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jumi-jimi-o-rohru-ri-jatre-256k.mp3",
-      "artworkKey": "artwork/jumi-jimi-o-rohru-ri-jatre-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jumi-jimi-o-rohru-ri-jatre-256k.png",
+      "region": "Pahadi",
+      "keySlug": "bol-heera-256k",
+      "audioKey": "audio/bol-heera-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/bol-heera-256k.mp3",
+      "artworkKey": "artwork/bol-heera-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/bol-heera-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/4985516"
+        "contentLength": "bytes 0-0/4899500"
       },
       "artworkVerify": {
         "ok": true,
@@ -258,66 +125,45 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Kolang____Oreio_Beats_Latest_Pahadi_song_2026____Himachali_Song____Palak,Hardik(256k).mp3",
-      "title": "Kolang",
-      "artistName": "Palak, Hardik",
-      "region": "Himachali",
-      "keySlug": "kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k",
-      "audioKey": "audio/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.mp3",
-      "artworkKey": "artwork/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/kolang-oreio-beats-latest-pahadi-song-2026-himachali-song-palak-hardik-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/2212652"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1902"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3",
-      "title": "Main Pahadan",
-      "artistName": "Diksha Dhaundiyal, Pooja Dhaundiyal",
-      "region": "Kumaoni",
-      "keySlug": "main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k",
-      "audioKey": "audio/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.mp3",
-      "artworkKey": "artwork/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/5376812"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1901"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Meri_Salma(256k).mp3",
-      "title": "Meri Salma",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Delhi_Se_Manali__Ladka_Tera_Diwana_(256k).mp3",
+      "title": "Delhi Se Manali",
       "artistName": "Unknown Artist",
-      "region": "Himachali",
-      "keySlug": "meri-salma-256k",
-      "audioKey": "audio/meri-salma-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/meri-salma-256k.mp3",
-      "artworkKey": "artwork/meri-salma-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/meri-salma-256k.png",
+      "region": "Pahadi",
+      "keySlug": "delhi-se-manali-ladka-tera-diwana-256k",
+      "audioKey": "audio/delhi-se-manali-ladka-tera-diwana-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/delhi-se-manali-ladka-tera-diwana-256k.mp3",
+      "artworkKey": "artwork/delhi-se-manali-ladka-tera-diwana-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/delhi-se-manali-ladka-tera-diwana-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/4671404"
+        "contentLength": "bytes 0-0/2542124"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1899"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Dev_Nagri(256k).mp3",
+      "title": "Dev Nagri",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "dev-nagri-256k",
+      "audioKey": "audio/dev-nagri-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dev-nagri-256k.mp3",
+      "artworkKey": "artwork/dev-nagri-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dev-nagri-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4245932"
       },
       "artworkVerify": {
         "ok": true,
@@ -327,43 +173,285 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Rekha__रेखा__Prod__Zorawar_Hunk(256k).mp3",
-      "title": "Rekha",
-      "artistName": "Zorawar Hunk",
-      "region": "Himachali",
-      "keySlug": "rekha-prod-zorawar-hunk-256k",
-      "audioKey": "audio/rekha-prod-zorawar-hunk-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/rekha-prod-zorawar-hunk-256k.mp3",
-      "artworkKey": "artwork/rekha-prod-zorawar-hunk-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/rekha-prod-zorawar-hunk-256k.png",
-      "audioVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/1546412"
-      },
-      "artworkVerify": {
-        "ok": true,
-        "status": 206,
-        "contentType": "image/png",
-        "contentLength": "bytes 0-0/1901"
-      }
-    },
-    {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Satpuli_ka_Mela___Garhwali_Song___Rohit_Chauhan___Slowed___Reverbed___8D_Song__(256k).mp3",
-      "title": "Satpuli Ka Mela",
-      "artistName": "Rohit Chauhan",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Dhol_Damau(256k).mp3",
+      "title": "Dhol Damau",
+      "artistName": "Unknown Artist",
       "region": "Garhwali",
-      "keySlug": "satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k",
-      "audioKey": "audio/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.mp3",
-      "artworkKey": "artwork/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/satpuli-ka-mela-garhwali-song-rohit-chauhan-slowed-reverbed-8d-song-256k.png",
+      "keySlug": "dhol-damau-256k",
+      "audioKey": "audio/dhol-damau-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dhol-damau-256k.mp3",
+      "artworkKey": "artwork/dhol-damau-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dhol-damau-256k.png",
+      "audioAction": "skipped",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/6023084"
+        "contentLength": "bytes 0-0/6044972"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Drivera(256k).mp3",
+      "title": "Drivera",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "drivera-256k",
+      "audioKey": "audio/drivera-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/drivera-256k.mp3",
+      "artworkKey": "artwork/drivera-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/drivera-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4665644"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Dunge_Naluye__Mix_(256k).mp3",
+      "title": "Dunge Naluye",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "dunge-naluye-mix-256k",
+      "audioKey": "audio/dunge-naluye-mix-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dunge-naluye-mix-256k.mp3",
+      "artworkKey": "artwork/dunge-naluye-mix-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dunge-naluye-mix-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3919532"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Dupatta__Uttrakhandi_(256k).mp3",
+      "title": "Dupatta",
+      "artistName": "Unknown Artist",
+      "region": "Garhwali",
+      "keySlug": "dupatta-uttrakhandi-256k",
+      "audioKey": "audio/dupatta-uttrakhandi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/dupatta-uttrakhandi-256k.mp3",
+      "artworkKey": "artwork/dupatta-uttrakhandi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/dupatta-uttrakhandi-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3683372"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Fullo_Fulli(256k).mp3",
+      "title": "Fullo Fulli",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "fullo-fulli-256k",
+      "audioKey": "audio/fullo-fulli-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/fullo-fulli-256k.mp3",
+      "artworkKey": "artwork/fullo-fulli-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/fullo-fulli-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2884268"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Guitar_Baaje_Tana_Tan(256k).mp3",
+      "title": "Guitar Baaje Tana Tan",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "guitar-baaje-tana-tan-256k",
+      "audioKey": "audio/guitar-baaje-tana-tan-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/guitar-baaje-tana-tan-256k.mp3",
+      "artworkKey": "artwork/guitar-baaje-tana-tan-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/guitar-baaje-tana-tan-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3326636"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Gulabi_Sharara(256k).mp3",
+      "title": "Gulabi Sharara",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "gulabi-sharara-256k",
+      "audioKey": "audio/gulabi-sharara-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/gulabi-sharara-256k.mp3",
+      "artworkKey": "artwork/gulabi-sharara-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/gulabi-sharara-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3297836"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Hafta_Me__Kumaoni_Geet_(256k).mp3",
+      "title": "Hafta Me",
+      "artistName": "Unknown Artist",
+      "region": "Kumaoni",
+      "keySlug": "hafta-me-kumaoni-geet-256k",
+      "audioKey": "audio/hafta-me-kumaoni-geet-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/hafta-me-kumaoni-geet-256k.mp3",
+      "artworkKey": "artwork/hafta-me-kumaoni-geet-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/hafta-me-kumaoni-geet-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4661036"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Hasna__Rushna_Bato_Bato_Da_(256k).mp3",
+      "title": "Hasna",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "hasna-rushna-bato-bato-da-256k",
+      "audioKey": "audio/hasna-rushna-bato-bato-da-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/hasna-rushna-bato-bato-da-256k.mp3",
+      "artworkKey": "artwork/hasna-rushna-bato-bato-da-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/hasna-rushna-bato-bato-da-256k.png",
+      "audioAction": "skipped",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/5175596"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Heera_Han_Ya_Na(256k).mp3",
+      "title": "Heera Han Ya Na",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "heera-han-ya-na-256k",
+      "audioKey": "audio/heera-han-ya-na-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/heera-han-ya-na-256k.mp3",
+      "artworkKey": "artwork/heera-han-ya-na-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/heera-han-ya-na-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3442988"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Hey_Madhu_Mashakbeen(256k).mp3",
+      "title": "Hey Madhu Mashakbeen",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "hey-madhu-mashakbeen-256k",
+      "audioKey": "audio/hey-madhu-mashakbeen-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/hey-madhu-mashakbeen-256k.mp3",
+      "artworkKey": "artwork/hey-madhu-mashakbeen-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/hey-madhu-mashakbeen-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4007468"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Himachali_Shimla_shivratri_bhajan(256k).mp3",
+      "title": "Himachali Shimla Shivratri Bhajan",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "himachali-shimla-shivratri-bhajan-256k",
+      "audioKey": "audio/himachali-shimla-shivratri-bhajan-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/himachali-shimla-shivratri-bhajan-256k.mp3",
+      "artworkKey": "artwork/himachali-shimla-shivratri-bhajan-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/himachali-shimla-shivratri-bhajan-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/17606828"
       },
       "artworkVerify": {
         "ok": true,
@@ -373,20 +461,21 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Sushma_Meri_Janiye__Car_Drive_Mix__🚘___Heavy_Bass___Thakur_Dass_Rathi___The_Retro_Lab(256k).mp3",
-      "title": "Sushma Meri Janiye",
-      "artistName": "Thakur Dass Rathi",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Hit_Madhuli__Pahadi_(256k).mp3",
+      "title": "Hit Madhuli",
+      "artistName": "Unknown Artist",
       "region": "Himachali",
-      "keySlug": "sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k",
-      "audioKey": "audio/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.mp3",
-      "artworkKey": "artwork/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/sushma-meri-janiye-car-drive-mix-heavy-bass-thakur-dass-rathi-the-retro-lab-256k.png",
+      "keySlug": "hit-madhuli-pahadi-256k",
+      "audioKey": "audio/hit-madhuli-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/hit-madhuli-pahadi-256k.mp3",
+      "artworkKey": "artwork/hit-madhuli-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/hit-madhuli-pahadi-256k.png",
+      "audioAction": "uploaded",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/2837036"
+        "contentLength": "bytes 0-0/5433260"
       },
       "artworkVerify": {
         "ok": true,
@@ -396,20 +485,21 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Teri_Surmyali_Aankhi___Jitendra_Tomkyal___Kumauni_Song_Lofi_Version___Slowed___Reverbed___8D_audio(256k).mp3",
-      "title": "Teri Surmyali Aankhi",
-      "artistName": "Jitendra Tomkyal",
-      "region": "Kumaoni",
-      "keySlug": "teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-",
-      "audioKey": "audio/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.mp3",
-      "artworkKey": "artwork/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/teri-surmyali-aankhi-jitendra-tomkyal-kumauni-song-lofi-version-slowed-reverbed-.png",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Hum_Chhu_Pahadi(256k).mp3",
+      "title": "Hum Chhu",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "hum-chhu-pahadi-256k",
+      "audioKey": "audio/hum-chhu-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/hum-chhu-pahadi-256k.mp3",
+      "artworkKey": "artwork/hum-chhu-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/hum-chhu-pahadi-256k.png",
+      "audioAction": "uploaded",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/5067308"
+        "contentLength": "bytes 0-0/3645356"
       },
       "artworkVerify": {
         "ok": true,
@@ -419,26 +509,1131 @@
       }
     },
     {
-      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\driver_horon_bajade_ho_-_seema_raniye____letest_pahadi_nati_2024____folk_tone_3_by_surinder_Sharma(256k).mp3",
-      "title": "Driver Horon Bajade Ho - Seema Raniye",
-      "artistName": "Surinder Sharma",
-      "region": "Himachali",
-      "keySlug": "driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin",
-      "audioKey": "audio/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.mp3",
-      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.mp3",
-      "artworkKey": "artwork/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.png",
-      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/driver-horon-bajade-ho-seema-raniye-letest-pahadi-nati-2024-folk-tone-3-by-surin.png",
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Ishq_Mein_Risk(256k).mp3",
+      "title": "Ishq Mein Risk",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "ishq-mein-risk-256k",
+      "audioKey": "audio/ishq-mein-risk-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ishq-mein-risk-256k.mp3",
+      "artworkKey": "artwork/ishq-mein-risk-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ishq-mein-risk-256k.png",
+      "audioAction": "uploaded",
       "audioVerify": {
         "ok": true,
         "status": 206,
         "contentType": "audio/mpeg",
-        "contentLength": "bytes 0-0/2988332"
+        "contentLength": "bytes 0-0/5141804"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Jannat_Mahadev_Ki_Baraat_-_Brahmkhada(256k).mp3",
+      "title": "Jannat Mahadev Ki Baraat - Brahmkhada",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "jannat-mahadev-ki-baraat-brahmkhada-256k",
+      "audioKey": "audio/jannat-mahadev-ki-baraat-brahmkhada-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jannat-mahadev-ki-baraat-brahmkhada-256k.mp3",
+      "artworkKey": "artwork/jannat-mahadev-ki-baraat-brahmkhada-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jannat-mahadev-ki-baraat-brahmkhada-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/28048940"
       },
       "artworkVerify": {
         "ok": true,
         "status": 206,
         "contentType": "image/png",
         "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Jhagad_Na_Kar(256k).mp3",
+      "title": "Jhagad Na Kar",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "jhagad-na-kar-256k",
+      "audioKey": "audio/jhagad-na-kar-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhagad-na-kar-256k.mp3",
+      "artworkKey": "artwork/jhagad-na-kar-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhagad-na-kar-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4312748"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1899"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Jhangle_Mama_Titru_Dala(256k).mp3",
+      "title": "Jhangle Mama Titru Dala",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "jhangle-mama-titru-dala-256k",
+      "audioKey": "audio/jhangle-mama-titru-dala-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhangle-mama-titru-dala-256k.mp3",
+      "artworkKey": "artwork/jhangle-mama-titru-dala-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhangle-mama-titru-dala-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2488748"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Jhumka(256k).mp3",
+      "title": "Jhumka",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "jhumka-256k",
+      "audioKey": "audio/jhumka-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jhumka-256k.mp3",
+      "artworkKey": "artwork/jhumka-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jhumka-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3849260"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Jodi_First_Class(256k).mp3",
+      "title": "Jodi First Class",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "jodi-first-class-256k",
+      "audioKey": "audio/jodi-first-class-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/jodi-first-class-256k.mp3",
+      "artworkKey": "artwork/jodi-first-class-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/jodi-first-class-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3536684"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Junyali_Raat_Ma__Pahadi_(256k).mp3",
+      "title": "Junyali Raat Ma",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "junyali-raat-ma-pahadi-256k",
+      "audioKey": "audio/junyali-raat-ma-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/junyali-raat-ma-pahadi-256k.mp3",
+      "artworkKey": "artwork/junyali-raat-ma-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/junyali-raat-ma-pahadi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4923692"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Kawta(256k).mp3",
+      "title": "Kawta",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "kawta-256k",
+      "audioKey": "audio/kawta-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/kawta-256k.mp3",
+      "artworkKey": "artwork/kawta-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/kawta-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2339372"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Kurti_Teri_Laal(256k).mp3",
+      "title": "Kurti Teri Laal",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "kurti-teri-laal-256k",
+      "audioKey": "audio/kurti-teri-laal-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/kurti-teri-laal-256k.mp3",
+      "artworkKey": "artwork/kurti-teri-laal-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/kurti-teri-laal-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4042028"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Laaga_Re(256k).mp3",
+      "title": "Laaga Re",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "laaga-re-256k",
+      "audioKey": "audio/laaga-re-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/laaga-re-256k.mp3",
+      "artworkKey": "artwork/laaga-re-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/laaga-re-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4379564"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Lal_Buta_Pichhodi___Feat._Anil_Kumar_Any,_Arti_Tamta______Feat._Anil_Kumar_Any,_Arti_Tamta___(256k).mp3",
+      "title": "Lal Buta Pichhodi",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "lal-buta-pichhodi-feat-anil-kumar-any-arti-tamta-feat-anil-kumar-any-arti-tamta-",
+      "audioKey": "audio/lal-buta-pichhodi-feat-anil-kumar-any-arti-tamta-feat-anil-kumar-any-arti-tamta-.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/lal-buta-pichhodi-feat-anil-kumar-any-arti-tamta-feat-anil-kumar-any-arti-tamta-.mp3",
+      "artworkKey": "artwork/lal-buta-pichhodi-feat-anil-kumar-any-arti-tamta-feat-anil-kumar-any-arti-tamta-.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/lal-buta-pichhodi-feat-anil-kumar-any-arti-tamta-feat-anil-kumar-any-arti-tamta-.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3147692"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1900"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Left_Right(256k).mp3",
+      "title": "Left Right",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "left-right-256k",
+      "audioKey": "audio/left-right-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/left-right-256k.mp3",
+      "artworkKey": "artwork/left-right-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/left-right-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4062380"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Lehenga_Jab_Pareli(256k).mp3",
+      "title": "Lehenga Jab Pareli",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "lehenga-jab-pareli-256k",
+      "audioKey": "audio/lehenga-jab-pareli-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/lehenga-jab-pareli-256k.mp3",
+      "artworkKey": "artwork/lehenga-jab-pareli-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/lehenga-jab-pareli-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4052780"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Maalka(256k).mp3",
+      "title": "Maalka",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "maalka-256k",
+      "audioKey": "audio/maalka-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/maalka-256k.mp3",
+      "artworkKey": "artwork/maalka-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/maalka-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/5589164"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Main_Tero_Fauji__Pahadi_(256k).mp3",
+      "title": "Main Tero Fauji",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "main-tero-fauji-pahadi-256k",
+      "audioKey": "audio/main-tero-fauji-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/main-tero-fauji-pahadi-256k.mp3",
+      "artworkKey": "artwork/main-tero-fauji-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/main-tero-fauji-pahadi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4411052"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Mathu_Mathu__Uttrakhandi_(256k).mp3",
+      "title": "Mathu Mathu",
+      "artistName": "Unknown Artist",
+      "region": "Garhwali",
+      "keySlug": "mathu-mathu-uttrakhandi-256k",
+      "audioKey": "audio/mathu-mathu-uttrakhandi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/mathu-mathu-uttrakhandi-256k.mp3",
+      "artworkKey": "artwork/mathu-mathu-uttrakhandi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/mathu-mathu-uttrakhandi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3515180"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Meri_Jogyani(256k).mp3",
+      "title": "Meri Jogyani",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "meri-jogyani-256k",
+      "audioKey": "audio/meri-jogyani-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/meri-jogyani-256k.mp3",
+      "artworkKey": "artwork/meri-jogyani-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/meri-jogyani-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4187180"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Mero_Lehenga_2(256k).mp3",
+      "title": "Mero Lehenga 2",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "mero-lehenga-2-256k",
+      "audioKey": "audio/mero-lehenga-2-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/mero-lehenga-2-256k.mp3",
+      "artworkKey": "artwork/mero-lehenga-2-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/mero-lehenga-2-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/5121452"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Modern_Kumaun__Pahadi_(256k).mp3",
+      "title": "Modern Kumaun",
+      "artistName": "Unknown Artist",
+      "region": "Kumaoni",
+      "keySlug": "modern-kumaun-pahadi-256k",
+      "audioKey": "audio/modern-kumaun-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/modern-kumaun-pahadi-256k.mp3",
+      "artworkKey": "artwork/modern-kumaun-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/modern-kumaun-pahadi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4120748"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Moriye_Jana(256k).mp3",
+      "title": "Moriye Jana",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "moriye-jana-256k",
+      "audioKey": "audio/moriye-jana-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/moriye-jana-256k.mp3",
+      "artworkKey": "artwork/moriye-jana-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/moriye-jana-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2859692"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Mukhudi_Be_Chunari(256k).mp3",
+      "title": "Mukhudi Be Chunari",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "mukhudi-be-chunari-256k",
+      "audioKey": "audio/mukhudi-be-chunari-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/mukhudi-be-chunari-256k.mp3",
+      "artworkKey": "artwork/mukhudi-be-chunari-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/mukhudi-be-chunari-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2865068"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Nathuli_Ki_Dor(256k).mp3",
+      "title": "Nathuli Ki Dor",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "nathuli-ki-dor-256k",
+      "audioKey": "audio/nathuli-ki-dor-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/nathuli-ki-dor-256k.mp3",
+      "artworkKey": "artwork/nathuli-ki-dor-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/nathuli-ki-dor-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3440684"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Nazar_Na_Lago__Pahadi_(256k).mp3",
+      "title": "Nazar Na Lago",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "nazar-na-lago-pahadi-256k",
+      "audioKey": "audio/nazar-na-lago-pahadi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/nazar-na-lago-pahadi-256k.mp3",
+      "artworkKey": "artwork/nazar-na-lago-pahadi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/nazar-na-lago-pahadi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4643372"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Nili_Chidiye_Ho(256k).mp3",
+      "title": "Nili Chidiye Ho",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "nili-chidiye-ho-256k",
+      "audioKey": "audio/nili-chidiye-ho-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/nili-chidiye-ho-256k.mp3",
+      "artworkKey": "artwork/nili-chidiye-ho-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/nili-chidiye-ho-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4917932"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\O_Ladi_Shanta(256k).mp3",
+      "title": "O Ladi Shanta",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "o-ladi-shanta-256k",
+      "audioKey": "audio/o-ladi-shanta-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/o-ladi-shanta-256k.mp3",
+      "artworkKey": "artwork/o-ladi-shanta-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/o-ladi-shanta-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3636140"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1899"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\O_Mamta(256k).mp3",
+      "title": "O Mamta",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "o-mamta-256k",
+      "audioKey": "audio/o-mamta-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/o-mamta-256k.mp3",
+      "artworkKey": "artwork/o-mamta-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/o-mamta-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/3676076"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Ori_Aaja_Tu(256k).mp3",
+      "title": "Ori Aaja Tu",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "ori-aaja-tu-256k",
+      "audioKey": "audio/ori-aaja-tu-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ori-aaja-tu-256k.mp3",
+      "artworkKey": "artwork/ori-aaja-tu-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ori-aaja-tu-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2671916"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pahado_Mai_Charcha(256k).mp3",
+      "title": "Pahado Mai Charcha",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "pahado-mai-charcha-256k",
+      "audioKey": "audio/pahado-mai-charcha-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pahado-mai-charcha-256k.mp3",
+      "artworkKey": "artwork/pahado-mai-charcha-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pahado-mai-charcha-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4121900"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pahado_Mein_Ghar(256k).mp3",
+      "title": "Pahado Mein Ghar",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "pahado-mein-ghar-256k",
+      "audioKey": "audio/pahado-mein-ghar-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pahado-mein-ghar-256k.mp3",
+      "artworkKey": "artwork/pahado-mein-ghar-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pahado-mein-ghar-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4557740"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pahadon_Ko_Raibasi(256k).mp3",
+      "title": "Pahadon Ko Raibasi",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "pahadon-ko-raibasi-256k",
+      "audioKey": "audio/pahadon-ko-raibasi-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pahadon-ko-raibasi-256k.mp3",
+      "artworkKey": "artwork/pahadon-ko-raibasi-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pahadon-ko-raibasi-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/6144428"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pahari_EDM(256k).mp3",
+      "title": "Pahari EDM",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "pahari-edm-256k",
+      "audioKey": "audio/pahari-edm-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pahari-edm-256k.mp3",
+      "artworkKey": "artwork/pahari-edm-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pahari-edm-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2853164"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1899"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Photo_Teri__Kumaoni_(256k).mp3",
+      "title": "Photo Teri",
+      "artistName": "Unknown Artist",
+      "region": "Kumaoni",
+      "keySlug": "photo-teri-kumaoni-256k",
+      "audioKey": "audio/photo-teri-kumaoni-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/photo-teri-kumaoni-256k.mp3",
+      "artworkKey": "artwork/photo-teri-kumaoni-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/photo-teri-kumaoni-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4361900"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Plazo(256k).mp3",
+      "title": "Plazo",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "plazo-256k",
+      "audioKey": "audio/plazo-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/plazo-256k.mp3",
+      "artworkKey": "artwork/plazo-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/plazo-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4586924"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pyari_Sanjana(256k).mp3",
+      "title": "Pyari Sanjana",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "pyari-sanjana-256k",
+      "audioKey": "audio/pyari-sanjana-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pyari-sanjana-256k.mp3",
+      "artworkKey": "artwork/pyari-sanjana-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pyari-sanjana-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4152620"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1902"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Pyari_Teri_Aakhti(256k).mp3",
+      "title": "Pyari Teri Aakhti",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "pyari-teri-aakhti-256k",
+      "audioKey": "audio/pyari-teri-aakhti-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/pyari-teri-aakhti-256k.mp3",
+      "artworkKey": "artwork/pyari-teri-aakhti-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/pyari-teri-aakhti-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2716844"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Ramadasiye(256k).mp3",
+      "title": "Ramadasiye",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "ramadasiye-256k",
+      "audioKey": "audio/ramadasiye-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ramadasiye-256k.mp3",
+      "artworkKey": "artwork/ramadasiye-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ramadasiye-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/5263148"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1900"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Rana_Bhaine___Sunil,_Prajul___र‌णा_भैणे___Latest_Pahari_Shivratri_Song_2020___Jagdish_Rajta,_Vijay_M(256k).mp3",
+      "title": "Rana Bhaine",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "rana-bhaine-sunil-prajul-latest-pahari-shivratri-song-2020-jagdish-rajta-vijay-m",
+      "audioKey": "audio/rana-bhaine-sunil-prajul-latest-pahari-shivratri-song-2020-jagdish-rajta-vijay-m.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/rana-bhaine-sunil-prajul-latest-pahari-shivratri-song-2020-jagdish-rajta-vijay-m.mp3",
+      "artworkKey": "artwork/rana-bhaine-sunil-prajul-latest-pahari-shivratri-song-2020-jagdish-rajta-vijay-m.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/rana-bhaine-sunil-prajul-latest-pahari-shivratri-song-2020-jagdish-rajta-vijay-m.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4501676"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1899"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Rangeeli_Pichhodi_Madhuli_Chholiya_Geet(256k).mp3",
+      "title": "Rangeeli Pichhodi Madhuli Chholiya Geet",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "rangeeli-pichhodi-madhuli-chholiya-geet-256k",
+      "audioKey": "audio/rangeeli-pichhodi-madhuli-chholiya-geet-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/rangeeli-pichhodi-madhuli-chholiya-geet-256k.mp3",
+      "artworkKey": "artwork/rangeeli-pichhodi-madhuli-chholiya-geet-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/rangeeli-pichhodi-madhuli-chholiya-geet-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4939820"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1898"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Ransi_Beera_Brahmkhada(256k).mp3",
+      "title": "Ransi Beera Brahmkhada",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "ransi-beera-brahmkhada-256k",
+      "audioKey": "audio/ransi-beera-brahmkhada-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/ransi-beera-brahmkhada-256k.mp3",
+      "artworkKey": "artwork/ransi-beera-brahmkhada-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/ransi-beera-brahmkhada-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/8080172"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Saajna(256k).mp3",
+      "title": "Saajna",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "saajna-256k",
+      "audioKey": "audio/saajna-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/saajna-256k.mp3",
+      "artworkKey": "artwork/saajna-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/saajna-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4039340"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1898"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Sawri_Sawri_Meri_Madhuri(256k).mp3",
+      "title": "Sawri Sawri Meri Madhuri",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "sawri-sawri-meri-madhuri-256k",
+      "audioKey": "audio/sawri-sawri-meri-madhuri-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/sawri-sawri-meri-madhuri-256k.mp3",
+      "artworkKey": "artwork/sawri-sawri-meri-madhuri-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/sawri-sawri-meri-madhuri-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4102316"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Selfie(256k).mp3",
+      "title": "Selfie",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "selfie-256k",
+      "audioKey": "audio/selfie-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/selfie-256k.mp3",
+      "artworkKey": "artwork/selfie-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/selfie-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4532396"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Shiv_Bhramkhada_By_Dikshu_Sharma___Pahari_Nati_2022___Shivratri_Special(256k).mp3",
+      "title": "Shiv Bhramkhada By Dikshu Sharma",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "shiv-bhramkhada-by-dikshu-sharma-pahari-nati-2022-shivratri-special-256k",
+      "audioKey": "audio/shiv-bhramkhada-by-dikshu-sharma-pahari-nati-2022-shivratri-special-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/shiv-bhramkhada-by-dikshu-sharma-pahari-nati-2022-shivratri-special-256k.mp3",
+      "artworkKey": "artwork/shiv-bhramkhada-by-dikshu-sharma-pahari-nati-2022-shivratri-special-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/shiv-bhramkhada-by-dikshu-sharma-pahari-nati-2022-shivratri-special-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/11180588"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Shiv_Vivah___BHRAMAKHADA_SHIVRATRI__Best_of_Arun_Justa___Himachali_Zitto_Music_Originals(256k).mp3",
+      "title": "Shiv Vivah",
+      "artistName": "Unknown Artist",
+      "region": "Himachali",
+      "keySlug": "shiv-vivah-bhramakhada-shivratri-best-of-arun-justa-himachali-zitto-music-origin",
+      "audioKey": "audio/shiv-vivah-bhramakhada-shivratri-best-of-arun-justa-himachali-zitto-music-origin.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/shiv-vivah-bhramakhada-shivratri-best-of-arun-justa-himachali-zitto-music-origin.mp3",
+      "artworkKey": "artwork/shiv-vivah-bhramakhada-shivratri-best-of-arun-justa-himachali-zitto-music-origin.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/shiv-vivah-bhramakhada-shivratri-best-of-arun-justa-himachali-zitto-music-origin.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/10822700"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Tera_Se_Banki_Shori(256k).mp3",
+      "title": "Tera Se Banki Shori",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "tera-se-banki-shori-256k",
+      "audioKey": "audio/tera-se-banki-shori-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/tera-se-banki-shori-256k.mp3",
+      "artworkKey": "artwork/tera-se-banki-shori-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/tera-se-banki-shori-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/2364332"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Tu_Lagi_Re_Chhe_Swana(256k).mp3",
+      "title": "Tu Lagi Re Chhe Swana",
+      "artistName": "Unknown Artist",
+      "region": "Pahadi",
+      "keySlug": "tu-lagi-re-chhe-swana-256k",
+      "audioKey": "audio/tu-lagi-re-chhe-swana-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/tu-lagi-re-chhe-swana-256k.mp3",
+      "artworkKey": "artwork/tu-lagi-re-chhe-swana-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/tu-lagi-re-chhe-swana-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4492844"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
+      }
+    },
+    {
+      "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\Tufan_Nonstop_Harul(256k).mp3",
+      "title": "Tufan Nonstop Harul",
+      "artistName": "Unknown Artist",
+      "region": "Jaunsari",
+      "keySlug": "tufan-nonstop-harul-256k",
+      "audioKey": "audio/tufan-nonstop-harul-256k.mp3",
+      "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/tufan-nonstop-harul-256k.mp3",
+      "artworkKey": "artwork/tufan-nonstop-harul-256k.png",
+      "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/tufan-nonstop-harul-256k.png",
+      "audioAction": "uploaded",
+      "audioVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "audio/mpeg",
+        "contentLength": "bytes 0-0/4800812"
+      },
+      "artworkVerify": {
+        "ok": true,
+        "status": 206,
+        "contentType": "image/png",
+        "contentLength": "bytes 0-0/1901"
       }
     }
   ]

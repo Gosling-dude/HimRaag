@@ -197,6 +197,34 @@ class FirebaseSongDatasource {
             .toList());
   }
 
+  /// Consumer-facing paginated feed of every approved song, ordered by
+  /// `titleLowercase` (A→Z). Cursor-based pagination ([startAfterTitle]) keeps
+  /// reads O(page) regardless of catalog size — no full-collection scans — so
+  /// the "All Songs" screen scales to 100k+ tracks. Requires the composite
+  /// index (isApproved ASC, titleLowercase ASC) declared in
+  /// `firestore.indexes.json`.
+  Future<List<Song>> getApprovedSongsPage({
+    int limit = 50,
+    String? startAfterTitle,
+  }) async {
+    try {
+      Query<Map<String, dynamic>> q = _songs
+          .where(FirebaseConstants.songsIsApprovedField, isEqualTo: true)
+          .orderBy('titleLowercase')
+          .limit(limit);
+      if (startAfterTitle != null && startAfterTitle.isNotEmpty) {
+        q = q.startAfter([startAfterTitle.toLowerCase()]);
+      }
+      final snapshot = await q.get();
+      return snapshot.docs
+          .map((doc) => SongDto.fromFirestore(doc).toDomain())
+          .toList();
+    } catch (e, st) {
+      debugPrint('[FIRESTORE] getApprovedSongsPage ERROR: $e\n$st');
+      rethrow;
+    }
+  }
+
   // ── Admin / content-management operations ────────────────────────────────
   // These are used by the Flutter Web admin dashboard. Reads are unfiltered
   // (no isApproved gate) so moderators can see pending/rejected/demo content.

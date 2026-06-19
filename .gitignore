@@ -58,3 +58,7 @@ scripts/node_modules/
 # bundled, app-shipped copies live under assets/audio/ (which IS tracked).
 # Re-import any time with: node scripts/seed_imported.js "<folder>"
 music/
+
+# local import working backups (not committed)
+.import_backup/
+scripts/baseline_counts.js

@@ -15,11 +15,16 @@ void main() {
   test('bundled catalog loads the imported songs at runtime', () async {
     final songs = await ds.songs();
     expect(songs, isNotEmpty);
-    expect(songs.length, 19);
+    // Original 19 imported songs + 68 newly imported Pahadi songs = 87.
+    expect(songs.length, 87);
     final titles = songs.map((s) => s.title).toList();
+    // Original batch still present (merge is additive).
     expect(titles.any((t) => t.contains('AANKHI MICHOLI')), isTrue);
     expect(titles.any((t) => t.contains('Main Pahadan')), isTrue);
     expect(titles.any((t) => t.contains('Baadri')), isTrue);
+    // New batch present.
+    expect(titles.any((t) => t.contains('Baleno')), isTrue);
+    expect(titles.any((t) => t.contains('Dhol Damau')), isTrue);
   });
 
   test('imported songs are searchable by name', () async {

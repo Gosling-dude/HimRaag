@@ -316,6 +316,38 @@ class _BrowseView extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverPadding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          sliver: SliverToBoxAdapter(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () => context.push('/all-songs'),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.cardDark,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.dividerDark),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.library_music_rounded,
+                        color: AppColors.accent),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Text('All Songs',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 15)),
+                    ),
+                    Icon(Icons.chevron_right_rounded,
+                        color: AppColors.textSecondaryDark),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        SliverPadding(
           padding: const EdgeInsets.all(16),
           sliver: SliverToBoxAdapter(
             child: Text('Browse by Region',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/download_service.dart';
@@ -50,12 +51,29 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          _DownloadsTab(),
-          _FavoritesTab(),
-          _RecentTab(),
+      body: Column(
+        children: [
+          ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: AppColors.primary,
+              child: Icon(Icons.library_music_rounded, color: Colors.white),
+            ),
+            title: const Text('All Songs'),
+            subtitle: const Text('Every song · search, filter & play all'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/all-songs'),
+          ),
+          const Divider(height: 1),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: const [
+                _DownloadsTab(),
+                _FavoritesTab(),
+                _RecentTab(),
+              ],
+            ),
+          ),
         ],
       ),
     );

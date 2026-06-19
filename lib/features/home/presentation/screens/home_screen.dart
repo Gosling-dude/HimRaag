@@ -43,6 +43,7 @@ class HomeScreen extends ConsumerWidget {
           slivers: [
             _HomeAppBar(userName: user?.displayLabel),
             const _FeaturedSection(),
+            const _AllSongsEntry(),
             const _RegionPicker(),
             if (selectedRegion != 'All')
               _RegionSongsSection(region: selectedRegion)
@@ -136,6 +137,63 @@ class _FeaturedSection extends ConsumerWidget {
         },
         loading: () => const ShimmerBanner(),
         error: (e, _) => const SizedBox.shrink(),
+      ),
+    );
+  }
+}
+
+/// Prominent entry to the full "All Songs" library (every approved track,
+/// with search, filters and Play/Shuffle/Repeat All).
+class _AllSongsEntry extends StatelessWidget {
+  const _AllSongsEntry();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: () => context.push('/all-songs'),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.primary, AppColors.accent],
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.library_music_rounded, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'All Songs',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        'Browse, search & play the whole catalog',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.85),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.chevron_right_rounded, color: Colors.white),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

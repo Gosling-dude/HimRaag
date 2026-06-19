@@ -87,6 +87,15 @@ async function main() {
   const catArtist = new Map((catalog.artists || []).map((a) => [a.id, a]));
   const catAlbum = new Map((catalog.albums || []).map((a) => [a.id, a]));
 
+  // Optional id-scope (additive imports): when HIMRAAG_ART_SONG_IDS is set, only
+  // (re)fetch art for those song ids and SKIP artist/album art entirely, so the
+  // existing curated covers of the original catalog are never overwritten.
+  const SCOPE = (process.env.HIMRAAG_ART_SONG_IDS || '')
+    .split(',').map((x) => x.trim()).filter(Boolean);
+  const scoped = SCOPE.length > 0;
+  const inScope = (id) => !scoped || SCOPE.includes(id);
+  if (scoped) process.stdout.write(`Scoped art run: ${SCOPE.length} new song ids; artist/album art preserved.\n`);
+
   // ── Region photo pool (one network pass) ─────────────────────────────────────
   const songSnap = await db.collection('songs').get();
   const regionsPresent = [...new Set(songSnap.docs.map((d) => regionKey(d.data().region)))];
@@ -101,6 +110,7 @@ async function main() {
   // ── Songs ────────────────────────────────────────────────────────────────────
   let sBatch = db.batch(), sPending = 0;
   for (const doc of songSnap.docs) {
+    if (!inScope(doc.id)) continue;
     const s = doc.data();
     const slug = s.slug || slugify(s.title);
     let chosen = null; // { url, source, detail }
@@ -151,6 +161,7 @@ async function main() {
   const artistSnap = await db.collection('artists').get();
   let aBatch = db.batch(), aPending = 0;
   for (const doc of artistSnap.docs) {
+    if (scoped) break; // preserve existing curated artist art in scoped imports
     const a = doc.data();
     const slug = a.slug || slugify(a.name);
     let url = '', source = 'Placeholder', detail = 'No real photo → clean placeholder avatar (no AI face)';
@@ -179,6 +190,7 @@ async function main() {
   const albumSnap = await db.collection('albums').get();
   let alBatch = db.batch(), alPending = 0;
   for (const doc of albumSnap.docs) {
+    if (scoped) break; // preserve existing curated album art in scoped imports
     const a = doc.data();
     let url = albumCoverFromSong.get(doc.id) || '';
     let source = url ? 'Actual artwork (from single)' : 'Placeholder';

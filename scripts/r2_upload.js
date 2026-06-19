@@ -53,7 +53,22 @@ class R2UploadService {
     return `${this.cfg.publicUrl}/${key}`;
   }
 
-  async put(key, body, contentType) {
+  async put(key, body, contentType, attempt = 0) {
+    try {
+      await this._put(key, body, contentType);
+    } catch (e) {
+      if (attempt < 4) {
+        const wait = 1000 * (attempt + 1);
+        process.stdout.write(`  … retry put ${key} (${e.name || e.message}) in ${wait}ms\n`);
+        await new Promise((r) => setTimeout(r, wait));
+        return this.put(key, body, contentType, attempt + 1);
+      }
+      throw e;
+    }
+    return this.publicUrl(key);
+  }
+
+  async _put(key, body, contentType) {
     await this.client.send(
       new PutObjectCommand({
         Bucket: this.cfg.bucket,
@@ -141,8 +156,18 @@ class BulkImportPipeline {
 
       if (!verifyOnly) {
         const buf = fs.readFileSync(t.sourceFile);
-        process.stdout.write(`  ↑ audio   ${audioKey} (${(buf.length / 1048576).toFixed(2)} MB)\n`);
-        await this.r2.put(audioKey, buf, 'audio/mpeg');
+        // Checksum/size-based dedup: skip re-uploading an object already present
+        // in R2 with the same byte size (idempotent resume; never re-uploads
+        // files already present, per the import contract).
+        const existing = await this.r2.head(audioKey);
+        if (existing.ok && existing.size === buf.length) {
+          rec.audioAction = 'skipped';
+          process.stdout.write(`  = skip    ${audioKey} (present, ${(buf.length / 1048576).toFixed(2)} MB)\n`);
+        } else {
+          process.stdout.write(`  ↑ audio   ${audioKey} (${(buf.length / 1048576).toFixed(2)} MB)\n`);
+          await this.r2.put(audioKey, buf, 'audio/mpeg');
+          rec.audioAction = 'uploaded';
+        }
 
         const a = await this.art.upload('artwork', keySlug, t.id || keySlug, t.region);
         process.stdout.write(`  ↑ artwork ${a.key} (${a.bytes} B)\n`);
