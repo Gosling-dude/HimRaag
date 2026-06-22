@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:just_audio_platform_interface/just_audio_platform_interface.dart';
 
 import 'core/constants/app_constants.dart';
 import 'core/router/app_router.dart';
@@ -36,6 +37,17 @@ Future<void> main() async {
   // Wrapped in try/catch + timeout: on some physical devices the AudioService
   // foreground-service binding never resolves, which would block runApp() and
   // keep the Android launch screen visible forever.
+  //
+  // CRITICAL: JustAudioBackground.init() swaps the global JustAudioPlatform.
+  // instance to its background plugin *synchronously*, then awaits
+  // AudioService.init(). If that await hangs (the foreground-service binding
+  // never resolves) our timeout aborts it — but the broken background plugin is
+  // left installed with its internal `_audioHandler` never assigned. Every
+  // AudioPlayer created afterwards then throws LateInitializationError on the
+  // first setAudioSource(), so playback silently dies and the duration stays at
+  // 00:00. To stay playable, we capture the default (plain) platform first and
+  // restore it on failure — the app loses lock-screen controls but audio works.
+  final JustAudioPlatform defaultAudioPlatform = JustAudioPlatform.instance;
   debugPrint('[APP] AUDIO_BG_INIT_START');
   try {
     await JustAudioBackground.init(
@@ -47,8 +59,10 @@ Future<void> main() async {
     ).timeout(const Duration(seconds: 5));
     debugPrint('[APP] AUDIO_BG_INIT_SUCCESS');
   } catch (e) {
-    // Non-fatal: app runs without lock-screen controls when this fails.
-    debugPrint('[APP] AUDIO_BG_INIT_FAILED (continuing without it): $e');
+    // Restore the plain just_audio platform so foreground playback keeps
+    // working; we just lose background/lock-screen media controls.
+    JustAudioPlatform.instance = defaultAudioPlatform;
+    debugPrint('[APP] AUDIO_BG_INIT_FAILED — restored default platform: $e');
   }
 
   // ── Local storage ─────────────────────────────────────────────────────────

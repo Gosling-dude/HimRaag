@@ -1,8 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../providers/player_providers.dart';
 
 class QueueView extends ConsumerWidget {
@@ -67,22 +68,11 @@ class QueueView extends ConsumerWidget {
                           return ListTile(
                             leading: Stack(
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(6),
-                                  child: CachedNetworkImage(
-                                    imageUrl: song.artworkUrl,
-                                    width: 44,
-                                    height: 44,
-                                    fit: BoxFit.cover,
-                                    errorWidget: (_, __, ___) => Container(
-                                      width: 44,
-                                      height: 44,
-                                      color: AppColors.primary
-                                          .withValues(alpha: 0.3),
-                                      child: const Icon(Icons.music_note,
-                                          color: AppColors.primary, size: 22),
-                                    ),
-                                  ),
+                                AppArtwork(
+                                  url: song.artworkUrl,
+                                  size: 44,
+                                  radius: 6,
+                                  label: song.title,
                                 ),
                                 if (isCurrent)
                                   Positioned.fill(
@@ -115,7 +105,7 @@ class QueueView extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             subtitle: Text(
-                              song.artistName,
+                              song.displayArtist,
                               style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.5),
                                   fontSize: 12),

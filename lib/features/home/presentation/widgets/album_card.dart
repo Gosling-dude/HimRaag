@@ -1,8 +1,9 @@
-﻿import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_artwork.dart';
 import '../../../../domain/models/album.dart';
 
 class AlbumCard extends StatelessWidget {
@@ -19,33 +20,40 @@ class AlbumCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl: album.artworkUrl,
-                width: 140,
-                height: 140,
-                fit: BoxFit.cover,
-                errorWidget: (_, __, ___) => Container(
-                  width: 140,
-                  height: 140,
-                  color: AppColors.primary.withValues(alpha: 0.3),
-                  child: const Icon(Icons.album_rounded,
-                      color: AppColors.primary, size: 48),
-                ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.35),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: AppArtwork(
+                url: album.artworkUrl,
+                size: 140,
+                radius: 12,
+                label: album.displayTitle,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              album.title,
-              style: Theme.of(context).textTheme.titleSmall,
+              album.displayTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
-              '${album.artistName} • ${album.releaseYear}',
-              style: Theme.of(context).textTheme.bodySmall,
+              '${album.displayArtist} • ${album.releaseYear}',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.textSecondaryDark,
+                  ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

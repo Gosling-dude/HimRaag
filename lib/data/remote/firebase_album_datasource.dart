@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../core/constants/content_constants.dart';
 import '../../core/constants/firebase_constants.dart';
 import '../../domain/models/album.dart';
 import 'dto/album_dto.dart';
@@ -79,5 +80,36 @@ class FirebaseAlbumDatasource {
       debugPrint('[FIRESTORE] getAlbumsByRegion ERROR: $e\n$st');
       rethrow;
     }
+  }
+
+  // ── Admin / content-management operations ────────────────────────────────
+
+  Future<List<Album>> getAllAlbumsForAdmin({int limit = 200}) async {
+    final snapshot =
+        await _albums.orderBy('titleLowercase').limit(limit).get();
+    return snapshot.docs
+        .map((doc) => AlbumDto.fromFirestore(doc).toDomain())
+        .toList();
+  }
+
+  Future<void> upsertAlbum(Album album) async {
+    final dto = AlbumDto.fromDomain(album);
+    await _albums.doc(album.id).set(
+      {...dto.toFirestore(), 'updatedAt': FieldValue.serverTimestamp()},
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> setApprovalStatus(String albumId, ApprovalStatus status) async {
+    await _albums.doc(albumId).update({
+      'approvalStatus': status.wire,
+      'isApproved': status.isApproved,
+      'isPublished': status.isApproved,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> deleteAlbum(String albumId) async {
+    await _albums.doc(albumId).delete();
   }
 }

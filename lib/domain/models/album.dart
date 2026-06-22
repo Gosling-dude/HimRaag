@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../core/constants/content_constants.dart';
+
 class Album extends Equatable {
   const Album({
     required this.id,
@@ -16,6 +18,12 @@ class Album extends Equatable {
     this.description,
     this.tags = const [],
     this.isApproved = true,
+    this.slug = '',
+    this.license = LicenseType.demoOnly,
+    this.attribution = '',
+    this.approvalStatus = ApprovalStatus.pending,
+    this.isPublished = false,
+    this.rightsCleared = false,
   });
 
   final String id;
@@ -33,6 +41,14 @@ class Album extends Equatable {
   final List<String> tags;
   final bool isApproved;
 
+  // ── Content-system metadata ──────────────────────────────────────────────
+  final String slug;
+  final LicenseType license;
+  final String attribution;
+  final ApprovalStatus approvalStatus;
+  final bool isPublished;
+  final bool rightsCleared;
+
   Album copyWith({
     String? id,
     String? title,
@@ -48,6 +64,12 @@ class Album extends Equatable {
     String? description,
     List<String>? tags,
     bool? isApproved,
+    String? slug,
+    LicenseType? license,
+    String? attribution,
+    ApprovalStatus? approvalStatus,
+    bool? isPublished,
+    bool? rightsCleared,
   }) {
     return Album(
       id: id ?? this.id,
@@ -64,6 +86,12 @@ class Album extends Equatable {
       description: description ?? this.description,
       tags: tags ?? this.tags,
       isApproved: isApproved ?? this.isApproved,
+      slug: slug ?? this.slug,
+      license: license ?? this.license,
+      attribution: attribution ?? this.attribution,
+      approvalStatus: approvalStatus ?? this.approvalStatus,
+      isPublished: isPublished ?? this.isPublished,
+      rightsCleared: rightsCleared ?? this.rightsCleared,
     );
   }
 
@@ -83,5 +111,11 @@ class Album extends Equatable {
         description,
         tags,
         isApproved,
+        slug,
+        license,
+        attribution,
+        approvalStatus,
+        isPublished,
+        rightsCleared,
       ];
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
@@ -55,6 +56,8 @@ class AlbumDetailScreen extends ConsumerWidget {
                       CachedNetworkImage(
                         imageUrl: album.artworkUrl,
                         fit: BoxFit.cover,
+                        placeholder: (_, __) =>
+                            Container(color: AppColors.surfaceDark),
                         errorWidget: (_, __, ___) => Container(
                             color: AppColors.primary.withValues(alpha: 0.3)),
                       ),
@@ -75,7 +78,7 @@ class AlbumDetailScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              album.title,
+                              album.displayTitle,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -87,14 +90,14 @@ class AlbumDetailScreen extends ConsumerWidget {
                               onTap: () =>
                                   context.push('/artist/${album.artistId}'),
                               child: Text(
-                                album.artistName,
+                                album.displayArtist,
                                 style: const TextStyle(
                                     color: AppColors.accent, fontSize: 15),
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '${album.region} • ${album.releaseYear} • ${album.songCount} songs',
+                              '${album.displayRegion} • ${album.releaseYear} • ${album.songCount} songs',
                               style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.7),
                                   fontSize: 13),

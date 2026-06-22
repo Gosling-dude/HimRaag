@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/providers/player_providers.dart';
@@ -96,6 +97,7 @@ class _BannerItem extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: song.artworkUrl,
               fit: BoxFit.cover,
+              placeholder: (_, __) => Container(color: AppColors.surfaceDark),
               errorWidget: (_, __, ___) =>
                   Container(color: AppColors.primary.withValues(alpha: 0.3)),
             ),
@@ -126,7 +128,7 @@ class _BannerItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      song.region,
+                      song.displayRegion,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 10,
@@ -146,7 +148,7 @@ class _BannerItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    song.artistName,
+                    song.displayArtist,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 13,

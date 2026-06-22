@@ -1,5 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/models/song.dart';
@@ -7,7 +8,24 @@ import '../../domain/models/song.dart';
 enum RepeatMode { off, one, all }
 
 class AudioPlayerService {
-  AudioPlayerService() : _player = AudioPlayer();
+  AudioPlayerService() : _player = AudioPlayer() {
+    // Surface engine-level state + errors. Without this, a failed load (e.g. a
+    // broken audio platform or an unreachable URL) is invisible: the future
+    // throws into a fire-and-forget call site and is swallowed.
+    _player.playerStateStream.listen(
+      (state) => debugPrint(
+        '[AUDIO] PLAYER_STATE processing=${state.processingState} '
+        'playing=${state.playing}',
+      ),
+      onError: (Object e, StackTrace st) =>
+          debugPrint('[AUDIO] PLAYBACK_ERROR (stateStream): $e\n$st'),
+    );
+    _player.playbackEventStream.listen(
+      (_) {},
+      onError: (Object e, StackTrace st) =>
+          debugPrint('[AUDIO] PLAYBACK_ERROR (eventStream): $e\n$st'),
+    );
+  }
 
   final AudioPlayer _player;
 
@@ -28,16 +46,37 @@ class AudioPlayerService {
     final songs = queue ?? [song];
     final index = queueIndex ?? 0;
 
-    final playlist = ConcatenatingAudioSource(
-      children: songs.map((s) => _buildAudioSource(s)).toList(),
+    debugPrint(
+      '[AUDIO] PLAY_REQUEST id=${song.id} title="${song.title}" '
+      'queueLength=${songs.length} index=$index',
     );
+    debugPrint('[AUDIO] AUDIO_URL ${song.isDownloaded ? song.localPath : song.audioUrl}');
 
-    await _player.setAudioSource(
-      playlist,
-      initialIndex: index,
-      preload: false,
-    );
-    await _player.play();
+    if (!song.isDownloaded &&
+        (song.audioUrl.isEmpty || Uri.tryParse(song.audioUrl) == null)) {
+      debugPrint('[AUDIO] PLAYBACK_ERROR invalid/empty audioUrl: "${song.audioUrl}"');
+      return;
+    }
+
+    try {
+      final playlist = ConcatenatingAudioSource(
+        children: songs.map((s) => _buildAudioSource(s)).toList(),
+      );
+
+      debugPrint('[AUDIO] SET_AUDIO_SOURCE initialIndex=$index');
+      // A broken audio platform makes setAudioSource hang forever (no error,
+      // no duration). Time-box it so the failure becomes a visible error
+      // instead of a silent freeze.
+      final duration = await _player
+          .setAudioSource(playlist, initialIndex: index, preload: true)
+          .timeout(const Duration(seconds: 20));
+      debugPrint('[AUDIO] SONG_LOADED duration=$duration');
+
+      await _player.play();
+    } catch (e, st) {
+      debugPrint('[AUDIO] PLAYBACK_ERROR playSong failed: $e\n$st');
+      rethrow;
+    }
   }
 
   Future<void> playFromQueue(int index) async {
