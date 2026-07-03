@@ -29,6 +29,12 @@ const fs = require('fs');
 const path = require('path');
 const { slugify, songId, artistId, albumId } = require('./lib/validator');
 const { NEEDS_REVIEW, REGIONS, LANGUAGES, GENRES } = require('./lib/constants');
+const {
+  matchKnownArtist,
+  extractArtistName,
+  regionFromKeywords,
+  LANGUAGE_FOR_REGION,
+} = require('./lib/pahadi_artists');
 
 const repoRoot = path.dirname(__dirname);
 const SCAN = path.join(__dirname, 'seed_data', 'scan_result.json');
@@ -174,12 +180,15 @@ function cleanTitle(filename) {
   // The display title is the FIRST segment before a multi-delimiter break.
   let base = filename.replace(/\.[^.]+$/, '');
   base = base.replace(/\(?\d{2,3}k\)?/gi, ' '); // strip "(256k)"
+  base = base.replace(/\(\d+\)/g, ' '); // strip trailing copy markers "(0)" "(1)"
   // Split on runs of underscores/dashes that act as section separators.
   let head = base.split(/_{2,}|\s-\s|__+/)[0];
   head = head.replace(/[_]+/g, ' ');
-  // Drop devanagari duplicate (e.g. "Main Pahadan मैं पहाड़न" keeps roman).
-  head = head.replace(/[ऀ-ॿ]+/g, ' ');
-  head = head.replace(/[#🚘]+/g, ' ');
+  // Drop devanagari duplicate (e.g. "Main Pahadan मैं पहाड़न" keeps roman) —
+  // unless the segment is Devanagari-only, in which case keep it as the title.
+  const noDev = head.replace(/[ऀ-ॿ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (/[A-Za-z]{3,}/.test(noDev)) head = noDev;
+  head = head.replace(/[#🚘✅❤!]+/g, ' ');
   // Remove trailing noise words.
   let words = head.split(/\s+/).filter(Boolean);
   while (words.length > 1 && NOISE.includes(words[words.length - 1].toLowerCase())) {
@@ -207,25 +216,46 @@ function enrichOne(r) {
   fields.title = { value: title, source: r.title ? 'embedded' : 'filename', conf: r.title ? 1 : 0.9 };
 
   // ── Artist ─────────────────────────────────────────────────────────────
-  let artist = r.artist || cur.artist || null;
-  let aSrc = r.artist ? 'embedded' : (cur.artist ? (cur.aSrc || 'filename') : 'placeholder');
-  let aConf = r.artist ? 1 : (cur.artist ? (cur.aSrc === 'web' ? 0.8 : 0.9) : 0);
+  // embedded tag > curated map > known-artist dictionary > surname-pattern
+  // extraction from the filename > placeholder.
+  const knownA = matchKnownArtist(hay);
+  const extractedA = extractArtistName(hay);
+  let artist = r.artist || cur.artist || (knownA && knownA.name) || extractedA || null;
+  let aSrc = r.artist ? 'embedded'
+    : cur.artist ? (cur.aSrc || 'filename')
+    : knownA ? 'web'
+    : extractedA ? 'filename'
+    : 'placeholder';
+  let aConf = r.artist ? 1
+    : cur.artist ? (cur.aSrc === 'web' ? 0.8 : 0.9)
+    : knownA ? 0.85
+    : extractedA ? 0.75
+    : 0;
   if (!artist) { artist = PLACEHOLDER_ARTIST; }
   fields.artist = { value: artist, source: aSrc, conf: aConf };
 
   // ── Region ─────────────────────────────────────────────────────────────
-  let region = cur.region || detect(REGION_KEYWORDS, hay) || detect(PLACE_HINTS, hay);
+  // explicit keyword (Latin/Devanagari) > curated > known-artist region >
+  // place hints > Needs Review (admin queue — never dumped into "Pahadi").
+  const kwRegion = regionFromKeywords(hay);
+  let region = cur.region || kwRegion || (knownA && knownA.region) || detect(PLACE_HINTS, hay);
   let rSrc = cur.region ? (cur.rSrc || 'filename')
-    : (detect(REGION_KEYWORDS, hay) ? 'filename' : (detect(PLACE_HINTS, hay) ? 'web' : 'placeholder'));
-  let rConf = region ? (rSrc === 'web' ? 0.7 : 0.9) : 0;
+    : kwRegion ? 'filename'
+    : knownA ? 'web'
+    : detect(PLACE_HINTS, hay) ? 'web'
+    : 'placeholder';
+  let rConf = region ? (rSrc === 'web' ? 0.8 : 0.9) : 0;
   if (!region) { region = NEEDS_REVIEW; }
   fields.region = { value: region, source: rSrc, conf: rConf };
 
   // ── Language ───────────────────────────────────────────────────────────
-  let language = cur.language || detect(REGION_KEYWORDS, hay);
-  let lSrc = cur.language ? (cur.lSrc || 'filename') : (detect(REGION_KEYWORDS, hay) ? 'filename' : 'placeholder');
-  // Himachali region default language → Pahadi unless an explicit dialect named.
-  let lConf = language ? (lSrc === 'web' ? 0.7 : 0.9) : 0;
+  // Follows the resolved region's language when no explicit dialect token.
+  let language = cur.language || kwRegion || LANGUAGE_FOR_REGION[region] || null;
+  let lSrc = cur.language ? (cur.lSrc || 'filename')
+    : kwRegion ? 'filename'
+    : LANGUAGE_FOR_REGION[region] ? rSrc
+    : 'placeholder';
+  let lConf = language ? (lSrc === 'web' ? 0.8 : 0.9) : 0;
   if (!language) { language = NEEDS_REVIEW; }
   fields.language = { value: language, source: lSrc, conf: lConf };
 

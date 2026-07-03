@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/onboarding_screen.dart';
+import '../../features/auth/presentation/screens/preferences_screen.dart';
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
 import '../../domain/models/app_user.dart';
 import '../../features/auth/providers/auth_providers.dart';
+import '../../features/auth/providers/user_profile_providers.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/library/presentation/screens/library_screen.dart';
 import '../../features/songs/presentation/screens/all_songs_screen.dart';
@@ -33,13 +35,22 @@ class _RouterNotifier extends ChangeNotifier {
         notifyListeners();
       },
     );
+    // Re-evaluate routing when first-run onboarding completes.
+    _ref.listen<bool>(onboardingCompletedProvider, (_, __) => notifyListeners());
   }
 
   final Ref _ref;
 
+  static const _authRoutes = {'/onboarding', '/sign-in', '/preferences'};
+
   String? redirect(BuildContext context, GoRouterState state) {
-    // Guest mode: no forced sign-in. All routes are reachable anonymously.
-    // Add redirect logic here when sign-in becomes required.
+    // First-run gate: a brand-new user must pass through onboarding →
+    // sign-in/guest → preferences before reaching the app. Once onboarding is
+    // complete, sign-in stays optional (guest mode is always available) and all
+    // routes are reachable.
+    final completed = _ref.read(onboardingCompletedProvider);
+    final loc = state.matchedLocation;
+    if (!completed && !_authRoutes.contains(loc)) return '/onboarding';
     return null;
   }
 }
@@ -61,6 +72,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/sign-in',
         builder: (context, state) => const SignInScreen(),
+      ),
+      GoRoute(
+        path: '/preferences',
+        builder: (context, state) => PreferencesScreen(
+          fromSettings: state.uri.queryParameters['from'] == 'settings',
+        ),
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,

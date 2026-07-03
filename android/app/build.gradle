@@ -35,7 +35,8 @@ android {
     defaultConfig {
         applicationId "com.himraag.app"
         minSdk 24
-        targetSdk 34
+        // Google Play requires new apps to target API 35+ (since Aug 2025).
+        targetSdk 35
         versionCode flutter.versionCode
         versionName flutter.versionName
     }

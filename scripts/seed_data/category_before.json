@@ -1,0 +1,26 @@
+{
+  "snapshotAt": "2026-07-03T22:00:00Z",
+  "all": {
+    "Garhwali": 47,
+    "Kumaoni": 28,
+    "Jaunsari": 5,
+    "Himachali": 78,
+    "Needs Review": 169,
+    "Kinnauri": 1
+  },
+  "visible": {
+    "Kumaoni": 5,
+    "Himachali": 70,
+    "Garhwali": 3,
+    "Jaunsari": 2,
+    "Kinnauri": 1
+  },
+  "local": {
+    "Himachali": 80,
+    "Kinnauri": 1,
+    "Jaunsari": 4,
+    "Kumaoni": 25,
+    "Garhwali": 39,
+    "Pahadi": 169
+  }
+}

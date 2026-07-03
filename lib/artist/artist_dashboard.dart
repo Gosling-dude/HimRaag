@@ -528,7 +528,7 @@ class _SubmissionDialogState extends ConsumerState<_SubmissionDialog> {
   Widget _dd(String label, String value, List<String> items,
       ValueChanged<String> onChanged) {
     return DropdownButtonFormField<String>(
-      value: items.contains(value) ? value : items.first,
+      initialValue: items.contains(value) ? value : items.first,
       isExpanded: true,
       decoration: InputDecoration(labelText: label, isDense: true),
       items: items.map((i) => DropdownMenuItem(value: i, child: Text(i))).toList(),

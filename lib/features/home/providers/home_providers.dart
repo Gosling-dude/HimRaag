@@ -12,6 +12,7 @@ import '../../../data/remote/firebase_song_datasource.dart';
 import '../../../domain/models/album.dart';
 import '../../../domain/models/artist.dart';
 import '../../../domain/models/song.dart';
+import '../../auth/providers/user_profile_providers.dart';
 import '../../library/providers/library_providers.dart';
 
 /// Union of [local] (imported) + [remote] (Firestore) items, de-duplicated by
@@ -157,3 +158,59 @@ final favoriteSongsProvider = FutureProvider<List<Song>>((ref) async {
 });
 
 final selectedRegionProvider = StateProvider<String>((ref) => 'All');
+
+// ─── Personalization ─────────────────────────────────────────────────────────
+
+/// "Made for You" — a per-user ranked mix. Scores the catalog against the
+/// user's preferred regions / languages / genres, the artists they follow, and
+/// their favorites, so two users with different tastes (or history) get a
+/// different ordering. Returns empty when there is no personalization signal
+/// yet (the Home section then hides itself instead of duplicating Trending).
+final personalizedSongsProvider = FutureProvider<List<Song>>((ref) async {
+  final profile = ref.watch(userProfileProvider);
+  final favorites = ref.watch(favoritesProvider);
+  final followed = ref.watch(followedArtistsProvider);
+
+  final hasSignal = profile.hasPreferences ||
+      favorites.isNotEmpty ||
+      followed.isNotEmpty;
+  if (!hasSignal) return const [];
+
+  final local = await ref.watch(localSongsProvider.future);
+  final trending = await ref.watch(trendingSongsProvider.future);
+  final pool = _mergeById(local, trending, (s) => s.id).visibleToConsumers();
+
+  final regions = profile.preferredRegions.toSet();
+  final langs = profile.preferredLanguages.toSet();
+  final genres = profile.preferredGenres.toSet();
+
+  int score(Song s) {
+    var v = 0;
+    if (favorites.contains(s.id)) v += 6;
+    if (followed.contains(s.artistId)) v += 5;
+    if (regions.contains(s.region)) v += 4;
+    if (genres.contains(s.genre)) v += 3;
+    if (langs.contains(s.language)) v += 2;
+    return v;
+  }
+
+  final ranked = [...pool]..sort((a, b) {
+      final byScore = score(b).compareTo(score(a));
+      if (byScore != 0) return byScore;
+      return b.playCount.compareTo(a.playCount);
+    });
+  // Drop zero-signal tail so the rail stays genuinely "for you".
+  final picked = ranked.where((s) => score(s) > 0).toList();
+  return (picked.isEmpty ? ranked : picked).take(15).toList();
+});
+
+/// Regions ordered with the user's preferred regions first, so the curated
+/// "<Region> Hits" rows lead with what they chose during onboarding.
+final personalizedRegionsProvider = FutureProvider<List<String>>((ref) async {
+  final populated = await ref.watch(populatedRegionsProvider.future);
+  final preferred = ref.watch(userProfileProvider).preferredRegions;
+  final preferredPresent =
+      preferred.where(populated.contains).toList();
+  final rest = populated.where((r) => !preferredPresent.contains(r)).toList();
+  return [...preferredPresent, ...rest];
+});

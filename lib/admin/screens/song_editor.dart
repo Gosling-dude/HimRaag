@@ -283,7 +283,7 @@ class _SongEditorDialogState extends ConsumerState<SongEditorDialog> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: DropdownButtonFormField<String>(
-        value: value,
+        initialValue: value,
         isExpanded: true,
         decoration: InputDecoration(labelText: label, isDense: true),
         items: items
@@ -297,7 +297,7 @@ class _SongEditorDialogState extends ConsumerState<SongEditorDialog> {
   Widget _licenseDropdown() => Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: DropdownButtonFormField<LicenseType>(
-          value: _license,
+          initialValue: _license,
           isExpanded: true,
           decoration: const InputDecoration(labelText: 'License *', isDense: true),
           items: LicenseType.values
@@ -313,7 +313,7 @@ class _SongEditorDialogState extends ConsumerState<SongEditorDialog> {
   Widget _statusDropdown() => Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: DropdownButtonFormField<ApprovalStatus>(
-          value: _status,
+          initialValue: _status,
           isExpanded: true,
           decoration: const InputDecoration(labelText: 'Status *', isDense: true),
           items: ApprovalStatus.values

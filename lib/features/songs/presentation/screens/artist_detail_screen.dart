@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../auth/providers/user_profile_providers.dart';
 import '../../../home/presentation/widgets/album_card.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../home/providers/home_providers.dart';
@@ -92,6 +93,8 @@ class ArtistDetailScreen extends ConsumerWidget {
                                   color: Colors.white.withValues(alpha: 0.7),
                                   fontSize: 13),
                             ),
+                            const SizedBox(height: 12),
+                            _FollowButton(artistId: artistId),
                           ],
                         ),
                       ),
@@ -174,6 +177,46 @@ class ArtistDetailScreen extends ConsumerWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _FollowButton extends ConsumerWidget {
+  const _FollowButton({required this.artistId});
+
+  final String artistId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final following = ref.watch(isFollowingArtistProvider(artistId));
+    return GestureDetector(
+      onTap: () =>
+          ref.read(userProfileProvider.notifier).toggleFollowArtist(artistId),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+        decoration: BoxDecoration(
+          color: following ? Colors.transparent : AppColors.primary,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+              color: following ? Colors.white70 : AppColors.primary),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(following ? Icons.check : Icons.add,
+                size: 18, color: Colors.white),
+            const SizedBox(width: 6),
+            Text(
+              following ? 'Following' : 'Follow',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
       ),
     );
   }

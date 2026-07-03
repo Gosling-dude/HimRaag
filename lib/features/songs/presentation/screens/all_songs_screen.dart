@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+// Newer Flutter SDKs export their own `RepeatMode` (repeating animations);
+// ours comes from audio_player_service.dart.
+import 'package:flutter/material.dart' hide RepeatMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';

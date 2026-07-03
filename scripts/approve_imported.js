@@ -90,10 +90,26 @@ async function main() {
   const albumIds = new Set((await db.collection('albums').get()).docs.map((d) => d.id));
 
   let approved = 0, createdArtists = 0, createdAlbums = 0, audioOk = 0, durOk = 0, invalid = 0;
-  const batch = db.batch();
+  // Chunked batch writer — Firestore caps a WriteBatch at 500 ops.
+  let _batch = db.batch(), _ops = 0;
+  const batch = {
+    set: (...a) => { _batch.set(...a); _ops++; },
+    update: (...a) => { _batch.update(...a); _ops++; },
+    commit: async () => { if (_ops) { await _batch.commit(); _batch = db.batch(); _ops = 0; } },
+  };
+  const maybeFlush = async () => { if (_ops >= 400) await batch.commit(); };
+
+  // Songs whose region is still unresolved stay in the admin review queue —
+  // they are never auto-published into a region they don't belong to.
+  const INCLUDE_UNRESOLVED = process.argv.includes('--include-unresolved');
+  let unresolvedSkipped = 0;
 
   for (const d of imported) {
     const s = d.data();
+    if (!INCLUDE_UNRESOLVED && (s.region === NEEDS || !s.region)) {
+      unresolvedSkipped++;
+      continue;
+    }
     // ── 2. verify ─────────────────────────────────────────────────────────
     const aReach = await reachable(s.audioUrl);
     const dur = (s.durationMs || 0) > 0;
@@ -138,23 +154,28 @@ async function main() {
       updatedAt: FieldValue.serverTimestamp(),
     });
     approved++;
+    await maybeFlush();
   }
 
   // also publish+verify the imported artists/albums already present
   for (const id of artistIds) {
     const ref = db.collection('artists').doc(id);
     batch.set(ref, { isVerified: true, isPublished: true, approvalStatus: 'approved', updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    await maybeFlush();
   }
   for (const d of imported) {
     const s = d.data();
-    if (s.albumId) batch.set(db.collection('albums').doc(s.albumId), { isApproved: true, isPublished: true, approvalStatus: 'approved', updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    if (INCLUDE_UNRESOLVED || (s.region !== NEEDS && s.region)) {
+      if (s.albumId) batch.set(db.collection('albums').doc(s.albumId), { isApproved: true, isPublished: true, approvalStatus: 'approved', updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+      await maybeFlush();
+    }
   }
 
   await batch.commit();
   console.log(`\n=== STEPS 2-4 ===`);
   console.log(`audio reachable: ${audioOk}/${imported.length} | duration>0: ${durOk}/${imported.length} | invalid skipped: ${invalid}`);
   console.log(`created artists: ${createdArtists} | created albums: ${createdAlbums}`);
-  console.log(`songs approved: ${approved}`);
+  console.log(`songs approved: ${approved} | region-unresolved left in review queue: ${unresolvedSkipped}`);
 
   // ── 6. AFTER ────────────────────────────────────────────────────────────────
   const after = await consumerVisible(db);

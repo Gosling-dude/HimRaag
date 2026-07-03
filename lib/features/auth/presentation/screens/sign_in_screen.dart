@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../auth/providers/auth_providers.dart';
+import '../../../auth/providers/user_profile_providers.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -19,7 +20,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     setState(() => _isLoading = true);
     try {
       await ref.read(authRepositoryProvider).signInWithGoogle();
-      if (mounted) context.go('/home');
+      if (mounted) _routeAfterAuth();
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -31,7 +32,21 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     }
   }
 
-  void _continueAsGuest() => context.go('/home');
+  Future<void> _continueAsGuest() async {
+    setState(() => _isLoading = true);
+    try {
+      await ref.read(authRepositoryProvider).continueAsGuest();
+    } catch (_) {/* local guest fallback already handled in repo */}
+    if (mounted) _routeAfterAuth();
+    if (mounted) setState(() => _isLoading = false);
+  }
+
+  /// New users pick personalization preferences first; returning users go
+  /// straight to the feed.
+  void _routeAfterAuth() {
+    final done = ref.read(onboardingCompletedProvider);
+    context.go(done ? '/home' : '/preferences');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +96,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   icon: const Icon(Icons.person_outline,
                       color: Colors.white, size: 20),
                   label: 'Continue as Guest',
-                  onTap: _continueAsGuest,
+                  onTap: _isLoading ? null : _continueAsGuest,
                   backgroundColor: Colors.transparent,
                   textColor: Colors.white,
                   borderColor: Colors.white.withValues(alpha: 0.3),

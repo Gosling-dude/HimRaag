@@ -1,0 +1,314 @@
+{
+  "counts": {
+    "songs": 328,
+    "published": 81,
+    "artists": 16,
+    "albums": 14
+  },
+  "regionDist": {
+    "Garhwali": 47,
+    "Kumaoni": 28,
+    "Jaunsari": 5,
+    "Himachali": 78,
+    "Needs Review": 169,
+    "Kinnauri": 1
+  },
+  "regionDistPublished": {
+    "Kumaoni": 5,
+    "Himachali": 70,
+    "Garhwali": 3,
+    "Jaunsari": 2,
+    "Kinnauri": 1
+  },
+  "dupGroupCount": 0,
+  "dupGroups": [],
+  "songsNoArtwork": 0,
+  "artistsMissingImage": [
+    {
+      "id": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "name": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_hema_negi_karasi",
+      "name": "Hema Negi Karasi",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_jitendra_tomkyal",
+      "name": "Jitendra Tomkyal",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_lalit_mohan_joshi",
+      "name": "Lalit Mohan Joshi",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_meena_rana",
+      "name": "Meena Rana",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_mohan_upreti",
+      "name": "Mohan Upreti",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_narendra_singh_negi",
+      "name": "Narendra Singh Negi",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_palak_hardik",
+      "name": "Palak, Hardik",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_pritam_bharatwan",
+      "name": "Pritam Bharatwan",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_rohit_chauhan",
+      "name": "Rohit Chauhan",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_sanjay_sharma",
+      "name": "Sanjay Sharma",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_sardar_singh_sharma",
+      "name": "Sardar Singh Sharma",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_surinder_sharma",
+      "name": "Surinder Sharma",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_thakur_dass_rathi",
+      "name": "Thakur Dass Rathi",
+      "img": "",
+      "featured": false
+    },
+    {
+      "id": "artist_zorawar_hunk",
+      "name": "Zorawar Hunk",
+      "img": "",
+      "featured": false
+    }
+  ],
+  "artistList": [
+    {
+      "id": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+      "name": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_hema_negi_karasi",
+      "name": "Hema Negi Karasi",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_jitendra_tomkyal",
+      "name": "Jitendra Tomkyal",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_lalit_mohan_joshi",
+      "name": "Lalit Mohan Joshi",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_meena_rana",
+      "name": "Meena Rana",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_mohan_upreti",
+      "name": "Mohan Upreti",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_narendra_singh_negi",
+      "name": "Narendra Singh Negi",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_palak_hardik",
+      "name": "Palak, Hardik",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_pritam_bharatwan",
+      "name": "Pritam Bharatwan",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_rohit_chauhan",
+      "name": "Rohit Chauhan",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_sanjay_sharma",
+      "name": "Sanjay Sharma",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_sardar_singh_sharma",
+      "name": "Sardar Singh Sharma",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_surinder_sharma",
+      "name": "Surinder Sharma",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_thakur_dass_rathi",
+      "name": "Thakur Dass Rathi",
+      "featured": false,
+      "img": ""
+    },
+    {
+      "id": "artist_unknown_artist",
+      "name": "Unknown Artist",
+      "featured": false,
+      "img": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/"
+    },
+    {
+      "id": "artist_zorawar_hunk",
+      "name": "Zorawar Hunk",
+      "featured": false,
+      "img": ""
+    }
+  ],
+  "sampleSong": {
+    "id": "song_diksha_dhaundiyal_pooja_dhaundiyal__main_pahadan",
+    "titleLowercase": "main pahadan",
+    "searchKeywords": [
+      "main pahadan",
+      "main",
+      "pahadan",
+      "diksha dhaundiyal pooja dhaundiyal",
+      "diksha",
+      "dhaundiyal",
+      "pooja",
+      "diksha dhaundiyal pooja dhaundiyal singles",
+      "singles",
+      "kumaoni",
+      "folk"
+    ],
+    "albumId": "album_diksha_dhaundiyal_pooja_dhaundiyal__diksha_dhaundiyal_pooja_dhaundiyal_singles",
+    "artistId": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
+    "language": "Kumaoni",
+    "title": "Main Pahadan",
+    "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\Main_Pahadan___मैं_पहाड़न___Kumaoni_Song___Diksha_Dhaundiyal___Pooja_Dhaundiyal___Slowed___Reverb(256k).mp3",
+    "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/main-pahadan-kumaoni-song-diksha-dhaundiyal-pooja-dhaundiyal-slowed-reverb-256k.mp3",
+    "isDownloadable": true,
+    "rightsCleared": true,
+    "genre": "Folk",
+    "albumTitle": "Diksha Dhaundiyal, Pooja Dhaundiyal — Singles",
+    "releaseYear": 2026,
+    "titleNormalized": "main pahadan",
+    "slug": "main-pahadan",
+    "license": "LICENSED",
+    "playCount": 0,
+    "attribution": "Traditional Pahadi folk recording. Audio streamed from Cloudflare R2.",
+    "artistName": "Diksha Dhaundiyal, Pooja Dhaundiyal",
+    "region": "Kumaoni",
+    "durationMs": 336024,
+    "approvalStatus": "approved",
+    "artistNameLowercase": "diksha dhaundiyal, pooja dhaundiyal",
+    "isPublished": true,
+    "isApproved": true,
+    "reviewRequired": false,
+    "albumTitleLowercase": "diksha dhaundiyal, pooja dhaundiyal — singles",
+    "tags": [
+      "folk",
+      "pahadi"
+    ],
+    "updatedAt": {
+      "_seconds": 1781781519,
+      "_nanoseconds": 928000000
+    },
+    "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/main-pahadan-v4.jpg"
+  },
+  "sampleReviewSong": {
+    "id": "song_unknown_artist__2020",
+    "titleLowercase": "2020",
+    "searchKeywords": [
+      "2020",
+      "unknown artist",
+      "unknown",
+      "artist",
+      "imported recordings",
+      "imported",
+      "recordings",
+      "garhwali",
+      "folk"
+    ],
+    "albumId": "album_unknown_artist__imported_recordings",
+    "artistId": "artist_unknown_artist",
+    "language": "Garhwali",
+    "title": "2020",
+    "sourceFile": "D:\\Personal Projects\\HimRaag\\music\\pahadi songs\\इस_गढवाली_गीत_ने_2020_के_सभी_गीत_को_पीछे_छोड_बना_नंबर_वन____Amardeep_Negi____Latest_Garhwali_Song(0).mp3",
+    "reviewRequired": true,
+    "audioUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/audio/2020-amardeep-negi-latest-garhwali-song-0.mp3",
+    "isDownloadable": true,
+    "rightsCleared": true,
+    "genre": "Folk",
+    "albumTitle": "Imported Recordings",
+    "isApproved": false,
+    "releaseYear": 2026,
+    "titleNormalized": "2020",
+    "slug": "2020",
+    "updatedAt": {
+      "_seconds": 1782243624,
+      "_nanoseconds": 299000000
+    },
+    "approvalStatus": "pending",
+    "isPublished": false,
+    "tags": [
+      "imported",
+      "needs-metadata-review"
+    ],
+    "license": "LICENSED",
+    "playCount": 0,
+    "attribution": "Locally-imported recording supplied by the app owner. Audio streams from Cloudflare R2. Metadata derived from filename + public sources during import; pending owner review in the Admin Dashboard.",
+    "artistName": "Unknown Artist",
+    "region": "Garhwali",
+    "durationMs": 311448,
+    "artworkUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artwork/2020-v4.jpg"
+  }
+}

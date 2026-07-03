@@ -3,6 +3,8 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../data/services/audio_player_service.dart';
 import '../../../domain/models/song.dart';
+import '../../../domain/models/user_profile.dart';
+import '../../auth/providers/user_profile_providers.dart';
 import '../../library/providers/library_providers.dart';
 
 final currentSongProvider = Provider<Song?>((ref) {
@@ -40,6 +42,34 @@ final playerControllerProvider = Provider<PlayerController>((ref) {
   return PlayerController(ref);
 });
 
+/// Records "Continue Listening" progress while a track plays. Kept alive by
+/// being watched in [MainShell]. Writes are throttled (see
+/// [UserProfileNotifier.setContinueListening]) so we don't hammer Hive/Firestore.
+final playbackPersistenceProvider = Provider<void>((ref) {
+  final service = ref.watch(audioPlayerServiceProvider);
+  final sub = service.positionStream.listen((pos) {
+    final song = service.getCurrentSong();
+    final dur = service.duration;
+    if (song == null || dur == null || dur.inMilliseconds <= 0) return;
+    // Only meaningful, mid-track progress (skip the first 5s and the last 5s).
+    if (pos.inSeconds < 5) return;
+    if (dur.inMilliseconds - pos.inMilliseconds < 5000) return;
+    ref.read(userProfileProvider.notifier).setContinueListening(
+          ContinueListening(
+            songId: song.id,
+            title: song.title,
+            artistName: song.artistName,
+            artworkUrl: song.artworkUrl,
+            audioUrl: song.audioUrl,
+            positionMs: pos.inMilliseconds,
+            durationMs: dur.inMilliseconds,
+            updatedAt: DateTime.now(),
+          ),
+        );
+  });
+  ref.onDispose(sub.cancel);
+});
+
 class PlayerController {
   PlayerController(this._ref);
 
@@ -49,6 +79,13 @@ class PlayerController {
 
   Future<void> playSong(Song song, {List<Song>? queue, int? queueIndex}) async {
     await _service.playSong(song, queue: queue, queueIndex: queueIndex);
+    _ref.read(recentlyPlayedProvider.notifier).addSong(song);
+  }
+
+  /// Resumes a track at [start] — used by the Home "Continue Listening" rail.
+  Future<void> playSongAt(Song song, Duration start) async {
+    await _service.playSong(song);
+    await _service.seekTo(start);
     _ref.read(recentlyPlayedProvider.notifier).addSong(song);
   }
 

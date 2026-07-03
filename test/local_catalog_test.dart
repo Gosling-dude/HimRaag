@@ -15,8 +15,9 @@ void main() {
   test('bundled catalog loads the imported songs at runtime', () async {
     final songs = await ds.songs();
     expect(songs, isNotEmpty);
-    // Original 19 imported songs + 68 newly imported Pahadi songs = 87.
-    expect(songs.length, 87);
+    // 318 after the June import + 379 region-resolved songs from the July
+    // 1009-file drop (region-unresolved imports stay admin-only) = 697.
+    expect(songs.length, 697);
     final titles = songs.map((s) => s.title).toList();
     // Original batch still present (merge is additive).
     expect(titles.any((t) => t.contains('AANKHI MICHOLI')), isTrue);

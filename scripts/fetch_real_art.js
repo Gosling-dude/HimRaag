@@ -82,18 +82,37 @@ async function main() {
   initializeApp({ credential: cert(JSON.parse(fs.readFileSync(saPath, 'utf8'))), projectId: PROJECT_ID });
   const db = getFirestore();
 
+  // Official covers already discovered by the public-metadata lookup stage
+  // (enriched.json → publicArtworkUrl, keyed by song id).
+  const publicArtById = new Map();
+  try {
+    const enr = JSON.parse(fs.readFileSync(path.join(__dirname, 'seed_data', 'enriched.json'), 'utf8'));
+    for (const t of enr.tracks || []) {
+      if (t.publicArtworkUrl && t.id) publicArtById.set(t.id, t.publicArtworkUrl);
+    }
+  } catch (e) { /* optional */ }
+  if (publicArtById.size) process.stdout.write(`Pre-matched official covers: ${publicArtById.size}\n`);
+
   const catalog = JSON.parse(fs.readFileSync(CATALOG, 'utf8'));
   const catSong = new Map((catalog.songs || []).map((s) => [s.id, s]));
   const catArtist = new Map((catalog.artists || []).map((a) => [a.id, a]));
   const catAlbum = new Map((catalog.albums || []).map((a) => [a.id, a]));
 
-  // Optional id-scope (additive imports): when HIMRAAG_ART_SONG_IDS is set, only
+  // Optional id-scope (additive imports): when HIMRAAG_ART_SONG_IDS (comma
+  // list) or HIMRAAG_ART_SONG_IDS_FILE (JSON array / newline list) is set, only
   // (re)fetch art for those song ids and SKIP artist/album art entirely, so the
   // existing curated covers of the original catalog are never overwritten.
-  const SCOPE = (process.env.HIMRAAG_ART_SONG_IDS || '')
+  let SCOPE = (process.env.HIMRAAG_ART_SONG_IDS || '')
     .split(',').map((x) => x.trim()).filter(Boolean);
+  if (process.env.HIMRAAG_ART_SONG_IDS_FILE) {
+    const raw = fs.readFileSync(process.env.HIMRAAG_ART_SONG_IDS_FILE, 'utf8');
+    SCOPE = raw.trim().startsWith('[')
+      ? JSON.parse(raw)
+      : raw.split(/\r?\n/).map((x) => x.trim()).filter(Boolean);
+  }
+  const SCOPE_SET = new Set(SCOPE);
   const scoped = SCOPE.length > 0;
-  const inScope = (id) => !scoped || SCOPE.includes(id);
+  const inScope = (id) => !scoped || SCOPE_SET.has(id);
   if (scoped) process.stdout.write(`Scoped art run: ${SCOPE.length} new song ids; artist/album art preserved.\n`);
 
   // ── Region photo pool (one network pass) ─────────────────────────────────────
@@ -115,17 +134,33 @@ async function main() {
     const slug = s.slug || slugify(s.title);
     let chosen = null; // { url, source, detail }
 
-    try {
-      const real = await findSongArtwork({ title: s.title, artistName: s.artistName, region: s.region });
-      if (real) {
-        const img = await downloadImage(real.url);
-        if (img) {
+    // 0) Exact official cover already found during public-metadata lookup
+    //    (iTunes match on title+duration) — strongest source, try it first.
+    const preUrl = publicArtById.get(doc.id);
+    if (preUrl) {
+      try {
+        const img = await downloadImage(preUrl);
+        if (img && img.buf.length > 2048) {
           const key = `artwork/${slug}-${ART_VER}.${extFor(img.contentType)}`;
           await put(key, img.buf, img.contentType || 'image/jpeg');
-          chosen = {
-            url: publicUrl(key), source: 'Actual artwork',
-            detail: `JioSaavn: "${real.match.song}" / ${real.match.album} — ${real.match.artist} [${real.match.language || '?'}]`,
-          };
+          chosen = { url: publicUrl(key), source: 'Actual artwork', detail: 'iTunes official cover (title+duration match)' };
+        }
+      } catch (e) { /* fall through */ }
+    }
+
+    try {
+      if (!chosen) {
+        const real = await findSongArtwork({ title: s.title, artistName: s.artistName, region: s.region });
+        if (real) {
+          const img = await downloadImage(real.url);
+          if (img) {
+            const key = `artwork/${slug}-${ART_VER}.${extFor(img.contentType)}`;
+            await put(key, img.buf, img.contentType || 'image/jpeg');
+            chosen = {
+              url: publicUrl(key), source: 'Actual artwork',
+              detail: `JioSaavn: "${real.match.song}" / ${real.match.album} — ${real.match.artist} [${real.match.language || '?'}]`,
+            };
+          }
         }
       }
     } catch (e) { /* fall through to photo */ }

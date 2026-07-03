@@ -452,7 +452,7 @@ class _BulkEditDialogState extends State<_BulkEditDialog> {
   Widget _dropdown(String label, String? value, List<String> items,
       ValueChanged<String?> onChanged) {
     return DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       isExpanded: true,
       decoration: InputDecoration(labelText: label, isDense: true),
       items: [

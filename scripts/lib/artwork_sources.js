@@ -193,6 +193,33 @@ async function findArtistImage(name) {
   return null;
 }
 
+/**
+ * Real artist photograph via the Wikipedia page-summary API. Accepted ONLY
+ * when the page description says the person is a singer/musician/composer —
+ * this rejects same-name politicians/actors. Returns
+ * { url, source:'wikipedia', match:{name, description} } or null.
+ */
+async function findWikipediaImage(name) {
+  if (!name || /pahadi folk/i.test(name) || name.includes(',')) return null;
+  const title = encodeURIComponent(name.trim().replace(/\s+/g, '_'));
+  const r = await httpGet(
+    `https://en.wikipedia.org/api/rest_v1/page/summary/${title}`,
+    { json: true }
+  );
+  const d = r.data;
+  if (!d || !d.thumbnail || !d.thumbnail.source) return null;
+  const desc = `${d.description || ''} ${(d.extract || '').slice(0, 200)}`;
+  if (!/singer|musician|folk artist|composer|vocalist/i.test(desc)) return null;
+  // Ask for a larger rendition of the lead image; the 600px rewrite 404s when
+  // the source is smaller, so keep fallbacks to the original/thumbnail.
+  const url = d.thumbnail.source.replace(/\/(\d+)px-/, '/600px-');
+  const fallbacks = [
+    d.originalimage && d.originalimage.source,
+    d.thumbnail.source,
+  ].filter(Boolean);
+  return { url, fallbacks, source: 'wikipedia', match: { name: d.title, description: d.description || '' } };
+}
+
 // ── Wikimedia Commons (license-clean region photos) ──────────────────────────
 const REGION_TERMS = {
   Garhwali: ['Kedarnath temple Uttarakhand', 'Garhwal Himalaya landscape', 'Uttarakhand mountain village'],
@@ -302,6 +329,7 @@ module.exports = {
   downloadImage,
   findSongArtwork,
   findArtistImage,
+  findWikipediaImage,
   buildRegionPhotoPool,
   pickRegionPhoto,
 };

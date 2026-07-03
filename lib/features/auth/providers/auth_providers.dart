@@ -64,12 +64,23 @@ class AuthRepository {
     );
   }
 
+  /// Guest mode uses Firebase **anonymous auth** so the guest gets a real uid
+  /// and a per-user Firestore doc (personalization works for guests too). If
+  /// anonymous auth is disabled/unavailable, we fall back to a purely-local
+  /// guest id — the app stays fully usable, just without cross-device sync.
   Future<AppUser> continueAsGuest() async {
-    final guestId = 'guest_${const Uuid().v4()}';
-    return AppUser(
-      uid: guestId,
-      signInMethod: UserSignInMethod.guest,
-    );
+    try {
+      final cred = await auth.signInAnonymously();
+      final user = cred.user!;
+      return AppUser(
+        uid: user.uid,
+        signInMethod: UserSignInMethod.guest,
+        createdAt: user.metadata.creationTime,
+      );
+    } catch (_) {
+      final guestId = 'guest_${const Uuid().v4()}';
+      return AppUser(uid: guestId, signInMethod: UserSignInMethod.guest);
+    }
   }
 
   Future<void> signOut() async {

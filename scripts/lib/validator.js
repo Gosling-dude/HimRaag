@@ -251,7 +251,9 @@ function findDuplicates(tracks) {
     } else {
       byId.set(t.id, i);
     }
-    const key = `${slugify(t.artistName)}|${slugify(t.title)}`;
+    // slugify() is ASCII-only, so Devanagari-only titles all slug to "" and
+    // would falsely collide — fall back to the (unique) id in that case.
+    const key = `${slugify(t.artistName)}|${slugify(t.title) || t.id}`;
     if (byKey.has(key)) {
       dups.push({
         index: i,

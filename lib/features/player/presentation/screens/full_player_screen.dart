@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+// Newer Flutter SDKs export their own `RepeatMode` (repeating animations);
+// ours comes from audio_player_service.dart.
+import 'package:flutter/material.dart' hide RepeatMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/display/consumer_labels.dart';

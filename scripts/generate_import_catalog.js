@@ -74,10 +74,12 @@ function main() {
     const tags = ['imported', REVIEW_TAG];
     if (t.region === NEEDS_REVIEW) tags.push('needs-region');
     songs.push({
-      id: songId(t.artistName, t.title),
+      // Prefer ids precomputed upstream (apply_lookups de-duplicates id
+      // collisions after artist reattribution).
+      id: t.id || songId(t.artistName, t.title),
       title: t.title,
       slug: slugify(t.title),
-      artistId: artistId(t.artistName),
+      artistId: t.artistId || artistId(t.artistName),
       artistName: t.artistName,
       albumId: albumId(t.artistName, albumTitle),
       albumTitle,

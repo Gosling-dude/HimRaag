@@ -1,0 +1,405 @@
+# DUPLICATE CLEANUP REPORT
+
+_Generated: 2026-07-03T16:37:23.237Z_
+
+## Summary
+
+| Category | Count | Action |
+|---|---|---|
+| Exact byte duplicates | 0 | drop, keep first |
+| Quality/format variants | 10 | keep highest bitrate, drop rest |
+| Mashups / compilations | 63 | exclude (not real songs) |
+| Already in catalog | 301 | skip (preserve existing) |
+| DEMO_ONLY seed tracks in Firestore | see below | purge from Firestore |
+
+### Dedup rules (priority)
+1. Real artist recording over generic. 2. Cleaner metadata. 3. Better artwork. 4. Already-approved canonical version. Within a variant group we keep the highest bitrate / largest file and never keep both a real song and a test/instrumental variant.
+
+## Old test / instrumental tracks (Firestore demo seed)
+
+The bundled catalog (87 songs) is 100% `LICENSED` — it contains **no** demo/test/instrumental tracks. The legacy "instrumental" testing tracks come from the DEMO seed (`generate_demo_catalog.js`: 110+ `license=DEMO_ONLY`, `approvalStatus=demo`, `picsum.photos` placeholder art, demo ensembles incl. genre `Instrumental`). They are `isPublished=false` and filtered from release builds, but are **purged from Firestore** via `scripts/purge_demo.js` so they can never surface in any build.
+
+## Exact byte duplicates (0)
+
+
+## Quality/format variants collapsed (10)
+
+- drop `Bol_Heera(256k).mp3` → keep `Bol_Heera__feat._Neeraj_Dabral_(0).mp3`
+- drop `Chali_Bhai_Motar_Chali(0).mp3` → keep `Chali_Bhai_Motar_Chali(0)(1).mp3`
+- drop `Dhana(0).mp3` → keep `Dhana__Garhwali_Official_Music_Video__Priyanka_Meher,_Rongpaz___2023(0).mp3`
+- drop `Hit_Madhuli___Inder_Arya___Latest__Kumaoni__Uttarakhandi_Song_2020___Chandani_Enterprises(0).mp3` → keep `Hit_Madhuli__Pahadi_(256k).mp3`
+- drop `झुमकी___Jhumki___Darshan_Farswan___Akash_Negi___Diksha_Badoni___Uttrakhandi_song(0).mp3` → keep `Jhumki___Priyanka_Meher___New_Kumaoni_Song_2024___Shweta_Mahara___Shub_Chandra___New_Pahadi_Song(0).mp3`
+- drop `Jhumki(0)(1).mp3` → keep `Jhumki___Priyanka_Meher___New_Kumaoni_Song_2024___Shweta_Mahara___Shub_Chandra___New_Pahadi_Song(0).mp3`
+- drop `Mero_Lehenga_2(256k).mp3` → keep `Mero_Lehenga_2(0).mp3`
+- drop `Suretu_Mama__Pahadi_(0).mp3` → keep `Suretu_Mama____Jaunpuri_Jaunsari_Harul____Manju_Nautiyal____J_Music_Films(0).mp3`
+- drop `Swami_Pardesh(0)(1).mp3` → keep `Swami_Pardesh(0).mp3`
+- drop `Trijugi_Narayan(0)(1).mp3` → keep `Trijugi_Narayan(0).mp3`
+
+## Mashups / compilations excluded (63)
+
+- `2.0_Mashup(256k).mp3`
+- `Aashiqui___Latest_Himachali_Nonstop_Video_Album___Rajender_Diwan_RKD___Novin_Joshi_NJ___Pahari_Songs(0).mp3`
+- `Chash_Nonstop(0).mp3`
+- `Chhanaka___Dimple_Thakur___Latest_Nonstop_Himachali_Songs_2024___Pahari_Song___Music_HunterZ(0).mp3`
+- `Chingaari_Vol_2___DJ_Nonstop_Mujra_Nati___Lalit_Sauta___New_Pahari_Song_2024___Anvirecords(0).mp3`
+- `DJ_SIRAJI_DESHAT_VO._3_Mujra_Nonstop_Kapil_Soni___RD_Music_l_Soni_Offical_Prsent.(0).mp3`
+- `DREAM_11___Non_Stop_Pahari_Video___Sanjay_Thakur___Shyam_Thakur(0).mp3`
+- `Dj_Booster___Rimix_Fast_Mash-up___Titu_Rayjada___Novin_Joshi_Nj___New_Pahari_Hit_Song(0).mp3`
+- `Dj_Chaska_🔥_Non_Stop_Pahari_Album_2024___Voice__-_Raj_Joshi___Music__-_Rinku_Rk___Rk_Records(0).mp3`
+- `FOLK_VIBE_2____PAHARI_MASHUP_2024____ROHINI_DOGRA____RAHUL_BANSAL____NEERAJ_NISHANT_MUSIC__NN____(0).mp3`
+- `Garhwali_Jagar_Mashup_Remix_By_DJ_PRAM-गढ़वाली_जागर_रीमिक्स_Nonstop_2018_New_Jagar_Garhwali(0).mp3`
+- `Hista_Non_Stop_2023___By_Kishan_Hista___Kola_bathene___Kj_Music(0).mp3`
+- `IJAZAT_NON_STOP_2024______Latest_Pahari_Song_2024____Shruti_Sharma____Pahari_Naati_2024(0).mp3`
+- `KINNORIYE_VOL_-_2____LATEST_PAHARI_VIDEO_HIMACHALI_DJ_NON_STOP____CM_TOSHI____DEVIL_MUSIC_RECORDS(0).mp3`
+- `Kinnora_Jukebox_90s(0).mp3`
+- `Kullvi_Mujra_2024_l_Dj_Non_Stop_Album_l_Puran_Pk_Thakur_l_AjaY_Vimal_l_Vimal_Music(0).mp3`
+- `Kumaoni_Mashup(0).mp3`
+- `LATEST_GARHWALI_DJ_MASH-UP_2019___KARISHMA_SHAH____RUHAAN_BHARDWAJ___GUNJAN_DANGWAL__ALLEGRO_RECORDS(0).mp3`
+- `Ladi_Senuye_By_Abhishek_Kashyap___Non_Stop_Himachali_Songs(0).mp3`
+- `Lahauli_Pangwali_Folk_Note_2.0____Vikesh_Bhardwaj_Official____Music_-_Dev_Negi____Latest_Mashup_2023(0).mp3`
+- `Latest_Himachali_Songs_2024__Melodic_Non_Stop___Ramesh_Rj_Thakur___Sandeep_Thakur__Vikas_Bhardwaj(0).mp3`
+- `Latest_Himachali_Songs___Folk_Tone_3_By_Surinder_Sharma___Non_Stop_Pahari_Nati(0).mp3`
+- `Latest_Pahari_Songs__NATTI_SUPER_HITs__Nonstop___King_Of_Natti_Thakur_Dass_Rathi___Vimal_Negi(0).mp3`
+- `Latest_jaunsari_himachali_nonstop_song_by_attar_shah(0).mp3`
+- `Magical_Words___Latest_Himachali_Nonstop_Album___Kuldev_Kaushal___Novin_Joshi_NJ___Pahari_Songs_2024(0).mp3`
+- `Mashup_Garhwali,_Kumauni,_Himanchali(0).mp3`
+- `Mastana_Mahol_Nonstop__मस्ताना_माहौल____Latest_Pahari_Video_Song___Dharmendra_Parmar___Jaunsari_Song(0).mp3`
+- `Mehak_Nonstop(0).mp3`
+- `Mulmul_Ke_Ko_Hesni_Che__Geet_Ganga-_32_Non_Stop__-_Uttrakhandi_Lokgeet_Narendra_Singh_Negi(0).mp3`
+- `Naati_Ka_Jalwa_Latest_Himachali_Nonstop_Video_2024___Tantra_Boy_Birbal_Musafir___Gian_Music(0).mp3`
+- `Nati_Highway___Latest_Himachali_Video_Album___Nonstop_Pahari_Songs___Prem_Bharti___Novin_Joshi_NJ(0).mp3`
+- `Nati_Kullu_Wali___Latest_Himachali_Nonstop_Album___Kuldev_Kaushal___Novin_Joshi_NJ___Kullvi_Songs(0).mp3`
+- `Nati_Pe_Nati___Latest_Pahari_Nonstop___Pankaj_Thakur___Folk_Wave_Studio___iSur_Studios(0).mp3`
+- `Natiyo_Ki_Brsaat_2024__Phari_Song_Nati_King_Vipin_Khadrai_Nonstop_Nati_Himachali_Song(0).mp3`
+- `Natti_Mehfil___Latest_Himachali_Natti_Songs___Ramna_Bharti___Novin_Joshi_NJ___Nonstop_Album_2024(0).mp3`
+- `Non_Stop_Jaunsari_Song_By_Atar_Shah______Old_Song_(0).mp3`
+- `Nonstop_Inder_Arya_Hits__Kumauni_album_(0).mp3`
+- `Noori_Non_Stop__By_Vinod_Ranta___Non_Stop_Pahari_Nati___Rudra_Beats_Studio_Shimla(0).mp3`
+- `OLD_IS_GOLD_Vol.5_Naati_Non_Stop___Sanjay_Thakur___Shyam_Thakur___New_Pahari_Song_2025___SMS_Chowasi(0).mp3`
+- `O_Reenu_Non_Stop_Nati(0).mp3`
+- `Over_Take___Latest_Himachali_Video_Album___Pahari_Nonstop_Songs___Mahi_Singh_Avtar___Novin_Joshi_NJ(0).mp3`
+- `Pahari_Hits_5___Latest_Himachali_Mujra_Nonstop___Kuldev_Kaushal___Novin_Joshi_NJ___Pahari_Songs_2024(0).mp3`
+- `SADABAHAR_NATI_by_Mohan_Singh_Chauhan____Latest_Non_stop_Natti_Song____इलिए_मेरी_चडकिए__चन्कू_प्रीथे(0).mp3`
+- `SIRIGADI_JHATKA___Latest_Himachali_Nonstop_Album___Rinku_Sirigadiya___Novin_Joshi_NJ___Pahari_Songs(0).mp3`
+- `SOENA_LAMBO_KAATI_GHAAS___Mohan_Singh_Chauhan___Pahadi_Nati___Old_Pahadi_Nati___Pahadi_Nati_JukeBox(0).mp3`
+- `Seema_Bathane...._himachali_non_stop_Nati_Dhamaka_2020_by_baby_Chauhan_traditional_song(0).mp3`
+- `Super_Fast_Non_Stop_Pahadi_Nati_-_Pankaj_Thakur___New_Himachali_Video_Song_2024___T-Series_Himachali(0).mp3`
+- `Surma___Mohan_Singh_Chauhan___Dheeli_Nati_Non_Stop_Pahari_Song(0).mp3`
+- `TERE_BARATI____LATEST_HIMACHALI_DJ_NON_STOP_2024____SHYAM_THAKUR____RAKESH_DOGRA(0).mp3`
+- `THREE_STAR_Non_Stop__Full_version___feat._Novin_Joshi_NJ_(0).mp3`
+- `TRIBAL_EXPRESS____PANGWALI_GADYALI___MASHUP____DR._JEEVAN____DEVIL_😈(0).mp3`
+- `TULDUM___New_Non_Stop_Pahari_Songs_2025___Sanjay_Thakur___Shyam_Thakur___Rakesh_Dogra___SMS_Chowasi(0).mp3`
+- `Tapa_Tap_Mashup____Latest_Pahari_Video_Song____Diwan_Siwan____Kj_Music____New_Song_2024(0).mp3`
+- `Thumka_Nonstop_New_Pahari_Song_2024___Ajay_Chauhan__Natti_Star___Music_Rohit_Modka(0).mp3`
+- `Traditional_Touch____End_of_2024_by_Pratap_Bhardwaj____New_non-stop_pahari_songs(0).mp3`
+- `Tufan_Nonstop(0).mp3`
+- `Tufan_Nonstop_Harul(256k).mp3`
+- `Tufani_Safer_2024_Latest_Himachali_Pahari_Nonstop_Song_2024_-_Krishan_Hista_-Kulwant_Jeet_Kj(0).mp3`
+- `USA_Express_2___@ChiraagJyotiMajta____Latest_Himachali_Pahari_Non_Stop_Songs___Surender_Negi(0).mp3`
+- `Yaariyan_-_Non-Stop_Album___Yash_Kashyap___Nikhil_Saim___Novin_Joshi_Nj___New_Pahari_Audio_Song-2024(0).mp3`
+- `Zagraa_Returns___Latest_Himachali_Songs___Bittu_Chauhan___Novin_Joshi_NJ___Nonstop_Phari_Video_Album(0).mp3`
+- `आगाज____AAGAZ____Latest_Pahadi_Song____Dharampal_khadrai_ll_Khadrai_Nonstop_2.O____#pahadisong(0).mp3`
+- `चिलमन__Chilman__NonStop_Latest_Phari_Song_2022___Mohan_Singh_Chauhan___Swar_Samrat_Music_#paharinati(0).mp3`
+
+## Already in catalog — skipped (301)
+
+- `#Fwa_Bagha_Re__PAPPU_KARKI___He_baap_logo_saab_Bablu_go_Swablu_go___Satad_Patad___Parmeshwar_Maharaj(0).mp3` ≈ "(same source file already imported)"
+- `AK_47_Hath_Maa(256k).mp3` ≈ "(same source file already imported)"
+- `Aachhri___New_Garhwali_Song_2026___Darshan_Farswan___LB_Shivam_Bhatt___Achhari___आछरी।_Achri(0).mp3` ≈ "(same source file already imported)"
+- `Aadhi_Adhuri_Si_Baatein(0).mp3` ≈ "(same source file already imported)"
+- `Aaiya_Aaiya(0).mp3` ≈ "(same source file already imported)"
+- `Aaj_Ka_Din(0).mp3` ≈ "(same source file already imported)"
+- `Aapu_To_Chali_Nirmando_-_Naina_Ladiye(0).mp3` ≈ "(same source file already imported)"
+- `Ab_Laglu_Mandaan___Ruhaan_Bhardwaj__X_KARISHMA_SHAH_X_Official_Song___youth_festival_2020(0).mp3` ≈ "(same source file already imported)"
+- `Ainshu_Ka_Baras__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Anuye(0).mp3` ≈ "(same source file already imported)"
+- `Baanga_Chuti_Re(0).mp3` ≈ "(same source file already imported)"
+- `Babliye(0).mp3` ≈ "(same source file already imported)"
+- `Babua_Jai_Rama(0).mp3` ≈ "(same source file already imported)"
+- `Baith_Dola_Ma__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Baleno(256k).mp3` ≈ "(same source file already imported)"
+- `Balma_II_New_Garhwali_Song_2022_II_Meena_Rana___Sanjay_Kumola_II_Pannu_Gusain___Natasha_Shah_II(0).mp3` ≈ "(same source file already imported)"
+- `Banarasi_Lehenga(0).mp3` ≈ "(same source file already imported)"
+- `Bano_Deviye(0).mp3` ≈ "(same source file already imported)"
+- `Barkha_Holi_Garhwali_Song_-_Avinash_Rana___Pahadi_Song_2022___Gajendra_Rana_Ft_Meena_Rana__(0).mp3` ≈ "(same source file already imported)"
+- `Basant_Ritu_Maa_Jaiyee_-_Garhwali_Song_Narendra_Singh_Negi_-_Chali_Bhai_Motar_Chali(0).mp3` ≈ "(same source file already imported)"
+- `Basanti_Chori____बसंती_छोरी____Pappu_Karki____Moti_Shah____Sagar_Sharma(0).mp3` ≈ "(same source file already imported)"
+- `Basho_Khande_De_Moro(0).mp3` ≈ "(same source file already imported)"
+- `Bedu_Pako__Uttarakhandi_Folk_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Beluye_Bura_Aya_Zamana(256k).mp3` ≈ "(same source file already imported)"
+- `Bhabhi_Ho_Meri(0).mp3` ≈ "(same source file already imported)"
+- `Bhagyani_Bou__feat._Shailendra_Patwal___Pooja_Bhandari_(0).mp3` ≈ "(same source file already imported)"
+- `Bhama_Meri__feat._Sanjoli_Singh___Ankit_Rawat_(0).mp3` ≈ "(same source file already imported)"
+- `Bhawa_Rupiye(0).mp3` ≈ "(same source file already imported)"
+- `Bholenath_Ki_Jai(0).mp3` ≈ "(same source file already imported)"
+- `Bijora__feat._Nikita_Gusain___Vishal_Bisht_(0).mp3` ≈ "(same source file already imported)"
+- `Bimla_Tere_Hotle(0).mp3` ≈ "(same source file already imported)"
+- `Bol_Chudi_Bol(0).mp3` ≈ "(same source file already imported)"
+- `Bol_Heera__feat._Neeraj_Dabral_(0).mp3` ≈ "Bol Heera"
+- `Bura_Na_Mano_Holi_Hai__feat._Vishal_Sharma_(0).mp3` ≈ "(same source file already imported)"
+- `Bwari_Chaha_Bane_De___New_Kumauni_Song_2024__Lalit_Gityar___Mamta_Arya_Natasha_Shah___Aisha_Siddiqui(0).mp3` ≈ "(same source file already imported)"
+- `CHHAL_KAPAT___छल_कपट_🔥_GARHWALI_SONG__2026(0).mp3` ≈ "(same source file already imported)"
+- `Chaha_Ko_Hotel___New_Kumaoni_Song_2022___Manoj_Arya___Maya_Upadhyay___Ajay_Solanki___Shweta_Mahara(0).mp3` ≈ "(same source file already imported)"
+- `Chailu_Mama_Chupiya_Mama(0).mp3` ≈ "(same source file already imported)"
+- `Chaita_Ki_Chaitwal___Audio__चैता_की_चैत्वाल___Amit_Sagar__Gunjan_Dangwal___गढवाली_आँछरी_जागर(0).mp3` ≈ "(same source file already imported)"
+- `Chaitwali(0).mp3` ≈ "(same source file already imported)"
+- `Chal_Ghumde_Bimla(0).mp3` ≈ "(same source file already imported)"
+- `Chal_Sajaniye(0).mp3` ≈ "(same source file already imported)"
+- `Challpatti____Latest_Garhwali_Song_2020____Diwan_Singh_Panwar____Meena_Rana____Shivay_Music(0).mp3` ≈ "(same source file already imported)"
+- `Chatri_Neela(0).mp3` ≈ "(same source file already imported)"
+- `Chaukhutiya__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Chhori_Lachhima____Anil_Rawat___Maya_Upadhyay____Nain_Nath_Rawal____Londa_Subhasha___New_Pahadi_Song(0).mp3` ≈ "(same source file already imported)"
+- `Chori_Chandra-_Latest_Garhwali_Song___Rohit_Chauhan__Avinash_Rana,Neha_B__Uttarakhandi_Song_2022__feat._Avinash_Rana___Natasha_Shah_(0).mp3` ≈ "(same source file already imported)"
+- `Chunki__छुणकी____Latest_Garhwali_DJ_Song_2023_Suri_Sajwan____Natasha_Shah___Varun_Rawat(0).mp3` ≈ "(same source file already imported)"
+- `Cream_Paudara___New_Kumauni_Folk_Song___Rakesh_Khanwal___Maya_Upadhyay__Pannu_Gusain___Shweta_Mahara(0).mp3` ≈ "(same source file already imported)"
+- `Daaiye_Nilmu(0).mp3` ≈ "(same source file already imported)"
+- `Dabba_Tin_Da(0).mp3` ≈ "(same source file already imported)"
+- `Dagar_Hai_Mushkil_Kathin_Safar_He(0).mp3` ≈ "(same source file already imported)"
+- `Dangru(0).mp3` ≈ "(same source file already imported)"
+- `Darwaje_Par_Bijli_Lagayi_Balma(0).mp3` ≈ "(same source file already imported)"
+- `Dekhna_Maichora(0).mp3` ≈ "(same source file already imported)"
+- `Delhi_Se_Manali__Ladka_Tera_Diwana_(256k).mp3` ≈ "(same source file already imported)"
+- `Dev_Nagri(256k).mp3` ≈ "(same source file already imported)"
+- `Dhai_Hathe_Dhameli(0).mp3` ≈ "(same source file already imported)"
+- `Dhai_Hathe_Dhameli___New_Kumauni_Song___Manoj_Arya____Priyanka_Meher___Pannu_Gusain___Shweta_Mahara(0).mp3` ≈ "(same source file already imported)"
+- `Dhana(0)(1).mp3` ≈ "(same source file already imported)"
+- `Dhana__Garhwali_Official_Music_Video__Priyanka_Meher,_Rongpaz___2023(0).mp3` ≈ "(same source file already imported)"
+- `Dhatku_Kala_Seemiya(0).mp3` ≈ "(same source file already imported)"
+- `Dhingta_dhingto__feat._Deepak_Meher_(0).mp3` ≈ "(same source file already imported)"
+- `Dhol_Damau(256k).mp3` ≈ "(same source file already imported)"
+- `Dhol_Damau_Baji_Gena(0).mp3` ≈ "(same source file already imported)"
+- `Dholiye(0).mp3` ≈ "(same source file already imported)"
+- `Drivera(256k).mp3` ≈ "(same source file already imported)"
+- `Dunge_Naluye__Mix_(256k).mp3` ≈ "(same source file already imported)"
+- `Dupatta__Uttrakhandi_(256k).mp3` ≈ "(same source file already imported)"
+- `Duro_Aaja_Pauna(0).mp3` ≈ "(same source file already imported)"
+- `Esa_Grayi_Deya_Lamra(0).mp3` ≈ "(same source file already imported)"
+- `FYONLADIYA-KISHAN_MAHIPAL___OFFICIAL_VIDEO____POPULAR_UTTARAKHANDI_SONG___2017(0).mp3` ≈ "(same source file already imported)"
+- `Fullo_Fulli(256k).mp3` ≈ "(same source file already imported)"
+- `Gambriye(0)(1).mp3` ≈ "(same source file already imported)"
+- `Gambriye(0).mp3` ≈ "(same source file already imported)"
+- `Genda_Phool__Pahari_Version_(0).mp3` ≈ "(same source file already imported)"
+- `Ghar Aaja Pardesiya(0).mp3` ≈ "(same source file already imported)"
+- `Ghaskati(0).mp3` ≈ "(same source file already imported)"
+- `Ghughuti__Video_Song____Kishan_Mahipal___Latest_Uttarakhandi__Garhwali__Song___Himalayan_Films(0).mp3` ≈ "(same source file already imported)"
+- `Ghumai_De_[Garhwali_Song]__feat._Rongpaz_(0).mp3` ≈ "(same source file already imported)"
+- `Ghumdi_Ridge_Maidane(0).mp3` ≈ "(same source file already imported)"
+- `Ghungroo__feat._Neha_Bhandari,_Rohit_Chauhan,_Raj_Tiger___Ankit_Rawat_(0).mp3` ≈ "(same source file already imported)"
+- `Giri_Ro_Pani(0).mp3` ≈ "(same source file already imported)"
+- `Gopuli__Kumauni_Folk_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Guitar_Baaje_Tana_Tan(256k).mp3` ≈ "(same source file already imported)"
+- `Gulabi_Sharara(0).mp3` ≈ "(same source file already imported)"
+- `Gulabi_Sharara(256k).mp3` ≈ "(same source file already imported)"
+- `Haaye_Bebua(0).mp3` ≈ "(same source file already imported)"
+- `Haayo_Dura_Mere_Pere_Challa_Pe_Gaya(0).mp3` ≈ "(same source file already imported)"
+- `Hafta_Me__Kumaoni_Geet_(256k).mp3` ≈ "(same source file already imported)"
+- `Hasna__Rushna_Bato_Bato_Da_(256k).mp3` ≈ "(same source file already imported)"
+- `Hath_Kata_Pauini_Dachiye(0).mp3` ≈ "(same source file already imported)"
+- `Haye_Bathne_Reeniya_Re(0).mp3` ≈ "(same source file already imported)"
+- `Haye_Shohrua(0).mp3` ≈ "(same source file already imported)"
+- `Heera_Han_Ya_Na(256k).mp3` ≈ "(same source file already imported)"
+- `Heera_Samdhini(0).mp3` ≈ "(same source file already imported)"
+- `Here_Ge_Heriye(0).mp3` ≈ "(same source file already imported)"
+- `Hey_Madhu_Mashakbeen(256k).mp3` ≈ "(same source file already imported)"
+- `Hey_Madhu___Inder_Arya_New_Kumaoni_Song_2022___Amit_Bhatt___Shweta_Mahara____Pahari_New_Song_2022(0).mp3` ≈ "(same source file already imported)"
+- `Hey_Nanda(0).mp3` ≈ "(same source file already imported)"
+- `Himachali_Shimla_shivratri_bhajan(256k).mp3` ≈ "(same source file already imported)"
+- `Himuli___New_Kumauni_Folk_Song___Rakesh_Khanwal___Mamta_Arya___Ankit_Rawat___Bhawna_Kandpal(0).mp3` ≈ "(same source file already imported)"
+- `Hit_Madhuli__Pahadi_(256k).mp3` ≈ "(same source file already imported)"
+- `Hits_Hema_Negi_Karasi(0)(1).mp3` ≈ "(same source file already imported)"
+- `Hits_Hema_Negi_Karasi(0).mp3` ≈ "(same source file already imported)"
+- `Hori_Kati_Kakdi(0).mp3` ≈ "(same source file already imported)"
+- `Hum_Chhu_Pahadi(256k).mp3` ≈ "(same source file already imported)"
+- `Indu_Bindu(0).mp3` ≈ "(same source file already imported)"
+- `Ishq_Mai_Tere(0).mp3` ≈ "(same source file already imported)"
+- `Ishq_Mein_Risk(256k).mp3` ≈ "(same source file already imported)"
+- `JHUMKA_REIGYA_BAGSA_MAIN__अल्मोड़ा_अंग्रेज_आयो_टैक्सी_में_NEERAJ_CHUPHAL,KHUSHI_JOSHI_NEW_JHODA_2022(0).mp3` ≈ "(same source file already imported)"
+- `Jai_Bhole__feat._Hema_Negi_Karasi___Vikram_Kaprwan_(0).mp3` ≈ "(same source file already imported)"
+- `Jai_Shree_Kedar(0).mp3` ≈ "(same source file already imported)"
+- `Jai_Uttarakhand__feat._Deepak_Meher_(0).mp3` ≈ "(same source file already imported)"
+- `Jangle_Schoolo_De(0).mp3` ≈ "(same source file already imported)"
+- `Jannat_Mahadev_Ki_Baraat_-_Brahmkhada(256k).mp3` ≈ "(same source file already imported)"
+- `Jhagad_Na_Kar(256k).mp3` ≈ "(same source file already imported)"
+- `Jham_Ka_Jhola___Darshan_Farswan___New_Garhwali_Song_2023___Sanju_Silodi___Ruchi_Rawat___U_K_Films(0).mp3` ≈ "(same source file already imported)"
+- `Jhangle_Mama_Titru_Dala(256k).mp3` ≈ "(same source file already imported)"
+- `Jhumalo(0).mp3` ≈ "(same source file already imported)"
+- `Jhumka(256k).mp3` ≈ "(same source file already imported)"
+- `Jhumki___Priyanka_Meher___New_Kumaoni_Song_2024___Shweta_Mahara___Shub_Chandra___New_Pahadi_Song(0).mp3` ≈ "(same source file already imported)"
+- `Jhumki(0).mp3` ≈ "(same source file already imported)"
+- `Jiya_Kori_Kori_Khando___New__Garhwali_Song_2025___Kishan_Mahipal___Tanu_Rawat___Anoop_Parmar(0).mp3` ≈ "(same source file already imported)"
+- `Jodi_First_Class(256k).mp3` ≈ "(same source file already imported)"
+- `Junyali_Raat_Ma__Pahadi_(256k).mp3` ≈ "(same source file already imported)"
+- `Kaano_Ri_Bali(0).mp3` ≈ "(same source file already imported)"
+- `Kain_Bharmai____कैन_भरमाई_______Official_Video__Keshar_Panwar_Anisha_Rangad_sanju_silodi_Aryan_Films(0).mp3` ≈ "(same source file already imported)"
+- `Kajal_Kajal___Latest_Pahari_Video_Song_2025___Anisha_Ranghar___Madhusudan_Nautiyal___Y_Series(0).mp3` ≈ "(same source file already imported)"
+- `Kaliye_Ro_Hando(0).mp3` ≈ "(same source file already imported)"
+- `Kamar_Pida(0).mp3` ≈ "(same source file already imported)"
+- `Kawta(256k).mp3` ≈ "(same source file already imported)"
+- `Kerte_Hai_Sanam(0).mp3` ≈ "(same source file already imported)"
+- `Kethi_Tu_Holi_Jhuriye(0).mp3` ≈ "(same source file already imported)"
+- `Khamoshiyan_Bolne_Lagi_Hai(0).mp3` ≈ "(same source file already imported)"
+- `Kile_Duru_Jaayo__feat._Dhoom_Singh_Rawat_(0).mp3` ≈ "(same source file already imported)"
+- `Kindi_Chali_Usha_Raniye(0).mp3` ≈ "(same source file already imported)"
+- `Kinne_Layi_Ho_Mere_Longa_Di_Bulbul(0).mp3` ≈ "(same source file already imported)"
+- `Kirpi_Ra_Dola(0).mp3` ≈ "(same source file already imported)"
+- `Kui_Ta_Baat_Holi(0).mp3` ≈ "(same source file already imported)"
+- `Kurti_Teri_Laal(256k).mp3` ≈ "(same source file already imported)"
+- `Kwi_te_mil__feat._Vishal_Sharma_(0).mp3` ≈ "(same source file already imported)"
+- `LAALI_HO____GOVIND_DIGARI____KHUSHI_JOSHI____CHANDANI_ENTERPRISES____KUMAONI_SONG____KISHAN_MAHIPAL(0).mp3` ≈ "(same source file already imported)"
+- `Laadi_Gudiye(0).mp3` ≈ "(same source file already imported)"
+- `Laadi_Surma(0).mp3` ≈ "(same source file already imported)"
+- `Laaga_Re(256k).mp3` ≈ "(same source file already imported)"
+- `Laana_Bhai_Mujra(0).mp3` ≈ "(same source file already imported)"
+- `Lachi_Lachi_Lok_Glande(0).mp3` ≈ "(same source file already imported)"
+- `Laga_Radiya(0).mp3` ≈ "(same source file already imported)"
+- `Lal_Buta_Pichhodi___Feat._Anil_Kumar_Any,_Arti_Tamta______Feat._Anil_Kumar_Any,_Arti_Tamta___(256k).mp3` ≈ "(same source file already imported)"
+- `Latest_kumauni_Song_2021__Lal_Botal_Saraba__लाल_बोतल_शराबा____prakash_kahala__(0).mp3` ≈ "(same source file already imported)"
+- `Le_Bhuji_Jaala_Le_Chudan___Superhit_Garhwali_Jaunsari_Song___Reshma_Shah___#jaunsarisong___RS_Prod.(0).mp3` ≈ "(same source file already imported)"
+- `Left_Right(256k).mp3` ≈ "(same source file already imported)"
+- `Lehenga_3(0).mp3` ≈ "(same source file already imported)"
+- `Lehenga_Jab_Pareli(256k).mp3` ≈ "(same source file already imported)"
+- `Londa_Mohana(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Brahmacharini_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Chandraghanta_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Kalratri_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Katyayani_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Mahagauri_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Shailputri_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Siddhidhatri_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maa_Skandmata_Ki_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Maaji_mane_delu__feat._Rongpaz_(0).mp3` ≈ "(same source file already imported)"
+- `Maalka(256k).mp3` ≈ "(same source file already imported)"
+- `Maangal_Ho(0).mp3` ≈ "(same source file already imported)"
+- `Mai_Pahadan___New_Kumauni_Song_2023____Mamta_Arya___Bhawana_Kandpal_,Manoj___Ashutosh(0).mp3` ≈ "(same source file already imported)"
+- `Main_Tero_Fauji__Pahadi_(256k).mp3` ≈ "(same source file already imported)"
+- `Maitwali_Disa(0).mp3` ≈ "(same source file already imported)"
+- `Mama_Mangtu(0).mp3` ≈ "(same source file already imported)"
+- `Mangal_Murati_Ram_Dulare(0).mp3` ≈ "(same source file already imported)"
+- `Mathu_Mathu__Uttrakhandi_(256k).mp3` ≈ "Mathu Mathu"
+- `Mathu_Mathu__Uttrakhandi___feat._Inder_Arya_(0).mp3` ≈ "(same source file already imported)"
+- `Maya_Ka_Jhamela_Sangeeta__Uttrakhandi_(0).mp3` ≈ "(same source file already imported)"
+- `Mela_Laaga_Mahunaag_-_Rupa_Dasi(0).mp3` ≈ "(same source file already imported)"
+- `Mera_Bharat_Mahaan__feat._Amrit_Bhardwaj_(0).mp3` ≈ "(same source file already imported)"
+- `Mere_Patwariya(0).mp3` ≈ "(same source file already imported)"
+- `Meri_Jhuriye(0).mp3` ≈ "(same source file already imported)"
+- `Meri_Jogyani(256k).mp3` ≈ "Meri Jogyani"
+- `Meri_Jogyani___Inder_Arya___Jyoti_Arya___Latest_Uttarakhandi_Dj_Song_2021-_Official_Video_Song(0).mp3` ≈ "(same source file already imported)"
+- `Meriye_Balma(0).mp3` ≈ "(same source file already imported)"
+- `Mero_Lehenga_2(0).mp3` ≈ "Mero Lehenga 2"
+- `Modern_Kumaun__Pahadi_(256k).mp3` ≈ "Modern Kumaun"
+- `Modern_Kumaun____Inder_Arya____Akash_Negi___Aarti_Tamta____Full_Song____Official_Video____2021___(0).mp3` ≈ "(same source file already imported)"
+- `Moina(0).mp3` ≈ "(same source file already imported)"
+- `Moriye_Jana(256k).mp3` ≈ "(same source file already imported)"
+- `Motima(0).mp3` ≈ "(same source file already imported)"
+- `Motiya(0).mp3` ≈ "(same source file already imported)"
+- `Mukhudi_Be_Chunari(256k).mp3` ≈ "(same source file already imported)"
+- `Munshiya_Khat_Likh_De(0).mp3` ≈ "(same source file already imported)"
+- `Myara_Saiyaan_Jee___New_Kumaouni_Song_2025___Diksha_Dhoundiyal___Shweta_Mahara___Himanshu_Arya(0).mp3` ≈ "(same source file already imported)"
+- `NACHAD_KHUTI___NEW_GARHWAL_VIDEO_SONG_2021_DIWAN_SINGH_PANWAR_,MEENA_RANA__AJAY_SOLANKI_NATASHA_SHAH(0).mp3` ≈ "(same source file already imported)"
+- `Nacha_pauna__feat._Deepak_Meher_(0).mp3` ≈ "(same source file already imported)"
+- `Nanu_Baujyu__Mahesh_Kumar___Mamta_Arya__Jeewan_Da___Shivanksha___Mangoli_Saab___Trending_Song(0).mp3` ≈ "(same source file already imported)"
+- `Nathuli_Ki_Dor(256k).mp3` ≈ "(same source file already imported)"
+- `Nazar_Na_Lago__Pahadi_(256k).mp3` ≈ "(same source file already imported)"
+- `Neeru_Chali_Ghumdi(0).mp3` ≈ "(same source file already imported)"
+- `Nili_Chidiye_Ho(256k).mp3` ≈ "(same source file already imported)"
+- `Nilmoniya(0).mp3` ≈ "(same source file already imported)"
+- `Nind_Chori__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Nug_Badiya___Diksha_Dhoundiyal___Sanjoli_Singh___Kapil_Chand___Kamal_Joshi___New_Kumaoni_song_2025__(0).mp3` ≈ "(same source file already imported)"
+- `OFFICIAL_VIDEO_SONG___HULIYA_-_GARHWALI_DJ_SONG_-_6_NUMBER_PULIYA_#garhwali(0).mp3` ≈ "(same source file already imported)"
+- `O_Ladi_Shanta(256k).mp3` ≈ "(same source file already imported)"
+- `O_Mamta(256k).mp3` ≈ "(same source file already imported)"
+- `Oh_Diye_Kauliye(0).mp3` ≈ "(same source file already imported)"
+- `Om_Jai_Ambe_Gauri_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Om_Jai_Laxmi_Mata_Aarti(0).mp3` ≈ "(same source file already imported)"
+- `Ori_Aaja_Tu(256k).mp3` ≈ "(same source file already imported)"
+- `Otuwa_Belena___New_Garhwali_Song___Inspiration-Narendra_Singh_Negi___Vivek_Nautiyal___Ne_Yo___Sakshi(0).mp3` ≈ "(same source file already imported)"
+- `PRIYANKA_MEHER___GHUMAI_DE____FT_@rongpaz_____LATEST_UTTARAKHANDI_SONG(0).mp3` ≈ "(same source file already imported)"
+- `Priyanka_Meher____Uk_Rapi_Boy____Ransingh_Bajo_x__Ay_meru_gopala_×_Bhag_Fhuto_Refix(0).mp3` ≈ "(same source file already imported)"
+- `Pahado_Mai_Charcha(256k).mp3` ≈ "(same source file already imported)"
+- `Pahado_Mein_Ghar(256k).mp3` ≈ "(same source file already imported)"
+- `Pahadon_Ko_Raibasi(256k).mp3` ≈ "Pahadon Ko Raibasi"
+- `Pahadon_Ko_Raibasi___New_Garhwali_Song____Saurav_Maithani___Anjali_Kharre___Akash_Negi___Neeru_bora(0).mp3` ≈ "(same source file already imported)"
+- `Pahari_EDM(256k).mp3` ≈ "(same source file already imported)"
+- `Pata_Pano_Ra(0).mp3` ≈ "(same source file already imported)"
+- `Phool_Khilala(0).mp3` ≈ "(same source file already imported)"
+- `Phool_Khilala_Remix(0).mp3` ≈ "(same source file already imported)"
+- `Photo_Teri__Kumaoni_(256k).mp3` ≈ "(same source file already imported)"
+- `Phuljhadi(0).mp3` ≈ "(same source file already imported)"
+- `Pingli_Pichodi__feat._Sapna_Chauhan,_Rohit_Chauhan,_Raj_Tiger___Meena_Rana_(0).mp3` ≈ "(same source file already imported)"
+- `Pingli_Sadee_l_पिंगली_साड़ी___Fauji_Lalit_Mohan_Joshi___Latest_Kumaoni_Song_2025(0).mp3` ≈ "(same source file already imported)"
+- `Pink_Plazo__feat._Prachi_Panwar___Sunil_Garwan_(0).mp3` ≈ "(same source file already imported)"
+- `Plazo(256k).mp3` ≈ "(same source file already imported)"
+- `Preet_Ki_Mithi_Lagna(0).mp3` ≈ "(same source file already imported)"
+- `Preet_Ku_Rog___Mor_Sansaar_Pahadi_Version_____Ashish_Chamoli_Ft.Akansha___Khushi___Rishiraj____RB(0).mp3` ≈ "(same source file already imported)"
+- `Pyari_Sanjana(256k).mp3` ≈ "(same source file already imported)"
+- `Pyari_Teri_Aakhti(256k).mp3` ≈ "(same source file already imported)"
+- `RAMDAI_KA_HOTEL_II_CHANDANI_ENTERPRISES_II_KUMAONI_SONG_II_SATENDRA_GANGOLA_II_LALIT_GITYAR(0).mp3` ≈ "(same source file already imported)"
+- `RAMM_JHAMA__feat._Vivek_Nautiyal_(0).mp3` ≈ "(same source file already imported)"
+- `ROYAL_STYLE(0).mp3` ≈ "(same source file already imported)"
+- `Rajula_Malushahi(0).mp3` ≈ "(same source file already imported)"
+- `Ramadasiye(256k).mp3` ≈ "(same source file already imported)"
+- `Ramo_Ri_Raniye(0).mp3` ≈ "(same source file already imported)"
+- `Rana_Bhaine___Sunil,_Prajul___र‌णा_भैणे___Latest_Pahari_Shivratri_Song_2020___Jagdish_Rajta,_Vijay_M(256k).mp3` ≈ "(same source file already imported)"
+- `Rangeeli_Pichhodi_Madhuli_Chholiya_Geet(256k).mp3` ≈ "(same source file already imported)"
+- `Rangili_Pichhodi(0).mp3` ≈ "(same source file already imported)"
+- `Rangili_Pichhodi_I_Pahadi_Song_2023_I_Priyanka_Meher_Vishal___Rongpaz_I_Neha_Bhandari_I_Sid_Raturi_I(0).mp3` ≈ "(same source file already imported)"
+- `Ranikheta_Ramdhola___Kishan_Mahipal___रानीखेत_रामढोला___Uttarakhandi_Garhwali__Song___HimalayanFilms(0).mp3` ≈ "(same source file already imported)"
+- `Ransi_Beera_Brahmkhada(256k).mp3` ≈ "(same source file already imported)"
+- `Ransingh_Baajo__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Rehshu_Re_Dale(0).mp3` ≈ "(same source file already imported)"
+- `Roop_Ku_Mantar(0).mp3` ≈ "(same source file already imported)"
+- `Roye_Boliye(0).mp3` ≈ "(same source file already imported)"
+- `Rumatiye(0).mp3` ≈ "(same source file already imported)"
+- `SAPNA_SYALI___FULL_VIDEO_SONG___Sanjay_Bhandari___Saurav_Maithani___Anisha_Ranghar___OM_TARONI(0).mp3` ≈ "(same source file already imported)"
+- `Saajna(256k).mp3` ≈ "(same source file already imported)"
+- `Samlonya_Rumaal____Rohit_Chauhan____Uttarakhandi_Song(0).mp3` ≈ "(same source file already imported)"
+- `Saurav_Maithani___Maa_Uncha_Pahadu_Ma_-_माँ_ऊँचा_पहाड़ो_मा____Navratri_Special_Bhajan__2024(0).mp3` ≈ "(same source file already imported)"
+- `Sawariya_Been_Baja(0).mp3` ≈ "(same source file already imported)"
+- `Sawri_Sawri_Meri_Madhuri(256k).mp3` ≈ "(same source file already imported)"
+- `Sawri_Sawri_l_Meri_Madhuri___Inder_Arya___New_Kumaoni_Uttarakhandi_Song_@YouTubeIndia_@YouTube(0).mp3` ≈ "(same source file already imported)"
+- `Selfie(256k).mp3` ≈ "(same source file already imported)"
+- `Seo_Bheje_Delhi_ke(0).mp3` ≈ "(same source file already imported)"
+- `Shambhu__Hindi_Shiv_Bhajan_(0).mp3` ≈ "(same source file already imported)"
+- `Sheeluye(0).mp3` ≈ "(same source file already imported)"
+- `Shela_Laga_de_Kamblo(0).mp3` ≈ "(same source file already imported)"
+- `Shilpa_Shimle_Waliye(0).mp3` ≈ "(same source file already imported)"
+- `Shiv_Bhramkhada_By_Dikshu_Sharma___Pahari_Nati_2022___Shivratri_Special(256k).mp3` ≈ "(same source file already imported)"
+- `Shiv_Vivah___BHRAMAKHADA_SHIVRATRI__Best_of_Arun_Justa___Himachali_Zitto_Music_Originals(256k).mp3` ≈ "(same source file already imported)"
+- `Silami___सीलामी___Swati_Bhatt___Tarun_Bhatt___Natasha_Shah___Kamal_Joshi__New_Kumaoni_Song_2025__(0).mp3` ≈ "(same source file already imported)"
+- `Sita_Pani_Rumatiye__Garhwali_Song_(0).mp3` ≈ "(same source file already imported)"
+- `Soina_Lambo_Kaati(0).mp3` ≈ "(same source file already imported)"
+- `Sughadi_Naari(0).mp3` ≈ "(same source file already imported)"
+- `Sun_Zara(0).mp3` ≈ "(same source file already imported)"
+- `Suretu_Mama____Jaunpuri_Jaunsari_Harul____Manju_Nautiyal____J_Music_Films(0).mp3` ≈ "(same source file already imported)"
+- `Swami_Ji_Please(0).mp3` ≈ "(same source file already imported)"
+- `Swami_Pardesh(0).mp3` ≈ "(same source file already imported)"
+- `Syali_Ramdeyi___Narendra_Singh_Negi_New_Garhwali_Song___Anjali_Khare___New_Garhwali_Song_2022(0).mp3` ≈ "(same source file already imported)"
+- `TERA_NAKHRA____ROHIT_CHAUHAN____OFFICIAL_VIDEO____UTTARAKHANDI_SONG(0).mp3` ≈ "(same source file already imported)"
+- `TU_LAGI_RE_CHHE_SWANA____INDER_ARYA___MAMTA_ARYA,_STARRING_-_ANKIT_RAWAT___AARTI_TAMTA(0).mp3` ≈ "Tu Lagi Re Chhe Swana"
+- `Tu_Lagi_Re_Chhe_Swana(256k).mp3` ≈ "(same source file already imported)"
+- `Tera_Se_Banki_Shori(256k).mp3` ≈ "(same source file already imported)"
+- `Tere_Bin_Adura_Me__feat._Amrit_Bhardwaj_(0).mp3` ≈ "(same source file already imported)"
+- `Tere_Bina(0).mp3` ≈ "(same source file already imported)"
+- `Teri_Rangyali_Pichhodi_Kamu__Pappu_Karki___Meena_Rana__Latest_Uttrakhandi_Full_Video_Song(0).mp3` ≈ "(same source file already imported)"
+- `Teri_Shangri_Kullu_Ri_Deiye(0).mp3` ≈ "(same source file already imported)"
+- `Tero_Lehenga_2-_Kumaoni_Song___मेरो_लेहेंगा__Avinash_Rana_Inder_arya_Kumauni_Dj_Song_2022(0).mp3` ≈ "(same source file already imported)"
+- `Thal_Ki_Bazar(0).mp3` ≈ "(same source file already imported)"
+- `Thekedaarniye__Badiyan_Jo_Tunka_(0).mp3` ≈ "(same source file already imported)"
+- `Thodi_Desi_Pini(0).mp3` ≈ "(same source file already imported)"
+- `Tinku_Jiya(0).mp3` ≈ "(same source file already imported)"
+- `Toh_Bola_Se(0).mp3` ≈ "(same source file already imported)"
+- `Trijugi_Narayan(0).mp3` ≈ "(same source file already imported)"
+- `Tu_Hi_Le_Gaya(0).mp3` ≈ "(same source file already imported)"
+- `Tu_Hi_Mera(0).mp3` ≈ "(same source file already imported)"
+- `Tu_Muskuraye_To_Lage__feat._Amrit_Bhardwaj_(0).mp3` ≈ "(same source file already imported)"
+- `UTTRANI_KAUTIK____PAPPU_KARKI____MEENA_RANA____CHANDANI_ENTERPRISES___(0).mp3` ≈ "(same source file already imported)"
+- `Uddi_Jana_Bhonra(0).mp3` ≈ "(same source file already imported)"
+- `Utmiye_-_Tara_Laadiye(0).mp3` ≈ "(same source file already imported)"
+- `Utraini_Kautik_-_Reprised_Version__Full_Video_Song____Daksh_Karki___Pappu_Karki___Nitesh_Bisht(0).mp3` ≈ "(same source file already imported)"
+- `Ye_Ji_Suna(0).mp3` ≈ "(same source file already imported)"
+- `Zameen_Se_Falak_Tak(0).mp3` ≈ "(same source file already imported)"
+- `___Nandre_Tu____नन्दरे_तू____Rohit_Chauhan____Latest_Uttarakhandi_Song(0).mp3` ≈ "(same source file already imported)"
+- `इस_गढवाली_गीत_ने_2020_के_सभी_गीत_को_पीछे_छोड_बना_नंबर_वन____Amardeep_Negi____Latest_Garhwali_Song(0).mp3` ≈ "(same source file already imported)"
+- `मास्टर_जी___Master_Ji_____New_Garhwali_Song_2023___Kishan_Mahipal___Aditya_Singh___Uttrakhandi_Song(0).mp3` ≈ "(same source file already imported)"
+- `मुखड़ी_बे_चुनरी_I_Mukhadi_Be_Chunri___Inder_Arya_new_song___New_Kumaoni_Song_2023(0).mp3` ≈ "(same source file already imported)"
+- `मैं_छों_नोनी_पौड़ी_कि___New_latest_Video_Song___Anisha_Ranghar___Raj_Tiger_Sanju_Silodi__Reeta_Dhyani(0).mp3` ≈ "(same source file already imported)"

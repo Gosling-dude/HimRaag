@@ -4,10 +4,12 @@ import '../../../data/local/hive_boxes.dart';
 import '../../../data/local/models/hive_recently_played.dart';
 import '../../../data/services/download_service.dart';
 import '../../../domain/models/song.dart';
+import '../../auth/providers/auth_providers.dart';
+import '../../auth/providers/user_profile_providers.dart';
 
 final favoritesProvider =
     StateNotifierProvider<FavoritesNotifier, Set<String>>((ref) {
-  return FavoritesNotifier();
+  return FavoritesNotifier(ref);
 });
 
 final isFavoriteProvider = Provider.family<bool, String>((ref, songId) {
@@ -15,9 +17,11 @@ final isFavoriteProvider = Provider.family<bool, String>((ref, songId) {
 });
 
 class FavoritesNotifier extends StateNotifier<Set<String>> {
-  FavoritesNotifier() : super({}) {
+  FavoritesNotifier(this._ref) : super({}) {
     _load();
   }
+
+  final Ref _ref;
 
   void _load() {
     state = HiveBoxes.favorites.values.toSet();
@@ -31,6 +35,12 @@ class FavoritesNotifier extends StateNotifier<Set<String>> {
       await HiveBoxes.favorites.put(songId, songId);
       state = {...state, songId};
     }
+    // Offline-first: Hive is the source of truth; mirror to the user's Firestore
+    // doc when signed in (best-effort, no-op for pure-local guests).
+    _ref.read(userProfileServiceProvider).syncFavorites(
+          state,
+          uid: _ref.read(currentUserProvider)?.uid,
+        );
   }
 
   bool isFavorite(String songId) => state.contains(songId);
@@ -121,13 +131,15 @@ class LibraryNotifier extends StateNotifier<LibraryState> {
 
 final recentlyPlayedProvider =
     StateNotifierProvider<RecentlyPlayedNotifier, List<Song>>((ref) {
-  return RecentlyPlayedNotifier();
+  return RecentlyPlayedNotifier(ref);
 });
 
 class RecentlyPlayedNotifier extends StateNotifier<List<Song>> {
-  RecentlyPlayedNotifier() : super([]) {
+  RecentlyPlayedNotifier(this._ref) : super([]) {
     _load();
   }
+
+  final Ref _ref;
 
   void _load() {
     final items = HiveBoxes.recentlyPlayed.values.toList()
@@ -172,6 +184,24 @@ class RecentlyPlayedNotifier extends StateNotifier<List<Song>> {
       ),
     );
     _load();
+    // Best-effort mirror of recent plays + listening history to users/{uid}.
+    final recent = HiveBoxes.recentlyPlayed.values.toList()
+      ..sort((a, b) => b.playedAt.compareTo(a.playedAt));
+    _ref.read(userProfileServiceProvider).logPlay(
+          songId: song.id,
+          title: song.title,
+          artistName: song.artistName,
+          recentlyPlayed: recent
+              .take(25)
+              .map((h) => {
+                    'songId': h.songId,
+                    'title': h.songTitle,
+                    'artistName': h.artistName,
+                    'playedAt': h.playedAt.millisecondsSinceEpoch,
+                  })
+              .toList(),
+          uid: _ref.read(currentUserProvider)?.uid,
+        );
   }
 
   void clearAll() {

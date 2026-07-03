@@ -70,7 +70,11 @@ function polishRecord(r, kind) {
   }
   if (r.albumTitle === 'Imported Recordings') r.albumTitle = FOLK_ALBUM;
 
-  if (r.region === NEEDS_REVIEW) r.region = kind === 'artist' ? 'Pahadi' : 'Himachali';
+  // Genuinely region-ambiguous tracks get the honest umbrella "Pahadi" rather
+  // than being mass-mislabeled into one specific region (e.g. dumping 169
+  // unknown-region songs into Himachali). They still appear in All Songs / feed;
+  // admin refines the real region from Firestore (which keeps the raw flags).
+  if (r.region === NEEDS_REVIEW) r.region = 'Pahadi';
   if (r.language === NEEDS_REVIEW) r.language = 'Pahadi';
 
   if (Array.isArray(r.tags)) r.tags = cleanTags(r.tags);

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,8 @@ import '../../../../domain/models/album.dart';
 import '../../../../domain/models/artist.dart';
 import '../../../../domain/models/song.dart';
 import '../../../auth/providers/auth_providers.dart';
+import '../../../auth/providers/user_profile_providers.dart';
+import '../../../library/providers/library_providers.dart';
 import '../../../player/providers/player_providers.dart';
 import '../../providers/home_providers.dart';
 import '../widgets/album_card.dart';
@@ -35,6 +38,7 @@ class HomeScreen extends ConsumerWidget {
           ref.invalidate(newReleasesProvider);
           ref.invalidate(featuredAlbumsProvider);
           ref.invalidate(featuredArtistsProvider);
+          ref.invalidate(personalizedSongsProvider);
           if (selectedRegion != 'All') {
             ref.invalidate(regionSongsProvider(selectedRegion));
           }
@@ -43,11 +47,14 @@ class HomeScreen extends ConsumerWidget {
           slivers: [
             _HomeAppBar(userName: user?.displayLabel),
             const _FeaturedSection(),
+            const _ContinueListeningSection(),
             const _AllSongsEntry(),
             const _RegionPicker(),
             if (selectedRegion != 'All')
               _RegionSongsSection(region: selectedRegion)
             else ...[
+              const _MadeForYouSection(),
+              const _RecentlyPlayedSection(),
               const _TrendingSection(),
               const _NewReleasesSection(),
               const _CuratedRegionSections(),
@@ -409,7 +416,7 @@ class _CuratedRegionSections extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final regions = ref.watch(populatedRegionsProvider);
+    final regions = ref.watch(personalizedRegionsProvider);
     return regions.when(
       data: (list) => SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -539,6 +546,184 @@ class _FestivalCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// "Continue Listening" rail — resumes the last partially-played track at its
+/// saved position. Hidden when there is nothing to resume.
+class _ContinueListeningSection extends ConsumerWidget {
+  const _ContinueListeningSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cl = ref.watch(continueListeningProvider);
+    if (cl == null) return const SliverToBoxAdapter(child: SizedBox.shrink());
+
+    void resume() {
+      final song = Song(
+        id: cl.songId,
+        title: cl.title,
+        artistId: '',
+        artistName: cl.artistName,
+        albumId: '',
+        albumTitle: '',
+        audioUrl: cl.audioUrl,
+        artworkUrl: cl.artworkUrl,
+        duration: Duration(milliseconds: cl.durationMs),
+        region: '',
+        language: '',
+        genre: '',
+        releaseYear: 0,
+        playCount: 0,
+        tags: const [],
+        isApproved: true,
+        isDownloadable: false,
+      );
+      ref
+          .read(playerControllerProvider)
+          .playSongAt(song, Duration(milliseconds: cl.positionMs));
+    }
+
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text('Continue Listening',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: resume,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceDark,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        imageUrl: cl.artworkUrl,
+                        width: 56,
+                        height: 56,
+                        fit: BoxFit.cover,
+                        errorWidget: (_, __, ___) => Container(
+                          width: 56,
+                          height: 56,
+                          color: AppColors.primary.withValues(alpha: 0.3),
+                          child: const Icon(Icons.music_note_rounded,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(cl.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 15)),
+                          const SizedBox(height: 2),
+                          Text(cl.artistName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  color: AppColors.textSecondaryDark,
+                                  fontSize: 12)),
+                          const SizedBox(height: 8),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: LinearProgressIndicator(
+                              value: cl.progress,
+                              minHeight: 4,
+                              backgroundColor:
+                                  Colors.white.withValues(alpha: 0.12),
+                              valueColor: const AlwaysStoppedAnimation(
+                                  AppColors.primary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.play_circle_fill_rounded,
+                        color: AppColors.primary, size: 40),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// "Made for You" — personalized ranked mix. Hidden until there is a signal
+/// (preferences / favorites / follows).
+class _MadeForYouSection extends ConsumerWidget {
+  const _MadeForYouSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final songs = ref.watch(personalizedSongsProvider);
+    return SliverToBoxAdapter(
+      child: songs.maybeWhen(
+        data: (list) {
+          if (list.isEmpty) return const SizedBox.shrink();
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+                child: SectionHeader(
+                  title: 'Made for You',
+                  onSeeAll: () => context.push('/all-songs'),
+                ),
+              ),
+              _HorizontalSongList(songs: list),
+            ],
+          );
+        },
+        orElse: () => const SizedBox.shrink(),
+      ),
+    );
+  }
+}
+
+/// "Recently Played" rail driven by local play history.
+class _RecentlyPlayedSection extends ConsumerWidget {
+  const _RecentlyPlayedSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recent = ref.watch(recentlyPlayedProvider);
+    return SliverToBoxAdapter(
+      child: recent.isEmpty
+          ? const SizedBox.shrink()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+                  child: SectionHeader(
+                    title: 'Recently Played',
+                    onSeeAll: () => context.go('/library'),
+                  ),
+                ),
+                _HorizontalSongList(songs: recent.take(12).toList()),
+              ],
+            ),
     );
   }
 }

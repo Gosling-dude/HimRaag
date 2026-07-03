@@ -217,7 +217,7 @@ Widget _filterDropdown(
   return SizedBox(
     width: 180,
     child: DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       isExpanded: true,
       decoration: InputDecoration(labelText: label, isDense: true),
       items: items.map((i) => DropdownMenuItem(value: i, child: Text(i))).toList(),
