@@ -11,8 +11,9 @@ import '../../../../domain/models/artist.dart';
 import '../../../../domain/models/song.dart';
 import '../../../auth/providers/auth_providers.dart';
 import '../../../auth/providers/user_profile_providers.dart';
+import '../../../../domain/models/app_user.dart';
 import '../../../library/providers/library_providers.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 import '../../providers/home_providers.dart';
 import '../widgets/album_card.dart';
 import '../widgets/artist_card.dart';
@@ -46,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
         },
         child: CustomScrollView(
           slivers: [
-            _HomeAppBar(userName: user?.displayLabel),
+            _HomeAppBar(user: user),
             const _FeaturedSection(),
             const _ContinueListeningSection(),
             const _AllSongsEntry(),
@@ -72,9 +73,9 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class _HomeAppBar extends StatelessWidget {
-  const _HomeAppBar({this.userName});
+  const _HomeAppBar({this.user});
 
-  final String? userName;
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,7 @@ class _HomeAppBar extends StatelessWidget {
                             ),
                       ),
                       Text(
-                        userName ?? 'Welcome to HimRaag',
+                        user?.displayLabel ?? 'Welcome to HimRaag',
                         style: Theme.of(context).textTheme.headlineSmall,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -121,9 +122,54 @@ class _HomeAppBar extends StatelessWidget {
                   icon: const Icon(Icons.search_rounded),
                   onPressed: () => context.push('/search'),
                 ),
+                const SizedBox(width: 4),
+                _ProfileAvatarButton(user: user),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Top-right avatar — the entry point to the Profile screen. Shows the
+/// account photo when available, otherwise the user's initial (or a generic
+/// icon for signed-out/guest states).
+class _ProfileAvatarButton extends StatelessWidget {
+  const _ProfileAvatarButton({this.user});
+
+  final AppUser? user;
+
+  @override
+  Widget build(BuildContext context) {
+    final photoUrl = user?.photoUrl;
+    final initial = (user?.displayLabel.isNotEmpty ?? false)
+        ? user!.displayLabel[0].toUpperCase()
+        : null;
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 4),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: () => context.push('/profile'),
+        child: CircleAvatar(
+          radius: 18,
+          backgroundColor: AppColors.primary.withValues(alpha: 0.25),
+          foregroundImage: (photoUrl != null && photoUrl.isNotEmpty)
+              ? CachedNetworkImageProvider(photoUrl,
+                  cacheManager: ArtworkCacheManager.instance)
+              : null,
+          child: initial != null
+              ? Text(
+                  initial,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                )
+              : const Icon(Icons.person_rounded, color: Colors.white, size: 20),
         ),
       ),
     );
@@ -581,9 +627,8 @@ class _ContinueListeningSection extends ConsumerWidget {
         isApproved: true,
         isDownloadable: false,
       );
-      ref
-          .read(playerControllerProvider)
-          .playSongAt(song, Duration(milliseconds: cl.positionMs));
+      resumeSongAndOpenPlayer(
+          context, ref, song, Duration(milliseconds: cl.positionMs));
     }
 
     return SliverToBoxAdapter(
@@ -754,11 +799,13 @@ class _HorizontalSongList extends ConsumerWidget {
         itemBuilder: (context, index) {
           return SongCard(
             song: songs[index],
-            onTap: () => ref.read(playerControllerProvider).playSong(
-                  songs[index],
-                  queue: songs,
-                  queueIndex: index,
-                ),
+            onTap: () => playSongAndOpenPlayer(
+              context,
+              ref,
+              songs[index],
+              queue: songs,
+              queueIndex: index,
+            ),
           );
         },
       ),

@@ -11,7 +11,7 @@ import '../../../home/presentation/widgets/album_card.dart';
 import '../../../home/presentation/widgets/artist_card.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 import '../../providers/search_providers.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -222,11 +222,13 @@ class _SongResults extends ConsumerWidget {
           final song = songs[index - 1];
           return SongListTile(
             song: song,
-            onTap: () => ref.read(playerControllerProvider).playSong(
-                  song,
-                  queue: songs,
-                  queueIndex: index - 1,
-                ),
+            onTap: () => playSongAndOpenPlayer(
+              context,
+              ref,
+              song,
+              queue: songs,
+              queueIndex: index - 1,
+            ),
           );
         },
         childCount: songs.length + 1,

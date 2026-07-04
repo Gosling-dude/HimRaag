@@ -12,6 +12,7 @@ import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/library/presentation/screens/library_screen.dart';
 import '../../features/songs/presentation/screens/all_songs_screen.dart';
 import '../../features/player/presentation/screens/full_player_screen.dart';
+import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
 import '../../features/songs/presentation/screens/album_detail_screen.dart';
 import '../../features/songs/presentation/screens/artist_detail_screen.dart';
@@ -19,6 +20,7 @@ import '../../features/songs/presentation/screens/category_screen.dart';
 import '../../features/songs/presentation/screens/playlist_detail_screen.dart';
 import '../../features/songs/presentation/screens/region_screen.dart';
 import '../shell/main_shell.dart';
+import '../widgets/mini_player_overlay.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
@@ -119,40 +121,51 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           },
         ),
       ),
+      // Full-screen routes below live outside the bottom-nav shell, so each is
+      // wrapped in MiniPlayerOverlay to keep the mini player visible on every
+      // screen while something is playing (Task: mini player consistency).
+      GoRoute(
+        path: '/profile',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) =>
+            const MiniPlayerOverlay(child: ProfileScreen()),
+      ),
       GoRoute(
         path: '/all-songs',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const AllSongsScreen(),
+        builder: (context, state) =>
+            const MiniPlayerOverlay(child: AllSongsScreen()),
       ),
       GoRoute(
         path: '/album/:id',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) =>
-            AlbumDetailScreen(albumId: state.pathParameters['id']!),
+        builder: (context, state) => MiniPlayerOverlay(
+            child: AlbumDetailScreen(albumId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/artist/:id',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) =>
-            ArtistDetailScreen(artistId: state.pathParameters['id']!),
+        builder: (context, state) => MiniPlayerOverlay(
+            child: ArtistDetailScreen(artistId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/category/:id',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) =>
-            CategoryScreen(categoryId: state.pathParameters['id']!),
+        builder: (context, state) => MiniPlayerOverlay(
+            child: CategoryScreen(categoryId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/region/:id',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) =>
-            RegionScreen(regionId: state.pathParameters['id']!),
+        builder: (context, state) => MiniPlayerOverlay(
+            child: RegionScreen(regionId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/playlist/:id',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) =>
-            PlaylistDetailScreen(playlistId: state.pathParameters['id']!),
+        builder: (context, state) => MiniPlayerOverlay(
+            child:
+                PlaylistDetailScreen(playlistId: state.pathParameters['id']!)),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

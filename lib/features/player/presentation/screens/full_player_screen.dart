@@ -47,9 +47,22 @@ class _FullPlayerScreenState extends ConsumerState<FullPlayerScreen>
   Widget build(BuildContext context) {
     final song = ref.watch(currentSongProvider);
     if (song == null) {
+      // Reached for a beat when the player opens while the queue is still
+      // being set (tap → play + navigate happen together) — show a quiet
+      // loading state instead of "No song playing".
       return Scaffold(
-        appBar: AppBar(),
-        body: const Center(child: Text('No song playing')),
+        backgroundColor: AppColors.backgroundDark,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 32),
+            color: Colors.white,
+            onPressed: () => context.pop(),
+          ),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
       );
     }
 

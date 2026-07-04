@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 import '../../../home/providers/home_providers.dart';
 import '../../providers/library_providers.dart';
 import '../widgets/song_list_tile.dart';
@@ -107,11 +107,13 @@ class _DownloadsTab extends ConsumerWidget {
               final song = downloads[index];
               return SongListTile(
                 song: song,
-                onTap: () => ref.read(playerControllerProvider).playSong(
-                      song,
-                      queue: downloads,
-                      queueIndex: index,
-                    ),
+                onTap: () => playSongAndOpenPlayer(
+                  context,
+                  ref,
+                  song,
+                  queue: downloads,
+                  queueIndex: index,
+                ),
                 trailing: _DeleteDownloadButton(song: song),
               );
             },
@@ -232,11 +234,13 @@ class _FavoritesTab extends ConsumerWidget {
             final song = songs[index];
             return SongListTile(
               song: song,
-              onTap: () => ref.read(playerControllerProvider).playSong(
-                    song,
-                    queue: songs,
-                    queueIndex: index,
-                  ),
+              onTap: () => playSongAndOpenPlayer(
+                context,
+                ref,
+                song,
+                queue: songs,
+                queueIndex: index,
+              ),
             );
           },
         );
@@ -267,7 +271,7 @@ class _RecentTab extends ConsumerWidget {
         final song = recent[index];
         return SongListTile(
           song: song,
-          onTap: () => ref.read(playerControllerProvider).playSong(song),
+          onTap: () => playSongAndOpenPlayer(context, ref, song),
         );
       },
     );

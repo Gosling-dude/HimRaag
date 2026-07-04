@@ -10,14 +10,25 @@ import 'package:just_audio_platform_interface/just_audio_platform_interface.dart
 
 import 'core/constants/app_constants.dart';
 import 'core/router/app_router.dart';
+import 'core/splash/bootstrap_app.dart';
 import 'core/theme/app_theme.dart';
 import 'data/local/hive_boxes.dart';
 import 'firebase_options.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   debugPrint('[APP] APP_START');
 
+  // Show the branded splash immediately; all heavy initialization now runs
+  // behind it instead of blocking runApp (see BootstrapApp for the
+  // min-duration + fade rules).
+  runApp(BootstrapApp(
+    initialization: _initialize(),
+    appBuilder: (_) => const ProviderScope(child: HimRaagApp()),
+  ));
+}
+
+Future<void> _initialize() async {
   // ── Firebase ──────────────────────────────────────────────────────────────
   debugPrint('[APP] FIREBASE_INIT_START');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -85,8 +96,7 @@ Future<void> main() async {
     ),
   );
 
-  debugPrint('[APP] RUN_APP');
-  runApp(const ProviderScope(child: HimRaagApp()));
+  debugPrint('[APP] INIT_COMPLETE');
 }
 
 class HimRaagApp extends ConsumerWidget {

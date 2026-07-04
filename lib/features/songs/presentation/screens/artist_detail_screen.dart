@@ -10,7 +10,7 @@ import '../../../home/presentation/widgets/album_card.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../home/providers/home_providers.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 
 class ArtistDetailScreen extends ConsumerWidget {
   const ArtistDetailScreen({super.key, required this.artistId});
@@ -165,11 +165,13 @@ class ArtistDetailScreen extends ConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) => SongListTile(
                       song: songs[index],
-                      onTap: () => ref.read(playerControllerProvider).playSong(
-                            songs[index],
-                            queue: songs,
-                            queueIndex: index,
-                          ),
+                      onTap: () => playSongAndOpenPlayer(
+                        context,
+                        ref,
+                        songs[index],
+                        queue: songs,
+                        queueIndex: index,
+                      ),
                     ),
                     childCount: songs.length,
                   ),

@@ -11,6 +11,7 @@ import '../../../../domain/models/song.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../home/providers/home_providers.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
+import '../../../player/presentation/player_navigation.dart';
 import '../../../player/providers/player_providers.dart';
 
 class AlbumDetailScreen extends ConsumerWidget {
@@ -171,12 +172,13 @@ class AlbumDetailScreen extends ConsumerWidget {
                               song: entry.value,
                               showIndex: true,
                               index: entry.key + 1,
-                              onTap: () =>
-                                  ref.read(playerControllerProvider).playSong(
-                                        entry.value,
-                                        queue: songs,
-                                        queueIndex: entry.key,
-                                      ),
+                              onTap: () => playSongAndOpenPlayer(
+                                context,
+                                ref,
+                                entry.value,
+                                queue: songs,
+                                queueIndex: entry.key,
+                              ),
                             ),
                           ),
                       const SizedBox(height: 80),

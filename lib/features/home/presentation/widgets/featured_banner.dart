@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/song.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 
 class FeaturedBanner extends ConsumerStatefulWidget {
   const FeaturedBanner({super.key, required this.songs});
@@ -42,7 +42,9 @@ class _FeaturedBannerState extends ConsumerState<FeaturedBanner> {
             itemBuilder: (context, index) {
               return _BannerItem(
                 song: displaySongs[index],
-                onTap: () => ref.read(playerControllerProvider).playSong(
+                onTap: () => playSongAndOpenPlayer(
+                      context,
+                      ref,
                       displaySongs[index],
                       queue: displaySongs,
                       queueIndex: index,

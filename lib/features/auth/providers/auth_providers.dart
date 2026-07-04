@@ -10,7 +10,9 @@ final firebaseAuthProvider =
 
 final authStateProvider = StreamProvider<AppUser?>((ref) {
   final auth = ref.watch(firebaseAuthProvider);
-  return auth.authStateChanges().map((user) {
+  // userChanges() = authStateChanges() + profile edits (displayName/photo),
+  // so the Profile screen's "change display name" reflects instantly.
+  return auth.userChanges().map((user) {
     if (user == null) return null;
     return AppUser(
       uid: user.uid,

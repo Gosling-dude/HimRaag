@@ -9,6 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/audio_player_service.dart';
 import '../../../../domain/models/song.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
+import '../../../player/presentation/player_navigation.dart';
 import '../../../player/providers/player_providers.dart';
 import '../../providers/all_songs_providers.dart';
 
@@ -226,11 +227,13 @@ class _AllSongsScreenState extends ConsumerState<AllSongsScreen> {
             song: filtered[index],
             showIndex: true,
             index: index + 1,
-            onTap: () => ref.read(playerControllerProvider).playSong(
-                  filtered[index],
-                  queue: filtered,
-                  queueIndex: index,
-                ),
+            onTap: () => playSongAndOpenPlayer(
+              context,
+              ref,
+              filtered[index],
+              queue: filtered,
+              queueIndex: index,
+            ),
           );
         },
       ),

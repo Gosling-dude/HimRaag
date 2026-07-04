@@ -6,7 +6,7 @@ import '../../../../domain/models/song.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../home/providers/home_providers.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
-import '../../../player/providers/player_providers.dart';
+import '../../../player/presentation/player_navigation.dart';
 
 final _categorySongsProvider =
     FutureProvider.family<List<Song>, String>((ref, genre) {
@@ -62,11 +62,13 @@ class CategoryScreen extends ConsumerWidget {
             itemCount: songs.length,
             itemBuilder: (context, index) => SongListTile(
               song: songs[index],
-              onTap: () => ref.read(playerControllerProvider).playSong(
-                    songs[index],
-                    queue: songs,
-                    queueIndex: index,
-                  ),
+              onTap: () => playSongAndOpenPlayer(
+                context,
+                ref,
+                songs[index],
+                queue: songs,
+                queueIndex: index,
+              ),
             ),
           );
         },
