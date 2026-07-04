@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../core/network/artwork_cache.dart';
 // Newer Flutter SDKs export their own `RepeatMode` (repeating animations);
 // ours comes from audio_player_service.dart.
 import 'package:flutter/material.dart' hide RepeatMode;
@@ -161,6 +162,7 @@ class _BlurredBackground extends StatelessWidget {
         children: [
           CachedNetworkImage(
             imageUrl: artworkUrl,
+            cacheManager: ArtworkCacheManager.instance,
             fit: BoxFit.cover,
             placeholder: (_, __) => Container(color: AppColors.backgroundDark),
             errorWidget: (_, __, ___) =>

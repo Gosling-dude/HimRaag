@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../core/network/artwork_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -55,6 +56,7 @@ class AlbumDetailScreen extends ConsumerWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl: album.artworkUrl,
+                        cacheManager: ArtworkCacheManager.instance,
                         fit: BoxFit.cover,
                         placeholder: (_, __) =>
                             Container(color: AppColors.surfaceDark),

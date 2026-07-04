@@ -1,8 +1,35 @@
 # HimRaag — Pre-Production Stabilization: Final Deliverables
 
-_Generated: 2026-07-04 · branch `feat/import-new-pahadi-songs`_
+_Generated: 2026-07-04 (updated: artwork P0 pass) · branch `feat/import-new-pahadi-songs`_
 
 Everything below is factual runtime evidence from this session.
+
+## P0 — Artwork loading regression: FIXED
+
+**Root cause (diagnosed with runtime probes, nothing regenerated blindly):**
+the public `pub-*.r2.dev` bucket URL is **rate-limited by Cloudflare** — burst
+image loads (a Home screen) get HTTP 429 while a single audio stream doesn't,
+which is exactly "songs play but artwork never loads". Reproduced: ~1200 rapid
+probes pass, then known-good URLs 429 until a cooldown. Two data bugs
+compounded it for artists (import overwrote real portraits with 2 KB
+placeholder PNGs; bundle hid Firestore photos for the featured artists).
+
+**Fixes (runtime-verified):**
+- Throttled/cached/retrying image pipeline (4-slot download queue, 30-day disk
+  cache, 20 s timeouts, 3-step backoff retry, branded fallback — never an
+  endless shimmer). All image widgets share one cache manager.
+- **945/945 covers** now have a 400 px `-t400` list thumbnail (24–43 KB;
+  generated via the S3 API, originals untouched); list/grid views load thumbs
+  with automatic fallback, detail screens keep full resolution.
+- 210 artist docs + 159 album docs repaired to real existing assets (23
+  genuine portraits restored); **147/148 bundled artists** now carry a real
+  image URL; 0 placeholder PNGs remain.
+- Post-fix sample verification: thumbnails 20/20, artist images 15/15,
+  audio range-streaming 10/10.
+- Production checklist: attach a custom domain to the R2 bucket (removes the
+  rate limit entirely); `scripts/migrate_public_url.js --to <base>` migrates
+  every URL in one shot. Details: `IMAGE_CACHE_REPORT.md`,
+  `SONG_ARTWORK_AUDIT.md`, `ARTIST_IMAGE_AUDIT.md`, `R2_ARTWORK_AUDIT.md`.
 
 ## Catalog totals (live Firestore)
 

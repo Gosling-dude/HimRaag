@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../network/artwork_cache.dart';
 import '../theme/app_colors.dart';
 
 /// Branded network image with a shimmer loading state and a graceful,
@@ -67,7 +70,7 @@ class AppAvatar extends StatelessWidget {
   }
 }
 
-class _NetworkImageBody extends StatelessWidget {
+class _NetworkImageBody extends StatefulWidget {
   const _NetworkImageBody({
     required this.url,
     required this.width,
@@ -85,25 +88,101 @@ class _NetworkImageBody extends StatelessWidget {
   final double radius;
 
   @override
-  Widget build(BuildContext context) {
-    if (url.trim().isEmpty) {
-      return _Fallback(label: label, width: width, height: height, circle: circle);
+  State<_NetworkImageBody> createState() => _NetworkImageBodyState();
+}
+
+class _NetworkImageBodyState extends State<_NetworkImageBody> {
+  // The public R2 host rate-limits bursts (HTTP 429) — a failed load is
+  // usually transient. Retry with backoff instead of leaving the fallback
+  // forever; the disk cache makes success permanent.
+  static const _backoff = [
+    Duration(seconds: 3),
+    Duration(seconds: 8),
+    Duration(seconds: 20),
+  ];
+
+  int _attempt = 0;
+  Timer? _retryTimer;
+
+  @override
+  void didUpdateWidget(covariant _NetworkImageBody old) {
+    super.didUpdateWidget(old);
+    if (old.url != widget.url) {
+      _retryTimer?.cancel();
+      _attempt = 0;
     }
+  }
+
+  @override
+  void dispose() {
+    _retryTimer?.cancel();
+    super.dispose();
+  }
+
+  void _scheduleRetry() {
+    if (_attempt >= _backoff.length || _retryTimer != null) return;
+    _retryTimer = Timer(_backoff[_attempt], () {
+      if (!mounted) return;
+      setState(() {
+        _retryTimer = null;
+        _attempt++;
+      });
+    });
+  }
+
+  /// List/grid contexts load the 400 px `-t400` thumbnail variant that exists
+  /// for every real cover (originals stay on detail screens). Returns null
+  /// when the URL doesn't follow the versioned-cover convention.
+  static String? _thumbVariant(String url) {
+    final m = RegExp(r'^(https://[^ ]+/artwork/.+-v\d+)\.(jpg|jpeg|png|webp)$',
+            caseSensitive: false)
+        .firstMatch(url);
+    return m == null ? null : '${m.group(1)}-t400.jpg';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final url = widget.url.trim();
+    if (url.isEmpty) {
+      return _Fallback(
+          label: widget.label,
+          width: widget.width,
+          height: widget.height,
+          circle: widget.circle);
+    }
+    // First attempt prefers the small thumbnail; any failure (older objects
+    // without a -t400 variant, throttling, …) retries with the original URL.
+    final thumb = _thumbVariant(url);
+    final effectiveUrl = (_attempt == 0 && thumb != null) ? thumb : url;
     final dpr = MediaQuery.maybeOf(context)?.devicePixelRatio ?? 2.0;
     return CachedNetworkImage(
-      imageUrl: url,
-      width: width,
-      height: height,
+      // The fragment is never sent on the wire; it gives each retry attempt a
+      // fresh in-memory image key (errored entries are keyed by URL) while…
+      imageUrl: _attempt <= 1 ? effectiveUrl : '$effectiveUrl#retry$_attempt',
+      // …the stable cacheKey keeps a single disk-cache entry per object.
+      cacheKey: effectiveUrl,
+      cacheManager: ArtworkCacheManager.instance,
+      width: widget.width,
+      height: widget.height,
       fit: BoxFit.cover,
-      memCacheWidth: (width * dpr).round(),
+      memCacheWidth: (widget.width * dpr).round(),
       fadeInDuration: const Duration(milliseconds: 220),
       placeholder: (_, __) => Shimmer.fromColors(
         baseColor: AppColors.shimmerBase,
         highlightColor: AppColors.shimmerHighlight,
-        child: Container(width: width, height: height, color: AppColors.shimmerBase),
+        child: Container(
+            width: widget.width,
+            height: widget.height,
+            color: AppColors.shimmerBase),
       ),
-      errorWidget: (_, __, ___) =>
-          _Fallback(label: label, width: width, height: height, circle: circle),
+      errorWidget: (_, __, ___) {
+        _scheduleRetry();
+        return _Fallback(
+            label: widget.label,
+            width: widget.width,
+            height: widget.height,
+            circle: widget.circle);
+      },
     );
   }
 }

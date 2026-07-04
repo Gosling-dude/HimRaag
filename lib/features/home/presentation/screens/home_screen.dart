@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../core/network/artwork_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -611,6 +612,7 @@ class _ContinueListeningSection extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: CachedNetworkImage(
                         imageUrl: cl.artworkUrl,
+                        cacheManager: ArtworkCacheManager.instance,
                         width: 56,
                         height: 56,
                         fit: BoxFit.cover,

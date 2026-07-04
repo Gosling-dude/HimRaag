@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../core/network/artwork_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -96,6 +97,7 @@ class _BannerItem extends StatelessWidget {
           children: [
             CachedNetworkImage(
               imageUrl: song.artworkUrl,
+              cacheManager: ArtworkCacheManager.instance,
               fit: BoxFit.cover,
               placeholder: (_, __) => Container(color: AppColors.surfaceDark),
               errorWidget: (_, __, ___) =>

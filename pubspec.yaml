@@ -39,6 +39,8 @@ dependencies:
 
   # UI
   cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
+  http: ^1.2.0
   shimmer: ^3.0.0
   google_fonts: ^6.2.1
   animations: ^2.0.11
