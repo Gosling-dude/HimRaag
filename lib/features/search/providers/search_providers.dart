@@ -25,13 +25,27 @@ final searchQueryProvider = StateProvider<String>((ref) => '');
 final searchFiltersProvider =
     StateProvider<SearchFilters>((ref) => const SearchFilters());
 
+/// How long the query must stay unchanged before a search is actually issued.
+/// Short enough to still feel instant, long enough that a normal typing burst
+/// collapses into a single round-trip.
+const _searchDebounce = Duration(milliseconds: 300);
+
 final searchResultsProvider = FutureProvider<SearchResult>((ref) async {
   final query = ref.watch(searchQueryProvider);
   final filters = ref.watch(searchFiltersProvider);
 
-  if (query.trim().isEmpty) {
-    return const SearchResult(songs: [], artists: [], albums: [], query: '');
-  }
+  const empty = SearchResult(songs: [], artists: [], albums: [], query: '');
+  if (query.trim().isEmpty) return empty;
+
+  // The search field pushes a new query on every keystroke, which rebuilds this
+  // provider. Without debouncing, typing "pahadi" issues six Firestore queries
+  // and six local scans. If another keystroke lands inside the window this run
+  // is disposed and we return before doing any work; the discarded value is
+  // never delivered to listeners.
+  var cancelled = false;
+  ref.onDispose(() => cancelled = true);
+  await Future<void>.delayed(_searchDebounce);
+  if (cancelled) return empty;
 
   final datasource = ref.watch(firestoreSearchProvider);
   final result = await datasource.search(query, filters: filters);

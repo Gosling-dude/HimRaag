@@ -12,15 +12,12 @@
     <!-- Wake lock for background audio -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <!-- Downloads — scoped storage, no WRITE_EXTERNAL_STORAGE needed on API 29+ -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"/>
+    <!-- Downloads are written to the app-private documents directory via
+         path_provider (DownloadService._getDownloadDirectory), so no external
+         storage permission is required on any supported API level. -->
 
-    <!-- POST_NOTIFICATIONS for Android 13+ -->
+    <!-- POST_NOTIFICATIONS for Android 13+ (media playback notification) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
-    <!-- Receive boot completed to restore media session -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:label="HimRaag"

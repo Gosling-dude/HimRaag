@@ -1,146 +1,245 @@
-# HimRaag — Pre-Production Stabilization: Final Deliverables
+# HimRaag — Final Production Readiness Deliverables (Phase 20)
 
-_Generated: 2026-07-04 (updated: artwork P0 pass) · branch `feat/import-new-pahadi-songs`_
+**Date:** 2026-08-03 · **Audit type:** Release Candidate, 20-phase
 
-Everything below is factual runtime evidence from this session.
+> Supersedes the 2026-07-04 stabilization summary of the same name (preserved in
+> git history at commit `3c8bf09`).
 
-## P0 — Artwork loading regression: FIXED
+---
 
-**Root cause (diagnosed with runtime probes, nothing regenerated blindly):**
-the public `pub-*.r2.dev` bucket URL is **rate-limited by Cloudflare** — burst
-image loads (a Home screen) get HTTP 429 while a single audio stream doesn't,
-which is exactly "songs play but artwork never loads". Reproduced: ~1200 rapid
-probes pass, then known-good URLs 429 until a cooldown. Two data bugs
-compounded it for artists (import overwrote real portraits with 2 KB
-placeholder PNGs; bundle hid Firestore photos for the featured artists).
+## 🔑 The one thing to read first
 
-**Fixes (runtime-verified):**
-- Throttled/cached/retrying image pipeline (4-slot download queue, 30-day disk
-  cache, 20 s timeouts, 3-step backoff retry, branded fallback — never an
-  endless shimmer). All image widgets share one cache manager.
-- **945/945 covers** now have a 400 px `-t400` list thumbnail (24–43 KB;
-  generated via the S3 API, originals untouched); list/grid views load thumbs
-  with automatic fallback, detail screens keep full resolution.
-- 210 artist docs + 159 album docs repaired to real existing assets (23
-  genuine portraits restored); **147/148 bundled artists** now carry a real
-  image URL; 0 placeholder PNGs remain.
-- Post-fix sample verification: thumbnails 20/20, artist images 15/15,
-  audio range-streaming 10/10.
-- Production checklist: attach a custom domain to the R2 bucket (removes the
-  rate limit entirely); `scripts/migrate_public_url.js --to <base>` migrates
-  every URL in one shot. Details: `IMAGE_CACHE_REPORT.md`,
-  `SONG_ARTWORK_AUDIT.md`, `ARTIST_IMAGE_AUDIT.md`, `R2_ARTWORK_AUDIT.md`.
+**Your APK, for re-verification:**
 
-## Catalog totals (live Firestore)
+```
+D:\Personal Projects\HimRaag\build\app\outputs\flutter-apk\app-release.apk
+```
+
+```bash
+adb install -r "D:\Personal Projects\HimRaag\build\app\outputs\flutter-apk\app-release.apk"
+```
+
+This build **targets API 36 instead of 35**, so please re-check the items in
+"What to verify" below — especially edge-to-edge layout, which is new behaviour
+your earlier testing could not have covered.
+
+---
+
+## Build artifacts
+
+| Item | Value |
+|---|---|
+| **Release APK** | `build/app/outputs/flutter-apk/app-release.apk` |
+| **APK size** | 64,415,455 B — **61.4 MB** |
+| **Release AAB** (upload this to Play) | `build/app/outputs/bundle/release/app-release.aab` |
+| **AAB size** | 65,031,873 B — **62.0 MB** |
+| **ProGuard mapping** | `build/app/outputs/mapping/release/mapping.txt` (33.4 MB) |
+| Per-device download | **~20–25 MB** — Play splits the AAB by ABI; 62 MB is the multi-ABI publishing format |
+
+## Environment
+
+| Item | Value |
+|---|---|
+| Commit hash | `54d0b155732fbe7794438c017d6312d10460a9f0` |
+| Branch | `feat/import-new-pahadi-songs` |
+| **Git status** | ⚠️ **NOT clean** — 6 modified, 19 new reports uncommitted (deliberate; see below) |
+| Flutter | 3.44.4 stable · Dart 3.12.2 |
+| Firebase project | `himraag-prod` |
+| versionName / versionCode | 1.0.0 / 1 |
+| compileSdk / targetSdk / minSdk | 36 / 36 / 24 |
+
+> Changes are left uncommitted on purpose — committing was not requested, and you
+> should review the API 36 upgrade on a device first. To commit:
+> `git add -A && git commit -m "chore: production readiness audit"`
+
+## Catalogue (live Firestore)
+
+| Metric | Count |
+|---|---:|
+| **Total songs** | **956** |
+| **Total artists** | **217** |
+| **Total albums** | **173** |
+| Categories | 6 |
+| **Total playlists** | **0** (feature built, unused) |
+| Users | 19 |
+| Audit logs | 4 |
+| Regions / submissions / featured / banners | 0 each |
+| **Total Firestore documents** | **1,375** |
+| Bundled offline catalogue | 697 songs / 102 albums / 148 artists — a **strict subset** of Firestore (0 missing) |
+
+## Cloudflare R2
 
 | Metric | Value |
+|---|---:|
+| **Total objects verified** | **2,302** |
+| Reachable | **2,299 (99.87 %)** |
+| Audio files | **956/956 — 100 %** |
+| Album artwork | 173/173 — 100 % |
+| Song artwork | 954/956 |
+| Artist images | 216/217 |
+| **Broken URLs** | **3** (1 transient timeout, 2 missing URLs — all cosmetic; branded fallback renders) |
+| **Duplicates removed** | **0** — none found; 0 duplicate audio URLs in sample |
+| **Missing metadata** | **2** (`Mahima Ke Varnan` artwork, `Pankaj Raaj` image) |
+
+## Quality gates
+
+| Gate | Result |
 |---|---|
-| Songs (total) | **956** (was 328: +629 imported after dedup/collision cleanup) |
-| Songs consumer-visible (approved) | **613** |
-| Songs in admin review queue (region unresolved, unpublished) | 343 |
-| Artists | **217** |
-| Albums | **173** |
-| Bundled offline catalog | **697 songs / 148 artists / 102 albums** |
+| `flutter analyze` | ✅ **No issues found** |
+| `flutter test` | ✅ **16/16 passed** (12 existing + 4 new) |
+| `flutter build apk --release` | ✅ Succeeded |
+| `flutter build appbundle --release` | ✅ Succeeded |
+| **Signing verified** | ✅ **AAB and APK fingerprints identical to the upload keystore** |
 
-## Import funnel (`music/pahadi songs/` — 1009 MP3s)
+---
 
-scanned 1009 → 0 exact dups → 10 quality variants dropped → 63
-mashups/medleys excluded → 301 already imported (exact source-file match) →
-**635 new uniques** → 6 teaser/duplicate collisions removed → **629 imported**.
-R2: **635/635 audio + artwork verified HTTP 200**; streaming spot-check
-40/40 catalog-wide Range requests answered 200/206 (seek works at CDN level).
+## Issues found and fixed
 
-## Category distribution (consumer-visible Firestore)
+| # | Sev | Issue | Fix |
+|---|---|---|---|
+| 1 | **P0** | **Release build failed to compile** — stale `GeneratedPluginRegistrant.java` registered the `integration_test` dev plugin | `flutter clean` before release builds (documented) |
+| 2 | **P0** | **`targetSdk 35`** — Play requires **API 36 from 2026-08-31**, 28 days away | Raised compileSdk/targetSdk to 36 |
+| 3 | **P0** | Missing keystore **silently debug-signed** releases | Release now fails loudly; debug unaffected |
+| 4 | **P1** | **Hindi-locale crash** — `hi` declared supported with no localization delegates; any dialog/tooltip would throw | Added the three `Global*Localizations` delegates |
+| 5 | **P1** | Search issued **a Firestore query per keystroke** (18 reads to type "pahadi") | 300 ms debounce + 4 tests → **6× fewer reads** |
+| 6 | P2 | Two unused permissions (`READ_EXTERNAL_STORAGE`, `RECEIVE_BOOT_COMPLETED`) | Removed after proving them unreferenced |
+| 7 | P2 | 1.6 MB icon bundled but never loaded at runtime | Unbundled |
 
-| Region | Before | After |
-|---|---|---|
-| Garhwali | 3 | **215** |
-| Himachali | 70 | **194** |
-| Kumaoni | 5 | **77** |
-| Jaunsari | 2 | **76** |
-| Kinnauri | 1 | **51** |
-| Sirmauri | 0 | 0 (no source material in the drop) |
-| "Pahadi" dumping ground (bundle) | 169 | **93** (legacy live songs only; nothing new added) |
+## Verification status — honest accounting
 
-Classification: filename tokens (Latin + Devanagari) → curated artist→region
-dictionary → public metadata (iTunes/MusicBrainz title+duration matches with
-per-artist region voting). Ambiguous songs stay in the **admin review queue**
-— never dumped into a generic bucket. Details: `CATEGORY_DISTRIBUTION_REPORT.md`.
-
-## Metadata quality
-
-- 351 new-batch songs gained real artist credits from public metadata (e.g.
-  Narendra Singh Negi, Pappu Karki, Kedar Negi, Ajju Tomar); 150 existing
-  "Unknown Artist" songs reattributed the same way.
-- 357 release years recovered; search keywords + slugs regenerated everywhere.
-
-## Artwork & artist images
-
-- Song artwork (new batch): **505 official covers + 123 real regional
-  photographs + 1 neutral placeholder** (of 629). Zero AI images, zero text
-  cards. (`THUMBNAIL_AUDIT.md`)
-- Artist photos: 12 genuine portraits hosted on R2 (Wikipedia lead images
-  verified as musician pages / exact-match JioSaavn portraits — incl. Narendra
-  Singh Negi, Meena Rana, Pritam Bharatwan, Mohan Upreti); remaining artists
-  use their official song cover or the app's clean initials avatar — never an
-  AI face. (`ARTIST_IMAGE_AUDIT.md`)
-
-## Google Sign-In (P0) — FIXED
-
-Root cause: **zero SHA fingerprints** registered on the Firebase Android app →
-no Android OAuth client → `ApiException: 10`. Fixed by registering debug +
-release SHA-1/SHA-256 via the Firebase Management API and refreshing
-`google-services.json` (now 2 Android clients + 1 web client). Release APK's
-signing cert verified byte-identical to the registered fingerprint via
-`apksigner`. Full audit: `GOOGLE_SIGNIN_AUDIT.md`.
-
-## Personalization
-
-`users/{uid}` docs now carry: displayName, email, photo, sign-in method,
-region/language/genre preferences, followed artists, favorites, playlists
-field, recently played (last 25), listening-history counters + last-played,
-onboarding state. First-run flow: onboarding → Google/guest sign-in →
-preferences → personalized Home ("Made for You" ranking, preferred-region
-rows first, Continue Listening). Guest mode uses Firebase anonymous auth
-(verified enabled server-side).
-
-## Data cleanup
-
-Firestore verified clean: 0 demo/instrumental/test/placeholder tracks,
-0 duplicate title+artist groups. (`DATA_CLEANUP_REPORT.md`)
-
-## Regression & builds
-
-| Check | Result |
+| Capability | Status |
 |---|---|
-| `flutter analyze` | **No issues found** |
-| `flutter test` | **12/12 passed** |
-| `flutter build apk --release` | ✅ `build\app\outputs\flutter-apk\app-release.apk` — **59.8 MB** |
-| `flutter build appbundle --release` | ✅ `build\app\outputs\bundle\release\app-release.aab` — **60.7 MB** |
-| Release signing | Dedicated upload keystore (`.env/`, gitignored); `apksigner` verified |
-| targetSdk | **35** (Play requirement); Gradle 8.12 / AGP 8.7.3 / Flutter 3.44.4 |
+| **Google Sign-In** | ⚠️ **Partly verified.** The APK's signing SHA-1 (`c0eb64dd…93405`) **is registered** in `google-services.json`, so sign-in will work for this APK. **See the Play App Signing warning below.** |
+| **Background playback** | ❌ NOT VERIFIED — code path is sound and defensively written; needs a device |
+| **Notification playback** | ❌ NOT VERIFIED — manifest declarations correct |
+| **Lock-screen controls** | ❌ NOT VERIFIED |
+| **Offline playback** | ❌ NOT VERIFIED — downloads are app-private, catalogue is bundled |
+| **Startup time** | ❌ **NOT MEASURED** — no device. Commands in PERFORMANCE_REPORT.md |
+| **Memory usage** | ❌ **NOT MEASURED** — no device |
+| Streaming reachability | ✅ VERIFIED — 956/956 audio URLs return 200/206 |
+| Seek support | ✅ VERIFIED — R2 returns `Accept-Ranges: bytes` |
+| Artwork coverage | ✅ VERIFIED — 1,343/1,346 |
 
-Toolchain repairs this session: Flutter 3.44 SDK breakages fixed (`RepeatMode`
-collision, `CupertinoPageTransitionsBuilder` move, deprecated form-field
-`value`, google_fonts 6.3.0 const-eval crash, Gradle/AGP minimums).
+**No performance or playback number in these reports is estimated.** Where a
+device was required and unavailable, it says so.
 
-## Play Store readiness checklist
+---
 
-- [x] Google Sign-In configuration complete for debug + release certs
-- [x] Release AAB signed with dedicated upload key
-- [x] targetSdk 35, compileSdk 35, minSdk 24
-- [x] No secrets in repo (`.env/`, keystore, `google-services.json` gitignored)
-- [x] Catalog balanced, artwork real, playback URLs verified streaming
-- [x] Background playback + notification controls (audio_service manifest
-  wiring verified; runtime-verified in a previous session's device QA)
-- [ ] **On-device smoke test** — no Android device/emulator was available on
-  this machine (no hypervisor installed). Install the fresh APK on hardware
-  and tap through: Google sign-in → onboarding → personalized Home → playback.
-- [ ] After the first Play Console upload: copy the **Play App Signing**
-  SHA-1/SHA-256 (Console → App integrity) into Firebase project settings —
-  required for Google Sign-In on Play-delivered builds.
+## ⚠️ Three things that can still bite you
 
-## Artifact paths
+### 1. Play App Signing will break Google Sign-In unless you add a second SHA-1
 
-- APK: `D:\Personal Projects\HimRaag\build\app\outputs\flutter-apk\app-release.apk` (59.8 MB)
-- AAB: `D:\Personal Projects\HimRaag\build\app\outputs\bundle\release\app-release.aab` (60.7 MB)
+When you upload the AAB, **Google re-signs it with a different key**. Your users
+get an app signed by Google's key, *not* by `himraag-upload`. Firebase only knows
+about the upload key's SHA-1.
+
+**Result: Google Sign-In works perfectly in this APK and fails for every Play
+user** — the single most common production sign-in failure, and consistent with
+the sign-in trouble already seen on this project.
+
+**Fix, after your first upload:**
+1. Play Console → Release → Setup → **App signing**
+2. Copy the **SHA-1 of the "App signing key certificate"** (not the upload key)
+3. Firebase Console → Project settings → Your Android app → **Add fingerprint**
+4. Download the refreshed `google-services.json` and rebuild
+
+### 2. R2 objects have no `Cache-Control` header
+
+Not one of the 2,302 objects sets it. Cloudflare's edge cannot cache confidently,
+so traffic hits the origin — which is exactly why `pub-*.r2.dev` returns HTTP 429
+under load, the problem the app already works around client-side.
+
+The content is immutable (new track → new key), so `public, max-age=31536000,
+immutable` is safe. **Do this before any marketing push** — it is the highest-value
+remaining change and needs no app update. Details in R2_AUDIT.md.
+
+### 3. Privacy policy must be hosted before you can publish
+
+`legal/PRIVACY_POLICY.md` and `legal/TERMS_AND_CONDITIONS.md` are written against
+the app's real data flows. You must replace `[INSERT CONTACT EMAIL]` in both, host
+them publicly, and enter the URL in Play Console. Also declare **approximate
+location and device IDs** on the Data Safety form — `firebase_analytics`
+auto-collects these despite zero `logEvent` calls.
+
+---
+
+## What to verify on the new APK
+
+Because targetSdk moved 35 → 36, your earlier testing does not fully carry over.
+
+**New behaviour introduced by API 36:**
+- [ ] **Edge-to-edge is enforced** — confirm the bottom nav and mini player are not hidden behind the system nav bar
+- [ ] **Portrait lock is ignored on ≥600dp screens** — check landscape if you support tablets/foldables
+
+**Fixed this pass — please confirm:**
+- [ ] **Set the device language to हिन्दी**, open the app, trigger a dialog or long-press a text field — must not crash
+- [ ] Search feels responsive and no longer flickers mid-typing
+
+**Regression pass:**
+- [ ] Google Sign-In · [ ] Background playback · [ ] Notification controls ·
+      [ ] Lock-screen controls · [ ] Bluetooth buttons · [ ] Download and play offline ·
+      [ ] Artwork loads across Home
+
+> **Fallback:** if edge-to-edge causes layout problems, API 35 remains valid for
+> submissions **before 31 Aug 2026**. Reverting `targetSdk` to 35 in
+> `android/app/build.gradle` is a one-line change. Your call.
+
+---
+
+## Play Store compliance summary
+
+| Requirement | Status |
+|---|---|
+| Target API 36 | ✅ Met |
+| App Bundle format | ✅ AAB produced |
+| Release signing | ✅ Verified against keystore |
+| Foreground service type declared | ✅ `mediaPlayback` |
+| Notification permission | ✅ `POST_NOTIFICATIONS` |
+| No unused permissions | ✅ Two removed |
+| Cleartext traffic blocked | ✅ |
+| Privacy policy | ⚠️ Written, **must be hosted** |
+| Data Safety form | ⚠️ Rows specified in PLAYSTORE_COMPLIANCE_REPORT.md |
+| Account deletion route | ⚠️ Email route documented; a web form is safer |
+| Content rating | ⚠️ IARC questionnaire outstanding |
+| **Music licensing** | ⚠️ **Your biggest non-technical risk** — 956 tracks; be ready to evidence rights |
+
+**No known technical blocker to upload.** Remaining items are console paperwork
+and the licensing question, which is a business matter rather than an engineering one.
+
+---
+
+## Reports produced
+
+Phases 1–20: `PROJECT_AUDIT` · `CODE_QUALITY_REPORT` · `PERFORMANCE_REPORT` ·
+`FIRESTORE_AUDIT` · `R2_AUDIT` · `SECURITY_REPORT` · `PLAYSTORE_COMPLIANCE_REPORT` ·
+`UX_REPORT` · `PLAYBACK_REPORT` · `IMAGE_REPORT` · `SEARCH_REPORT` ·
+`PERSONALIZATION_AUDIT` · `OFFLINE_REPORT` · `CRASH_REPORT` · `RELEASE_REPORT` ·
+`SIZE_OPTIMIZATION_REPORT` · `STORE_LISTING` · `legal/PRIVACY_POLICY` ·
+`legal/TERMS_AND_CONDITIONS` · `legal/COOKIE_POLICY`
+
+> **Housekeeping note:** the repo root now holds ~65 markdown reports, most from
+> earlier sessions. I left the pre-existing ones untouched **with one exception**:
+> `UI_VERIFICATION_REPORT.md` was regenerated by `scripts/verify_all_urls.js` when I
+> ran the R2 sweep, so it now carries today's 2,302-URL results instead of the
+> previous 389-byte stub. That is an improvement, but it is a change — revert with
+> `git checkout UI_VERIFICATION_REPORT.md` if you would rather keep the old one.
+> Consider moving historical reports into `docs/archive/` — but that is churn you
+> did not ask for, so it is your call.
+
+---
+
+## ⚠️ Rebuilding: run `flutter clean` first
+
+The artifacts above were built from a clean tree (AAB 19:35, APK 19:39, after the
+clean rebuild began at 19:34) and are **valid**. But the final `flutter analyze` +
+`flutter test` pass I ran afterwards regenerated `GeneratedPluginRegistrant.java`
+with the `integration_test` plugin in it — so **the repo is currently in the state
+that fails a release build.**
+
+If you rebuild yourself:
+```bash
+flutter clean && flutter build apk --release
+```
+
+`scripts/build_release.ps1` now starts with `flutter clean` so this cannot recur
+through that path.

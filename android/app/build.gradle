@@ -20,7 +20,10 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.himraag.app"
-    compileSdk 35
+    // Google Play requires new apps and updates to target API 36 from
+    // 2026-08-31. compileSdk must match so the API-36 behaviour changes
+    // (edge-to-edge enforcement, FGS rules) compile against the real SDK.
+    compileSdk 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -35,18 +38,28 @@ android {
     defaultConfig {
         applicationId "com.himraag.app"
         minSdk 24
-        // Google Play requires new apps to target API 35+ (since Aug 2025).
-        targetSdk 35
+        // Google Play target-API floor for new apps and updates submitted on or
+        // after 2026-08-31 is Android 16 / API 36. Do not lower this.
+        targetSdk 36
         versionCode flutter.versionCode
         versionName flutter.versionName
     }
 
+    // A release artifact must be signed with the real upload keystore. Silently
+    // falling back to the debug key produces an AAB that Play rejects (or, worse,
+    // that installs locally and hides the problem until upload). Resolve the
+    // keystore once here and refuse to build release without it.
+    def releaseKeystore = keystoreProperties["keystoreFile"] ? file(keystoreProperties["keystoreFile"]) : null
+    def hasReleaseKeystore = releaseKeystore != null && releaseKeystore.exists()
+
     signingConfigs {
         release {
-            keyAlias keystoreProperties["keystoreAlias"] ?: "debug"
-            keyPassword keystoreProperties["keystorePassword"] ?: ""
-            storeFile keystoreProperties["keystoreFile"] ? file(keystoreProperties["keystoreFile"]) : null
-            storePassword keystoreProperties["keystoreStorePassword"] ?: ""
+            if (hasReleaseKeystore) {
+                keyAlias keystoreProperties["keystoreAlias"]
+                keyPassword keystoreProperties["keystorePassword"]
+                storeFile releaseKeystore
+                storePassword keystoreProperties["keystoreStorePassword"]
+            }
         }
     }
 
@@ -54,7 +67,21 @@ android {
         debug {
         }
         release {
-            signingConfig keystoreProperties["keystoreFile"] ? signingConfigs.release : signingConfigs.debug
+            // Fail at execution time rather than configuration time so that debug
+            // builds still work on machines that do not hold the upload keystore.
+            if (!hasReleaseKeystore) {
+                gradle.taskGraph.whenReady { graph ->
+                    if (graph.allTasks.any { it.name.toLowerCase().contains("release") }) {
+                        throw new GradleException(
+                            "Release signing keystore not found" +
+                            (releaseKeystore ? " at ${releaseKeystore}" : " (keystoreFile unset)") +
+                            ".\nSet keystoreFile, keystoreAlias, keystorePassword and " +
+                            "keystoreStorePassword in android/local.properties.\n" +
+                            "Refusing to debug-sign a release build.")
+                    }
+                }
+            }
+            signingConfig hasReleaseKeystore ? signingConfigs.release : signingConfigs.debug
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"

@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio_background/just_audio_background.dart';
@@ -115,7 +116,15 @@ class HimRaagApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       routerConfig: router,
-      localizationsDelegates: const [],
+      // `hi` is declared as supported, so Material/Widgets localizations for it
+      // must actually be provided. Without these delegates a Hindi-locale device
+      // resolves to `hi` and then has no MaterialLocalizations, which throws the
+      // moment any dialog, tooltip or text-selection menu is shown.
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: const [
         Locale('en'),
         Locale('hi'),

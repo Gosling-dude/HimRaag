@@ -86,9 +86,12 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/icons/
-    - assets/animations/
-    - assets/fonts/
+    # assets/icons/ is NOT bundled: app_icon.png (1.6 MB) is only the build-time
+    # source for flutter_launcher_icons, which reads it from disk and generates
+    # mipmap resources. Nothing loads it through the asset bundle at runtime, so
+    # shipping it cost 1.6 MB in every install.
+    # assets/animations/ and assets/fonts/ were declared but contain only a
+    # .gitkeep — declaring them bundled the placeholder and nothing else.
     # Audio is no longer bundled — tracks stream from Cloudflare R2 (see
     # assets/catalog/imported_catalog.json audioUrl). This removed ~67 MB.
     - assets/catalog/
