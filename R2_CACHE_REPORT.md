@@ -48,6 +48,28 @@ Each sampled object is checked twice: an authenticated S3 `HeadObject` (authorit
 | HTTP 200 OK on public URL | **80 / 80** |
 | Correct `Cache-Control` over public HTTP | **80 / 80** |
 
+### Full-bucket census (all 4,238 objects, not a sample)
+
+A sample can't prove the migration left no stragglers or altered a Content-Type,
+so every object was re-`HeadObject`-ed after the migration:
+
+| Check | Result |
+|---|---|
+| Objects carrying the correct `Cache-Control` | **4238 / 4238** |
+| Objects with a `Content-Type` mismatching their file extension | **0** |
+| Objects downgraded to `application/octet-stream` | **0** |
+
+Content-Type distribution across the whole bucket — `audio/mpeg` still accounts
+for exactly the 957 objects under `audio/`, so no audio object's type was
+altered:
+
+| Content-Type | Objects |
+|---|---:|
+| `image/jpeg` | 1892 |
+| `image/png` | 1382 |
+| `audio/mpeg` | 957 |
+| `image/webp` | 7 |
+
 ### MP3 audio — 20 sampled of 957 (`audio/`)
 
 | # | URL | Content-Type | Cache-Control | HTTP | cf-cache |
