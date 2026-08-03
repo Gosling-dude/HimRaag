@@ -27,7 +27,7 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { createR2Client, makePutter } = require('./lib/r2_client');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { loadR2, publicSummary, firebaseServiceAccountPath } = require('./lib/credentials');
@@ -63,12 +63,10 @@ async function main() {
   }
   const cfg = loadR2();
   const sum = publicSummary();
-  const client = new S3Client({
-    region: 'auto',
-    endpoint: cfg.endpoint,
-    credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
-  });
-  const put = (key, body) => client.send(new PutObjectCommand({ Bucket: cfg.bucket, Key: key, Body: body, ContentType: 'image/png' }));
+  const client = createR2Client(cfg);
+  // Caching policy is applied inside the putter — see lib/r2_client.js.
+  const rawPut = makePutter(client, cfg.bucket);
+  const put = (key, body) => rawPut(key, body, 'image/png');
   const publicUrl = (key) => `${cfg.publicUrl}/${key}`;
 
   const saPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || firebaseServiceAccountPath();

@@ -17,7 +17,8 @@
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
-const { S3Client, GetObjectCommand, PutObjectCommand, HeadObjectCommand, ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { GetObjectCommand, HeadObjectCommand, ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { createR2Client, putObject } = require('./lib/r2_client');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { loadR2, firebaseServiceAccountPath } = require('./lib/credentials');
@@ -41,10 +42,7 @@ const streamToBuffer = (stream) => new Promise((res, rej) => {
 
 (async () => {
   const cfg = loadR2();
-  const s3 = new S3Client({
-    region: 'auto', endpoint: cfg.endpoint,
-    credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
-  });
+  const s3 = createR2Client(cfg);
 
   initializeApp({ credential: cert(JSON.parse(fs.readFileSync(firebaseServiceAccountPath(), 'utf8'))), projectId: 'himraag-prod' });
   const db = getFirestore();
@@ -84,9 +82,7 @@ const streamToBuffer = (stream) => new Promise((res, rej) => {
         .resize(THUMB_EDGE, THUMB_EDGE, { fit: 'inside', withoutEnlargement: true })
         .jpeg({ quality: 80, mozjpeg: true })
         .toBuffer();
-      await s3.send(new PutObjectCommand({
-        Bucket: cfg.bucket, Key: thumbKey, Body: out, ContentType: 'image/jpeg',
-      }));
+      await putObject(s3, cfg.bucket, thumbKey, out, 'image/jpeg');
       made++;
       if (made % 50 === 0) console.log(`  … ${made}/${wanted.size}`);
     } catch (e) {

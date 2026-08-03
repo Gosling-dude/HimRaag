@@ -18,7 +18,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { createR2Client, putObject } = require('./lib/r2_client');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { loadR2, firebaseServiceAccountPath } = require('./lib/credentials');
@@ -42,10 +42,7 @@ async function main() {
   initializeApp({ credential: cert(JSON.parse(fs.readFileSync(firebaseServiceAccountPath(), 'utf8'))), projectId: PROJECT_ID });
   const db = getFirestore();
   const cfg = loadR2();
-  const s3 = new S3Client({
-    region: 'auto', endpoint: cfg.endpoint,
-    credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
-  });
+  const s3 = createR2Client(cfg);
 
   const snap = await db.collection('artists').get();
   const artists = [];
@@ -83,10 +80,7 @@ async function main() {
     const key = `artist/${slugify(a.name)}-${VER}.${ext}`;
     const publicUrl = `${cfg.publicUrl}/${key}`;
     if (!DRY) {
-      await s3.send(new PutObjectCommand({
-        Bucket: cfg.bucket, Key: key, Body: img.buf,
-        ContentType: img.contentType || 'image/jpeg',
-      }));
+      await putObject(s3, cfg.bucket, key, img.buf, img.contentType || 'image/jpeg');
       await db.collection('artists').doc(a.id).update({ imageUrl: publicUrl });
     }
     rows.push({ name: a.name, id: a.id, source: found.source, url: publicUrl });

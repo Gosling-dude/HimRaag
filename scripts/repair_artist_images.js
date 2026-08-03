@@ -18,7 +18,8 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const { S3Client, ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { createR2Client } = require('./lib/r2_client');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { loadR2, firebaseServiceAccountPath } = require('./lib/credentials');
@@ -38,10 +39,7 @@ const isPlaceholderPng = (u) =>
 
 (async () => {
   const cfg = loadR2();
-  const s3 = new S3Client({
-    region: 'auto', endpoint: cfg.endpoint,
-    credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
-  });
+  const s3 = createR2Client(cfg);
   // All portrait objects under artist/ and artists/ prefixes.
   const portraits = new Map(); // slug -> key
   for (const prefix of ['artist/', 'artists/']) {

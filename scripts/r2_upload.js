@@ -22,11 +22,8 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const {
-  S3Client,
-  PutObjectCommand,
-  HeadObjectCommand,
-} = require('@aws-sdk/client-s3');
+const { HeadObjectCommand } = require('@aws-sdk/client-s3');
+const { createR2Client, putObject } = require('./lib/r2_client');
 const { loadR2, publicSummary } = require('./lib/credentials');
 const { slugify } = require('./lib/validator');
 const { makeArtworkPng } = require('./lib/placeholder_art');
@@ -39,14 +36,7 @@ const MANIFEST = path.join(__dirname, 'seed_data', 'r2_manifest.json');
 class R2UploadService {
   constructor(cfg) {
     this.cfg = cfg;
-    this.client = new S3Client({
-      region: 'auto',
-      endpoint: cfg.endpoint,
-      credentials: {
-        accessKeyId: cfg.accessKeyId,
-        secretAccessKey: cfg.secretAccessKey,
-      },
-    });
+    this.client = createR2Client(cfg);
   }
 
   publicUrl(key) {
@@ -69,14 +59,8 @@ class R2UploadService {
   }
 
   async _put(key, body, contentType) {
-    await this.client.send(
-      new PutObjectCommand({
-        Bucket: this.cfg.bucket,
-        Key: key,
-        Body: body,
-        ContentType: contentType,
-      })
-    );
+    // Caching policy is applied inside putObject() — see lib/r2_client.js.
+    await putObject(this.client, this.cfg.bucket, key, body, contentType);
     return this.publicUrl(key);
   }
 

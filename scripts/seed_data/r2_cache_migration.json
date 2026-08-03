@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-08-03T18:58:21.643Z",
+  "mode": "commit",
+  "bucket": "himraag-audio",
+  "publicUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev",
+  "policy": "public, max-age=31536000, immutable",
+  "prefixFilter": null,
+  "totalObjects": 4238,
+  "updated": 4238,
+  "wouldUpdate": 0,
+  "skipped": 0,
+  "failed": 0,
+  "elapsedMs": 168469,
+  "elapsedHuman": "168.5s",
+  "byPrefix": {
+    "albums/": {
+      "total": 149,
+      "updated": 149,
+      "would-update": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "artist/": {
+      "total": 12,
+      "updated": 12,
+      "would-update": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "artists/": {
+      "total": 206,
+      "updated": 206,
+      "would-update": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "artwork/": {
+      "total": 2914,
+      "updated": 2914,
+      "would-update": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "audio/": {
+      "total": 957,
+      "updated": 957,
+      "would-update": 0,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "failures": []
+}
