@@ -1,0 +1,32 @@
+# HimRaag media CDN — serves the R2 bucket on cdn.himraag.in.
+#
+# Replaces the pub-….r2.dev public URL (rate-limited, not for production).
+# Audio under audio/ requires a Firebase ID token once REQUIRE_AUTH = "true";
+# artwork stays public and is edge-cached.
+#
+# Deploy:  npm install && npx wrangler deploy
+# Then in the R2 bucket settings, DISABLE the r2.dev public URL so the
+# bucket can only be reached through this Worker.
+
+name = "himraag-cdn"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+routes = [
+  { pattern = "cdn.himraag.in", custom_domain = true }
+]
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "himraag-audio"
+
+[vars]
+FIREBASE_PROJECT_ID = "himraag-prod"
+# Roll out in two steps: ship the app build that sends tokens with "false",
+# then flip to "true" once most users have updated.
+REQUIRE_AUTH = "false"
+# Accept tokens up to this long after expiry. Firebase ID tokens live 1h; a
+# queued track can start after that, so allow a grace window. The signature
+# is still verified — an attacker still needs a real token from this project.
+TOKEN_GRACE_SECONDS = "21600"
+PROTECTED_PREFIXES = "audio/"
