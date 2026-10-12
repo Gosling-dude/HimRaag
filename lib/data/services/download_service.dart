@@ -9,11 +9,23 @@ import '../../domain/models/song.dart';
 import '../local/hive_boxes.dart';
 import '../local/models/hive_download_task.dart';
 import '../local/models/hive_song.dart';
+import 'media_url_resolver.dart';
 
 class DownloadService {
-  DownloadService() : _dio = Dio();
+  DownloadService({
+    Dio? dio,
+    MediaTokenProvider? mediaToken,
+    MediaUrlResolver resolver = MediaUrlResolver.current,
+    Future<Directory> Function()? downloadDirectory,
+  })  : _dio = dio ?? Dio(),
+        _mediaToken = mediaToken ?? (() async => null),
+        _resolver = resolver,
+        _downloadDirectory = downloadDirectory;
 
   final Dio _dio;
+  final MediaTokenProvider _mediaToken;
+  final MediaUrlResolver _resolver;
+  final Future<Directory> Function()? _downloadDirectory;
   final Map<String, CancelToken> _cancelTokens = {};
 
   Stream<DownloadTask> downloadSong(Song song) async* {
@@ -37,8 +49,9 @@ class DownloadService {
 
       DownloadTask? lastEmitted;
 
-      await _dio.download(
-        song.audioUrl,
+      final url = _resolver.authorize(song.audioUrl, await _mediaToken());
+      await _dio.downloadUri(
+        url,
         audioFile.path,
         cancelToken: cancelToken,
         onReceiveProgress: (received, total) {
@@ -152,6 +165,7 @@ class DownloadService {
   }
 
   Future<Directory> _getDownloadDirectory() async {
+    if (_downloadDirectory != null) return _downloadDirectory();
     final appDir = await getApplicationDocumentsDirectory();
     final downloadsDir = Directory('${appDir.path}/downloads');
     if (!await downloadsDir.exists()) {
@@ -196,5 +210,5 @@ class DownloadService {
 }
 
 final downloadServiceProvider = Provider<DownloadService>((ref) {
-  return DownloadService();
+  return DownloadService(mediaToken: ref.watch(mediaTokenProvider));
 });

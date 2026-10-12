@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../core/constants/content_constants.dart';
 import '../../../domain/models/song.dart';
+import '../../services/media_url_resolver.dart';
 
 class SongDto {
   const SongDto({
@@ -70,14 +71,17 @@ class SongDto {
   final bool reviewRequired;
   final String? submittedBy;
 
-  factory SongDto.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory SongDto.fromFirestore(DocumentSnapshot doc) =>
+      SongDto.fromMap(doc.id, doc.data() as Map<String, dynamic>);
+
+  /// Parses a raw document map (Firestore doc or an embedded feed item).
+  factory SongDto.fromMap(String id, Map<String, dynamic> data) {
     // Back-compat: older docs only carry `isApproved`. Derive approvalStatus
     // from it when the explicit field is absent.
     final rawStatus = data['approvalStatus'] as String?;
     final approvedFlag = data['isApproved'] as bool? ?? false;
     return SongDto(
-      id: doc.id,
+      id: id,
       title: data['title'] as String? ?? '',
       artistId: data['artistId'] as String? ?? '',
       artistName: data['artistName'] as String? ?? '',
@@ -117,8 +121,8 @@ class SongDto {
         artistName: artistName,
         albumId: albumId,
         albumTitle: albumTitle,
-        audioUrl: audioUrl,
-        artworkUrl: artworkUrl,
+        audioUrl: MediaUrlResolver.current.resolve(audioUrl),
+        artworkUrl: MediaUrlResolver.current.resolve(artworkUrl),
         duration: Duration(milliseconds: durationMs),
         region: region,
         language: language,

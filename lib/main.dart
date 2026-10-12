@@ -12,6 +12,7 @@ import 'core/constants/app_constants.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'data/local/hive_boxes.dart';
+import 'data/services/play_tracking.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -89,12 +90,36 @@ Future<void> main() async {
   runApp(const ProviderScope(child: HimRaagApp()));
 }
 
-class HimRaagApp extends ConsumerWidget {
+class HimRaagApp extends ConsumerStatefulWidget {
   const HimRaagApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HimRaagApp> createState() => _HimRaagAppState();
+}
+
+class _HimRaagAppState extends ConsumerState<HimRaagApp> {
+  // Send buffered plays when the app leaves the foreground — the last chance
+  // before Android may kill the process.
+  late final AppLifecycleListener _lifecycle = AppLifecycleListener(
+    onHide: () => ref.read(playReporterProvider).flush(),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle; // initialise the late listener
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     debugPrint('[APP] ROUTER_BUILD');
+    ref.watch(playTrackingProvider);
     final router = ref.watch(appRouterProvider);
     final themeMode = ref.watch(themeModeProvider);
 

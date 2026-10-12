@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../core/constants/content_constants.dart';
 import '../../../domain/models/artist.dart';
+import '../../services/media_url_resolver.dart';
 
 class ArtistDto {
   const ArtistDto({
@@ -40,10 +41,13 @@ class ArtistDto {
   final bool isPublished;
   final String rightsNote;
 
-  factory ArtistDto.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory ArtistDto.fromFirestore(DocumentSnapshot doc) =>
+      ArtistDto.fromMap(doc.id, doc.data() as Map<String, dynamic>);
+
+  /// Parses a raw document map (Firestore doc or an embedded feed item).
+  factory ArtistDto.fromMap(String id, Map<String, dynamic> data) {
     return ArtistDto(
-      id: doc.id,
+      id: id,
       name: data['name'] as String? ?? '',
       imageUrl: data['imageUrl'] as String? ?? '',
       region: data['region'] as String? ?? '',
@@ -65,7 +69,7 @@ class ArtistDto {
   Artist toDomain() => Artist(
         id: id,
         name: name,
-        imageUrl: imageUrl,
+        imageUrl: MediaUrlResolver.current.resolve(imageUrl),
         region: region,
         bio: bio,
         songCount: songCount,
