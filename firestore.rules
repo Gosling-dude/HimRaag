@@ -129,5 +129,26 @@ service cloud.firestore {
       allow create: if isAdmin();
       allow update, delete: if false;
     }
+
+    // ─── Home feed ───────────────────────────────────────────────────────────
+    // Single pre-built doc (feeds/home) written by the aggregatePlays Cloud
+    // Function. One public read replaces ~150–200 reads per Home open.
+
+    match /feeds/{feedId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // ─── Play counting (server-only) ─────────────────────────────────────────
+    // Plays go through the recordPlays callable (auth + quota). These buffers
+    // are written and read only by the Admin SDK in Cloud Functions.
+
+    match /playShards/{docId} { allow read, write: if false; }
+    match /playBatches/{docId} { allow read, write: if false; }
+    match /playQuotas/{docId} { allow read, write: if false; }
+    match /dailyPlays/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
   }
 }
