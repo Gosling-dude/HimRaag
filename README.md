@@ -175,8 +175,11 @@ himraag-audio (bucket)
 
 - **MP3 storage** — every track lives at `audio/<slug>.mp3`.
 - **Artwork storage** — covers at `artwork/<slug>.png` (artist/album art mirrored).
-- **Public delivery** — served over the public R2 domain (`https://pub-….r2.dev`),
-  cached at Cloudflare's edge.
+- **Delivery** — served through a Cloudflare Worker on `cdn.himraag.in`
+  (`backend/cdn-worker`): artwork is public and edge-cached, audio requires a
+  Firebase ID token. The app rewrites legacy `pub-….r2.dev` URLs at read time
+  when built with `--dart-define=MEDIA_CDN_BASE=…`. See
+  [`docs/LAUNCH_INFRASTRUCTURE.md`](docs/LAUNCH_INFRASTRUCTURE.md).
 - **Cost benefits** — **no egress charges**; storage is a few cents/GB/month.
 - **Scalability** — object storage scales horizontally with no per-stream cost,
   so bandwidth growth doesn't grow the bill.
@@ -240,9 +243,12 @@ finds *Meri Salma* even though it isn't a title prefix.
   (`{ admin: true }` / `{ role: 'artist' }`), set via `scripts/set_claims.js`.
 - **Firestore Rules** — `firestore.rules` enforces the same claims server-side;
   consumers can only read approved/published content, writes require the admin claim.
-- **R2 isolation** — the bucket exposes only public **read** on `audio/` and
-  `artwork/`; write credentials live only in the gitignored `.env/` folder and
-  are never bundled into the app or committed.
+- **R2 isolation** — the bucket is read only through the CDN Worker; audio
+  needs a valid Firebase ID token (guests get an anonymous account). Write
+  credentials live only in the gitignored `.env/` folder and Functions secrets,
+  never in the app or the repo.
+- **Play counts** — written only by Cloud Functions (`recordPlays` checks auth
+  and a 500-plays/day quota per user), never directly by clients.
 
 ---
 

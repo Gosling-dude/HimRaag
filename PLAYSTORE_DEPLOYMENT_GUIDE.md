@@ -14,7 +14,7 @@ release artifact is small and the catalog scales server-side.
 |---|---|
 | Application ID | `com.himraag.app` (confirm in `android/app/build.gradle`) |
 | Firebase project | `himraag-prod` |
-| Audio/artwork host | Cloudflare R2 bucket `himraag-audio`, public base `https://pub-…r2.dev` |
+| Audio/artwork host | Cloudflare R2 bucket `himraag-audio`, served via the `cdn.himraag.in` Worker (build with `--dart-define=MEDIA_CDN_BASE=https://cdn.himraag.in`) |
 | Flutter | stable channel, Dart SDK ≥ 3.3 |
 | Min / target SDK | confirm `minSdkVersion` (21+) and `targetSdkVersion`/`compileSdk` 35 |
 
