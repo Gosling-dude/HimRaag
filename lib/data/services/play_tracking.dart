@@ -176,10 +176,10 @@ class PlayReporter {
   }
 }
 
-/// Calls the `recordPlays` Cloud Function (requires a Firebase user; guests
-/// are signed in anonymously).
+/// Calls the `recordPlays` Cloud Function (requires a signed-in user; plays
+/// stay buffered until one is available).
 Future<void> sendPlaysToCloud(Map<String, int> plays) async {
-  final user = await ensureFirebaseUser(FirebaseAuth.instance);
+  final user = signedInUser(FirebaseAuth.instance);
   if (user == null) throw StateError('no Firebase user — will retry later');
   await FirebaseFunctions.instanceFor(region: 'asia-south1')
       .httpsCallable('recordPlays')

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/app_config.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/display/consumer_labels.dart';
 import '../../../data/catalog_visibility.dart';
 import '../../../data/local/local_catalog_datasource.dart';
 import '../../../data/remote/firebase_album_datasource.dart';
@@ -119,9 +120,16 @@ final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
       ? feed.artists.visibleToConsumers().take(10).toList()
       : await ref.watch(artistDatasourceProvider).getFeaturedArtists();
   final local = await ref.watch(localArtistsProvider.future);
-  final merged = _mergeById(local, remote, (a) => a.id);
-  return _logVisibility(
-      'featuredArtists', merged, merged.visibleToConsumers());
+  // Unlike songs, Firestore wins here: it carries the current artist photos.
+  final merged = _mergeById(remote, local, (a) => a.id);
+  final visible =
+      merged.visibleToConsumers().where((a) => !a.isFolkCollective).toList();
+  // Artists with a real photo lead the row; order is otherwise kept.
+  final withPhotos = [
+    ...visible.where((a) => a.imageUrl.trim().isNotEmpty),
+    ...visible.where((a) => a.imageUrl.trim().isEmpty),
+  ];
+  return _logVisibility('featuredArtists', merged, withPhotos);
 });
 
 final regionSongsProvider =

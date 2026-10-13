@@ -36,9 +36,18 @@ class _RouterNotifier extends ChangeNotifier {
 
   final Ref _ref;
 
+  // Sign-in is required: everything except the auth screens needs a real
+  // (Google) account. Anonymous sessions left over from the old guest mode
+  // don't count. Reads FirebaseAuth directly because currentUser is restored
+  // synchronously at startup, before authStateProvider's first emission.
   String? redirect(BuildContext context, GoRouterState state) {
-    // Guest mode: no forced sign-in. All routes are reachable anonymously.
-    // Add redirect logic here when sign-in becomes required.
+    final user = _ref.read(firebaseAuthProvider).currentUser;
+    final signedIn = user != null && !user.isAnonymous;
+    final onAuthScreen = state.matchedLocation == '/sign-in' ||
+        state.matchedLocation == '/onboarding';
+
+    if (!signedIn && !onAuthScreen) return '/sign-in';
+    if (signedIn && onAuthScreen) return '/home';
     return null;
   }
 }

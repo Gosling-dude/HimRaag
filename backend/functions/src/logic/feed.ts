@@ -95,6 +95,19 @@ export function buildHomeFeed(input: HomeFeedInput): HomeFeed {
   return feed;
 }
 
+/**
+ * Featured Artists row: artists with a real photo first, then the ones with
+ * the most songs, so Home leads with recognisable faces.
+ */
+export function pickFeaturedArtists(records: DocRecord[], limit = 20): DocRecord[] {
+  const hasPhoto = (r: DocRecord) => (String(r.data.imageUrl ?? '').trim() ? 1 : 0);
+  return [...records]
+    .sort((a, b) =>
+      hasPhoto(b) - hasPhoto(a) ||
+      (Number(b.data.songCount) || 0) - (Number(a.data.songCount) || 0))
+    .slice(0, limit);
+}
+
 /** Sort helpers mirroring the app's previous client-side ordering. */
 export function byNumberDesc(field: string) {
   return (a: DocRecord, b: DocRecord) =>

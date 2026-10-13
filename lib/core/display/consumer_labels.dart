@@ -47,4 +47,8 @@ extension AlbumLabels on Album {
 extension ArtistLabels on Artist {
   String get displayName => _artist(name);
   String get displayRegion => _region(region);
+
+  /// The "Pahadi Folk" catch-all for songs with no credited singer — not a
+  /// real artist, so it is kept out of artist showcases like Featured Artists.
+  bool get isFolkCollective => displayName == _kFolkArtist;
 }

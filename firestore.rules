@@ -119,6 +119,30 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // ─── Song Requests ───────────────────────────────────────────────────────
+    // Listeners ask for songs the catalog doesn't have (from Search or
+    // Library). Any signed-in (non-anonymous) user may file one under their
+    // own uid; only admins read them and move them out of "new".
+
+    match /songRequests/{requestId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if isSignedIn()
+        && request.auth.token.firebase.sign_in_provider != 'anonymous'
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'new'
+        && request.resource.data.keys().hasOnly(['songTitle', 'artist', 'link',
+             'details', 'searchQuery', 'userId', 'userName', 'userEmail',
+             'status', 'createdAt'])
+        && request.resource.data.songTitle is string
+        && request.resource.data.songTitle.size() > 0
+        && request.resource.data.songTitle.size() <= 150
+        && request.resource.data.artist.size() <= 150
+        && request.resource.data.link.size() <= 500
+        && request.resource.data.details.size() <= 1000
+        && request.resource.data.searchQuery.size() <= 200
+        && request.resource.data.createdAt == request.time;
+    }
+
     // ─── Audit Logs ──────────────────────────────────────────────────────────
     // Append-only moderation/audit trail. Readable by admins; entries are
     // written by the admin SDK (seed/import scripts) or by an admin client.

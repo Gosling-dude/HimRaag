@@ -7,6 +7,7 @@ import {
   byNumberDesc,
   FEED_SIZE_BUDGET_BYTES,
   FEED_VERSION,
+  pickFeaturedArtists,
 } from './feed';
 
 const song = (id: string, extra: Record<string, unknown> = {}) => ({
@@ -65,4 +66,15 @@ test('buildHomeFeed drops lyrics only when over the size budget', () => {
 test('byNumberDesc sorts and treats missing as 0', () => {
   const rows = [song('a', { releaseYear: 2001 }), song('b'), song('c', { releaseYear: 2024 })];
   assert.deepEqual(rows.sort(byNumberDesc('releaseYear')).map((r) => r.id), ['c', 'a', 'b']);
+});
+
+test('pickFeaturedArtists puts artists with a photo first, then by song count', () => {
+  const artist = (id: string, imageUrl: string, songCount: number) => ({ id, data: { imageUrl, songCount } });
+  const picked = pickFeaturedArtists([
+    artist('no-photo-big', '', 30),
+    artist('photo-small', 'https://cdn/x.jpg', 2),
+    artist('photo-big', 'https://cdn/y.jpg', 9),
+    artist('no-photo-small', '  ', 1),
+  ], 3);
+  assert.deepEqual(picked.map((r) => r.id), ['photo-big', 'photo-small', 'no-photo-big']);
 });

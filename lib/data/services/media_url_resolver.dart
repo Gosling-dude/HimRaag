@@ -49,27 +49,20 @@ class MediaUrlResolver {
 /// Supplies the Firebase ID token sent with protected audio requests.
 typedef MediaTokenProvider = Future<String?> Function();
 
-/// The signed-in user, signing in anonymously first when nobody is (guest
-/// mode). Returns null if auth is unavailable, e.g. Anonymous sign-in is
-/// disabled in the console or the device is offline.
-Future<User?> ensureFirebaseUser(FirebaseAuth auth) async {
-  final existing = auth.currentUser;
-  if (existing != null) return existing;
-  try {
-    final cred = await auth.signInAnonymously();
-    return cred.user;
-  } catch (e) {
-    debugPrint('[AUTH] anonymous sign-in unavailable: $e');
-    return null;
-  }
+/// The signed-in (Google) user, or null. Sign-in is mandatory — the router
+/// keeps signed-out users on /sign-in — so this never creates an anonymous
+/// account; leftover anonymous sessions from the old guest mode are ignored.
+User? signedInUser(FirebaseAuth auth) {
+  final user = auth.currentUser;
+  return user == null || user.isAnonymous ? null : user;
 }
 
 /// Only reaches Firebase when the CDN is configured — dev builds that play
-/// straight from r2.dev never trigger an anonymous sign-in.
+/// straight from r2.dev don't need a token.
 Future<String?> firebaseMediaToken() async {
   if (!MediaConfig.current.hasCdn) return null;
   try {
-    final user = await ensureFirebaseUser(FirebaseAuth.instance);
+    final user = signedInUser(FirebaseAuth.instance);
     // Cached by the SDK; refreshed automatically when within 5 min of expiry.
     return await user?.getIdToken();
   } catch (e) {

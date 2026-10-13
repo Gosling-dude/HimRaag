@@ -17,15 +17,20 @@ class FirebaseArtistDatasource {
   Future<List<Artist>> getFeaturedArtists({int limit = 10}) async {
     try {
       debugPrint('[FIRESTORE] getFeaturedArtists: fetching');
-      // Single equality filter only — no composite index required.
+      // The artists with the most songs, those with a photo first. Single
+      // orderBy — no composite index required.
       final snapshot = await _artists
-          .where('isVerified', isEqualTo: true)
-          .limit(limit * 2)
+          .orderBy('songCount', descending: true)
+          .limit(limit * 4)
           .get();
-      final artists = snapshot.docs
+      final verified = snapshot.docs
           .map((doc) => ArtistDto.fromFirestore(doc).toDomain())
-          .toList()
-        ..sort((a, b) => b.monthlyListeners.compareTo(a.monthlyListeners));
+          .where((a) => a.isVerified)
+          .toList();
+      final artists = [
+        ...verified.where((a) => a.imageUrl.trim().isNotEmpty),
+        ...verified.where((a) => a.imageUrl.trim().isEmpty),
+      ];
       debugPrint('[FIRESTORE] getFeaturedArtists: got ${artists.length} artists');
       return artists.take(limit).toList();
     } catch (e, st) {

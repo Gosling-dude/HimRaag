@@ -6,6 +6,7 @@ import '../data/remote/firebase_album_datasource.dart';
 import '../data/remote/firebase_artist_datasource.dart';
 import '../data/remote/firebase_audit_datasource.dart';
 import '../data/remote/firebase_song_datasource.dart';
+import '../data/remote/firebase_song_request_datasource.dart';
 import '../data/remote/firebase_submission_datasource.dart';
 import '../domain/models/album.dart';
 import '../domain/models/artist.dart';
@@ -44,6 +45,12 @@ final pendingSubmissionsProvider = FutureProvider<List<Submission>>(
 
 final auditLogProvider = FutureProvider<List<AuditEntry>>(
     (ref) => ref.watch(adminAuditDsProvider).recent());
+
+final adminSongRequestDsProvider = Provider(
+    (ref) => FirebaseSongRequestDatasource(ref.watch(adminFirestoreProvider)));
+
+final songRequestsProvider = FutureProvider<List<SongRequest>>(
+    (ref) => ref.watch(adminSongRequestDsProvider).recent());
 
 /// Invalidate all catalog lists after a write so tables reflect changes.
 void refreshCatalog(WidgetRef ref) {

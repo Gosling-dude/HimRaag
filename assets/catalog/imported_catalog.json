@@ -35,7 +35,7 @@
     {
       "id": "artist_sardar_singh_sharma",
       "name": "Sardar Singh Sharma",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/sardar-singh-sharma-v6.jpg",
       "region": "Jaunsari",
       "bio": "Sardar Singh Sharma — Jaunsari Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -75,7 +75,7 @@
     {
       "id": "artist_sanjay_sharma",
       "name": "Sanjay Sharma",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/sanjay-sharma-v6.jpg",
       "region": "Himachali",
       "bio": "Sanjay Sharma — Himachali Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -115,7 +115,7 @@
     {
       "id": "artist_diksha_dhaundiyal_pooja_dhaundiyal",
       "name": "Diksha Dhaundiyal, Pooja Dhaundiyal",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/diksha-dhaundiyal-pooja-dhaundiyal-v6.jpg",
       "region": "Kumaoni",
       "bio": "Diksha Dhaundiyal, Pooja Dhaundiyal — Kumaoni Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -155,7 +155,7 @@
     {
       "id": "artist_rohit_chauhan",
       "name": "Rohit Chauhan",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/rohit-chauhan-v6.jpg",
       "region": "Garhwali",
       "bio": "Rohit Chauhan — Garhwali Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -175,7 +175,7 @@
     {
       "id": "artist_thakur_dass_rathi",
       "name": "Thakur Dass Rathi",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/thakur-dass-rathi-v6.jpg",
       "region": "Himachali",
       "bio": "Thakur Dass Rathi — Himachali Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -195,7 +195,7 @@
     {
       "id": "artist_jitendra_tomkyal",
       "name": "Jitendra Tomkyal",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/jitendra-tomkyal-v6.jpg",
       "region": "Kumaoni",
       "bio": "Jitendra Tomkyal — Kumaoni Pahadi artist (imported catalog).",
       "songCount": 1,
@@ -215,7 +215,7 @@
     {
       "id": "artist_surinder_sharma",
       "name": "Surinder Sharma",
-      "imageUrl": "",
+      "imageUrl": "https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev/artist/surinder-sharma-v6.jpg",
       "region": "Himachali",
       "bio": "Surinder Sharma — Himachali Pahadi artist (imported catalog).",
       "songCount": 1,

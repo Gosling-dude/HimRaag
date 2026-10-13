@@ -35,9 +35,10 @@ Future<void> main() async {
   };
 
   // ── Audio background service ───────────────────────────────────────────────
-  // Wrapped in try/catch + timeout: on some physical devices the AudioService
-  // foreground-service binding never resolves, which would block runApp() and
-  // keep the Android launch screen visible forever.
+  // Powers the media notification + lock-screen controls. Requires MainActivity
+  // to extend AudioServiceActivity — with a plain FlutterActivity the binding
+  // below never resolves. Still wrapped in try/catch + timeout as a safety net
+  // so a failure can't block runApp() and freeze the launch screen.
   //
   // CRITICAL: JustAudioBackground.init() swaps the global JustAudioPlatform.
   // instance to its background plugin *synchronously*, then awaits
@@ -56,6 +57,7 @@ Future<void> main() async {
       androidNotificationChannelName: 'HimRaag Audio',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
+      androidNotificationIcon: 'drawable/ic_stat_music',
       notificationColor: const Color(0xFF6B3FA0),
     ).timeout(const Duration(seconds: 5));
     debugPrint('[APP] AUDIO_BG_INIT_SUCCESS');
