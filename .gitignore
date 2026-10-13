@@ -47,6 +47,7 @@ coverage/
 
 # Scripts
 scripts/node_modules/
+scripts/backups/
 
 # Credentials directory (Cloudflare R2 + Firebase admin SDK). NEVER commit.
 .env/
