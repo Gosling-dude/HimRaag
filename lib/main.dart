@@ -13,6 +13,7 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'data/local/hive_boxes.dart';
 import 'data/services/play_tracking.dart';
+import 'features/recommendations/recommendation_providers.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -122,6 +123,7 @@ class _HimRaagAppState extends ConsumerState<HimRaagApp> {
   Widget build(BuildContext context) {
     debugPrint('[APP] ROUTER_BUILD');
     ref.watch(playTrackingProvider);
+    ref.watch(autoplayProvider);
     final router = ref.watch(appRouterProvider);
     final themeMode = ref.watch(themeModeProvider);
 

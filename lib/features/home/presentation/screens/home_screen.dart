@@ -10,6 +10,7 @@ import '../../../../domain/models/song.dart';
 import '../../../auth/providers/auth_providers.dart';
 import '../../../player/providers/player_providers.dart';
 import '../../providers/home_providers.dart';
+import '../../../recommendations/recommendation_providers.dart';
 import '../widgets/album_card.dart';
 import '../widgets/artist_card.dart';
 import '../widgets/featured_banner.dart';
@@ -38,6 +39,7 @@ class HomeScreen extends ConsumerWidget {
           ref.invalidate(newReleasesProvider);
           ref.invalidate(featuredAlbumsProvider);
           ref.invalidate(featuredArtistsProvider);
+          ref.invalidate(tasteSeedsProvider);
           if (selectedRegion != 'All') {
             ref.invalidate(homeRegionSongsProvider(selectedRegion));
           }
@@ -50,6 +52,7 @@ class HomeScreen extends ConsumerWidget {
             if (selectedRegion != 'All')
               _RegionSongsSection(region: selectedRegion)
             else ...[
+              const _RecommendedSection(),
               const _TrendingSection(),
               const _NewReleasesSection(),
               const _CuratedRegionSections(),
@@ -214,6 +217,39 @@ class _RegionSongsSection extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _RecommendedSection extends ConsumerWidget {
+  const _RecommendedSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recommended = ref.watch(recommendedSongsProvider);
+    final personal =
+        ref.watch(tasteSeedsProvider).valueOrNull?.isNotEmpty ?? false;
+
+    return SliverToBoxAdapter(
+      child: recommended.when(
+        data: (songs) => songs.isEmpty
+            ? const SizedBox.shrink()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+                    child: SectionHeader(
+                      title: personal ? 'Recommended for You' : 'Popular Picks',
+                    ),
+                  ),
+                  _HorizontalSongList(songs: songs),
+                ],
+              ),
+        loading: () => const ShimmerHorizontalList(),
+        // A failed recommendation shouldn't leave a broken row on Home.
+        error: (_, __) => const SizedBox.shrink(),
       ),
     );
   }
