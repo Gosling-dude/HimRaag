@@ -164,6 +164,8 @@ async function main() {
       sourceFile: e.file, approvalStatus: 'approved', isApproved: true, isPublished: true, reviewRequired: false,
       searchKeywords: terms(e.title, e.credit, p.albumTitle, e.region, language, e.genre),
     }, false));
+    // addedAt orders New Releases ("recently added").
+    writes[writes.length - 1].updateTransforms.push({ fieldPath: 'addedAt', setToServerValue: 'REQUEST_TIME' });
     process.stdout.write(`\r  uploaded ${i + 1}/${plan.length}`);
   }
   console.log();

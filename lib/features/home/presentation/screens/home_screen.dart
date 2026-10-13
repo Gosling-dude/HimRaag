@@ -205,7 +205,7 @@ class _RegionSongsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: '$region Songs',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/region/$region'),
             ),
           ),
           songs.when(
@@ -242,9 +242,10 @@ class _RecommendedSection extends ConsumerWidget {
                     padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
                     child: SectionHeader(
                       title: personal ? 'Recommended for You' : 'Popular Picks',
+                      onSeeAll: () => context.push('/browse/for-you'),
                     ),
                   ),
-                  _HorizontalSongList(songs: songs),
+                  _HorizontalSongList(songs: songs.take(15).toList()),
                 ],
               ),
         loading: () => const ShimmerHorizontalList(),
@@ -270,7 +271,7 @@ class _TrendingSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Trending Now',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/browse/trending'),
             ),
           ),
           trending.when(
@@ -302,7 +303,7 @@ class _NewReleasesSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'New Releases',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/browse/new-releases'),
             ),
           ),
           newReleases.when(
@@ -334,7 +335,7 @@ class _AlbumsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Popular Albums',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/albums'),
             ),
           ),
           albums.when(
@@ -366,7 +367,7 @@ class _ArtistsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Featured Artists',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/artists'),
             ),
           ),
           artists.when(
@@ -422,9 +423,7 @@ class _CuratedRegionRow extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
               child: SectionHeader(
                 title: '$region Hits',
-                onSeeAll: () {
-                  ref.read(selectedRegionProvider.notifier).state = region;
-                },
+                onSeeAll: () => context.push('/region/$region'),
               ),
             ),
             _HorizontalSongList(songs: list),
@@ -451,7 +450,7 @@ class _FestivalSection extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 12),
             child: SectionHeader(
               title: 'Festival Collections',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/category/Festival'),
             ),
           ),
           GridView.builder(
@@ -493,7 +492,7 @@ class _FestivalCard extends StatelessWidget {
     final gradient = colors[name.hashCode % colors.length];
 
     return GestureDetector(
-      onTap: () => context.push('/search'),
+      onTap: () => context.push('/festival/${Uri.encodeComponent(name)}'),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: gradient),

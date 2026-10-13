@@ -83,7 +83,7 @@ final recommendedSongsProvider = FutureProvider<List<Song>>((ref) async {
     final popular = region == 'All'
         ? await ref.watch(trendingSongsProvider.future)
         : await ds.getSongsByRegion(region);
-    return popular.visibleToConsumers().take(15).toList();
+    return popular.visibleToConsumers().take(50).toList();
   }
 
   final profile = TasteProfile.fromSeeds(seeds);
@@ -100,8 +100,9 @@ final recommendedSongsProvider = FutureProvider<List<Song>>((ref) async {
     ...ref.read(recentlyPlayedProvider).take(_recentSeeds).map((s) => s.id),
     ...ref.read(favoritesProvider),
   };
+  // Enough for the full "Recommended for You" page; Home shows the top 15.
   return _recommender.rank(candidates.toList().visibleToConsumers(), profile,
-      exclude: heard);
+      exclude: heard, limit: 50);
 });
 
 /// "More like this" for a song id: same artist and same region, ranked.
