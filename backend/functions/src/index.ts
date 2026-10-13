@@ -25,6 +25,7 @@ import {
 import {
   buildHomeFeed,
   byNumberDesc,
+  pickFeaturedArtists,
   DocRecord,
   FEED_VERSION,
 } from './logic/feed';
@@ -235,7 +236,7 @@ async function rebuildHomeFeed(): Promise<void> {
     songs.orderBy('playCount', 'desc').limit(20).get(),
     songs.orderBy('releaseYear', 'desc').limit(40).get(),
     db.collection('albums').where('isApproved', '==', true).limit(20).get(),
-    db.collection('artists').where('isVerified', '==', true).limit(20).get(),
+    db.collection('artists').where('isVerified', '==', true).get(),
   ]);
 
   const regionEntries = await Promise.all(
@@ -280,7 +281,7 @@ async function rebuildHomeFeed(): Promise<void> {
     newReleases: records(newSnap),
     regions: Object.fromEntries(regionEntries),
     albums: records(albumsSnap).sort(byNumberDesc('releaseYear')),
-    artists: records(artistsSnap).sort(byNumberDesc('monthlyListeners')),
+    artists: pickFeaturedArtists(records(artistsSnap)),
   });
 
   await db
