@@ -25,6 +25,7 @@ class SongDto {
     required this.isDownloadable,
     this.lyrics,
     this.mood,
+    this.featuredRank,
     this.albumArtist,
     this.slug = '',
     this.license = 'DEMO_ONLY',
@@ -57,6 +58,7 @@ class SongDto {
   final bool isDownloadable;
   final String? lyrics;
   final String? mood;
+  final int? featuredRank;
   final String? albumArtist;
 
   // ── Content-system metadata ──────────────────────────────────────────────
@@ -100,6 +102,7 @@ class SongDto {
       isDownloadable: data['isDownloadable'] as bool? ?? true,
       lyrics: data['lyrics'] as String?,
       mood: data['mood'] as String?,
+      featuredRank: data['featuredRank'] as int?,
       albumArtist: data['albumArtist'] as String?,
       slug: data['slug'] as String? ?? '',
       license: data['license'] as String? ?? 'DEMO_ONLY',
@@ -134,6 +137,7 @@ class SongDto {
         isDownloadable: isDownloadable,
         lyrics: lyrics,
         mood: mood,
+        featuredRank: featuredRank,
         albumArtist: albumArtist,
         localPath: localPath,
         slug: slug,
@@ -168,6 +172,7 @@ class SongDto {
         isDownloadable: song.isDownloadable,
         lyrics: song.lyrics,
         mood: song.mood,
+        featuredRank: song.featuredRank,
         albumArtist: song.albumArtist,
         slug: song.slug,
         license: song.license.wire,
@@ -210,6 +215,7 @@ class SongDto {
         'reviewRequired': reviewRequired,
         if (lyrics != null) 'lyrics': lyrics,
         if (mood != null) 'mood': mood,
+        if (featuredRank != null) 'featuredRank': featuredRank,
         if (albumArtist != null) 'albumArtist': albumArtist,
         if (licenseUrl != null) 'licenseUrl': licenseUrl,
         if (sourceUrl != null) 'sourceUrl': sourceUrl,

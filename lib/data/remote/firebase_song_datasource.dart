@@ -21,14 +21,28 @@ class FirebaseSongDatasource {
   Future<List<Song>> getFeaturedSongs({int limit = 10}) async {
     try {
       debugPrint('[FIRESTORE] getFeaturedSongs: fetching');
+      // Hand-picked banner songs first, in rank order. Range + orderBy on the
+      // same single field — no composite index required.
+      final curatedSnap = await _songs
+          .where('featuredRank', isGreaterThan: 0)
+          .orderBy('featuredRank')
+          .limit(limit)
+          .get();
+      final curated = curatedSnap.docs
+          .map((doc) => SongDto.fromFirestore(doc).toDomain())
+          .where((s) => s.isApproved)
+          .toList();
       final snapshot = await _songs
           .where(FirebaseConstants.songsIsApprovedField, isEqualTo: true)
           .limit(limit * 2)
           .get();
-      final songs = snapshot.docs
+      final seen = curated.map((s) => s.id).toSet();
+      final rest = snapshot.docs
           .map((doc) => SongDto.fromFirestore(doc).toDomain())
+          .where((s) => seen.add(s.id))
           .toList()
         ..sort((a, b) => b.playCount.compareTo(a.playCount));
+      final songs = [...curated, ...rest];
       debugPrint('[FIRESTORE] getFeaturedSongs: got ${songs.length} songs');
       return songs.take(limit).toList();
     } catch (e, st) {
