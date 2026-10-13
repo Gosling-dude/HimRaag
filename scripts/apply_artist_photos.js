@@ -33,7 +33,6 @@ const arg = (name) => { const i = process.argv.indexOf(name); return i > 0 ? pro
 const APPLY = process.argv.includes('--apply');
 const RESULTS = arg('--results');
 const PHOTOS = arg('--photos');
-const WEB_API_KEY = process.env.HIMRAAG_WEB_API_KEY || '';
 const BUCKET = 'himraag-audio';
 const PUBLIC_BASE = 'https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev';
 const VERSION = 'v6'; // bump to cache-bust client image caches
@@ -43,7 +42,7 @@ const CATALOG = path.join(repoRoot, 'assets', 'catalog', 'imported_catalog.json'
 const REPORT = path.join(__dirname, 'seed_data', 'artist_photos_report.md');
 
 async function listArtists() {
-  const base = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/artists?pageSize=300&key=${WEB_API_KEY}`;
+  const base = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/artists?pageSize=300`;
   const out = [];
   let token;
   do {

@@ -20,7 +20,7 @@
  *   node scripts/clean_metadata.js --apply    # writes (uses your `firebase login` session)
  *
  * Dry run reads Firestore through the public REST API (songs/artists/albums
- * are world-readable), so it needs no credentials. --apply first saves every
+ * are world-readable), so it needs no credentials or API key. --apply first saves every
  * touched song's original fields to scripts/seed_data/metadata_cleanup_backup.json.
  */
 'use strict';
@@ -31,8 +31,6 @@ const { PROJECT_ID } = require('./lib/constants');
 const { loginHeaders, docWrite, commit } = require('./lib/firebase_rest');
 
 const APPLY = process.argv.includes('--apply');
-// Public web API key from lib/firebase_options.dart (not a secret).
-const WEB_API_KEY = process.env.HIMRAAG_WEB_API_KEY || '';
 const OUT_DIR = path.join(__dirname, 'seed_data');
 const REPORT = path.join(OUT_DIR, 'metadata_cleanup_report.md');
 const BACKUP = path.join(OUT_DIR, 'metadata_cleanup_backup.json');
@@ -191,7 +189,7 @@ function decode(v) {
 }
 
 async function restList(collection) {
-  const base = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${collection}?pageSize=300&key=${WEB_API_KEY}`;
+  const base = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${collection}?pageSize=300`;
   const out = [];
   let token;
   do {
