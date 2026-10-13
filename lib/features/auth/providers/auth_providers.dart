@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../data/services/media_url_resolver.dart';
 import '../../../domain/models/app_user.dart';
 
 final firebaseAuthProvider =
@@ -62,23 +60,6 @@ class AuthRepository {
       email: user.email,
       photoUrl: user.photoURL,
       createdAt: user.metadata.creationTime,
-    );
-  }
-
-  /// Signs in with a real (anonymous) Firebase account so guests can stream
-  /// protected audio and have their plays counted. Falls back to a local-only
-  /// guest if Anonymous sign-in is disabled or the device is offline.
-  Future<AppUser> continueAsGuest() async {
-    final user = await ensureFirebaseUser(auth);
-    return AppUser(
-      uid: user?.uid ?? 'guest_${const Uuid().v4()}',
-      signInMethod: user == null || user.isAnonymous
-          ? UserSignInMethod.guest
-          : UserSignInMethod.google,
-      displayName: user?.displayName,
-      email: user?.email,
-      photoUrl: user?.photoURL,
-      createdAt: user?.metadata.creationTime,
     );
   }
 

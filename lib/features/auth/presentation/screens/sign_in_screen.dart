@@ -31,13 +31,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     }
   }
 
-  void _continueAsGuest() {
-    // Don't block navigation on the network; the anonymous account is also
-    // created lazily on first play if this attempt fails.
-    ref.read(authRepositoryProvider).continueAsGuest().ignore();
-    context.go('/home');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,16 +73,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   onTap: _isLoading ? null : _signInWithGoogle,
                   backgroundColor: Colors.white,
                   textColor: const Color(0xFF1A1030),
-                ),
-                const SizedBox(height: 16),
-                _SignInButton(
-                  icon: const Icon(Icons.person_outline,
-                      color: Colors.white, size: 20),
-                  label: 'Continue as Guest',
-                  onTap: _continueAsGuest,
-                  backgroundColor: Colors.transparent,
-                  textColor: Colors.white,
-                  borderColor: Colors.white.withValues(alpha: 0.3),
                 ),
                 const SizedBox(height: 32),
                 Center(
@@ -147,7 +130,6 @@ class _SignInButton extends StatelessWidget {
     required this.onTap,
     required this.backgroundColor,
     required this.textColor,
-    this.borderColor,
   });
 
   final Widget icon;
@@ -155,7 +137,6 @@ class _SignInButton extends StatelessWidget {
   final VoidCallback? onTap;
   final Color backgroundColor;
   final Color textColor;
-  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +146,7 @@ class _SignInButton extends StatelessWidget {
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
           backgroundColor: backgroundColor,
-          side: BorderSide(color: borderColor ?? Colors.transparent),
+          side: const BorderSide(color: Colors.transparent),
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
