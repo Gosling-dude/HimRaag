@@ -11,7 +11,8 @@
  *
  * Auth: `firebase login` session for Firestore; R2 keys from the credential
  * folder (see scripts/lib/credentials.js — set HIMRAAG_ENV_DIR if it isn't
- * <repo>/.env).
+ * <repo>/.env). Without that folder, deletes go through your `wrangler login`
+ * (run in backend/cdn-worker) instead.
  *
  * Usage:
  *   node scripts/purge_orphaned_r2_media.js [backup.json]            # dry run
@@ -21,7 +22,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const { loadR2 } = require('./lib/credentials');
 
 // The S3 SDK is a scripts/ dependency; fall back to the functions install so
@@ -33,11 +34,15 @@ function requireS3() {
     return require(path.join(__dirname, '../backend/functions/node_modules/@aws-sdk/client-s3'));
   }
 }
-const { S3Client, DeleteObjectsCommand, HeadObjectCommand } = requireS3();
+const { S3Client, DeleteObjectsCommand } = requireS3();
 
 const PROJECT = 'himraag-prod';
 const BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents`;
 const APPLY = process.argv.includes('--apply');
+// Used when the R2 credential folder isn't available (deletes then go via wrangler).
+const DEFAULT_BUCKET = 'himraag-audio';
+const DEFAULT_PUBLIC_URL = 'https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev';
+const WORKER_DIR = path.join(__dirname, '..', 'backend', 'cdn-worker');
 
 // The binary resolves to <firebase-tools>/lib/bin/firebase.js.
 const toolsLib = path.dirname(path.dirname(fs.realpathSync(execSync('which firebase').toString().trim())));
@@ -68,7 +73,7 @@ async function listAll(collection, headers) {
   const out = [];
   let pageToken = '';
   do {
-    const url = `${BASE}/${collection}?pageSize=300${pageToken ? `&pageToken=${pageToken}` : ''}`;
+    const url = `${BASE}/${collection}?pageSize=300${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''}`;
     const j = await (await fetch(url, { headers })).json();
     if (j.error) throw new Error(j.error.message);
     out.push(...(j.documents || []));
@@ -78,8 +83,14 @@ async function listAll(collection, headers) {
 }
 
 async function main() {
-  const r2 = loadR2();
-  const r2Host = new URL(r2.publicUrl).host;
+  let r2 = null;
+  try {
+    r2 = loadR2();
+  } catch (e) {
+    console.log(`R2 keys unavailable (${e.message}) — deletes will use wrangler.`);
+  }
+  const publicUrl = r2?.publicUrl || DEFAULT_PUBLIC_URL;
+  const r2Host = new URL(publicUrl).host;
   const keyOf = (url) => {
     try {
       const u = new URL(url);
@@ -98,6 +109,7 @@ async function main() {
   const { access_token } = await auth.getAccessToken(tokens.refresh_token, []);
   const headers = { Authorization: `Bearer ${access_token}` };
   const live = (await Promise.all(['songs', 'albums', 'artists'].map((c) => listAll(c, headers)))).flat();
+  console.log(`Live catalog docs:             ${live.length}`);
 
   // Every URL the live catalog still uses — these are never deleted.
   const inUse = new Set();
@@ -125,29 +137,41 @@ async function main() {
   console.log(`Still used by live catalog:    skipped`);
   if (foreign) console.log(`URLs not on ${r2Host}:   ${foreign} (ignored)`);
 
-  const s3 = new S3Client({
-    region: 'auto',
-    endpoint: r2.endpoint,
-    credentials: { accessKeyId: r2.accessKeyId, secretAccessKey: r2.secretAccessKey },
-  });
+  // The bucket is publicly readable, so presence is checked over HTTP.
+  const present = [];
+  let bytes = 0;
+  for (const key of keys) {
+    const res = await fetch(`${publicUrl}/${key.split('/').map(encodeURIComponent).join('/')}`, { method: 'HEAD' });
+    if (res.ok) { present.push(key); bytes += Number(res.headers.get('content-length')) || 0; }
+  }
+  console.log(`Present in bucket now:         ${present.length} (${(bytes / 1048576).toFixed(1)} MB)`);
 
   if (!APPLY) {
-    let present = 0;
-    let bytes = 0;
-    for (const Key of keys) {
-      try {
-        const h = await s3.send(new HeadObjectCommand({ Bucket: r2.bucket, Key }));
-        present++;
-        bytes += h.ContentLength || 0;
-      } catch { /* already gone */ }
-    }
-    console.log(`Present in bucket now:         ${present} (${(bytes / 1048576).toFixed(1)} MB)`);
     console.log('\nDry run — nothing changed. Re-run with --apply to delete.');
     return;
   }
 
   console.log('\nApplying…');
   let deleted = 0;
+  if (!r2) {
+    for (const key of present) {
+      try {
+        execFileSync('npx', ['--no-install', 'wrangler', 'r2', 'object', 'delete', `${DEFAULT_BUCKET}/${key}`, '--remote'],
+          { cwd: WORKER_DIR, stdio: 'ignore' });
+        deleted++;
+      } catch {
+        console.error(`  failed: ${key}`);
+      }
+      process.stdout.write(`\r  deleted ${deleted}/${present.length}`);
+    }
+    console.log('\n\nDone.');
+    return;
+  }
+  const s3 = new S3Client({
+    region: 'auto',
+    endpoint: r2.endpoint,
+    credentials: { accessKeyId: r2.accessKeyId, secretAccessKey: r2.secretAccessKey },
+  });
   for (let i = 0; i < keys.length; i += 1000) {
     const res = await s3.send(new DeleteObjectsCommand({
       Bucket: r2.bucket,
