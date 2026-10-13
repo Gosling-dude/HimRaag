@@ -8,6 +8,7 @@ import '../../core/constants/content_constants.dart';
 import '../../domain/models/album.dart';
 import '../../domain/models/artist.dart';
 import '../../domain/models/song.dart';
+import '../services/media_url_resolver.dart';
 
 /// Loads the locally-imported catalog bundled at
 /// `assets/catalog/imported_catalog.json` (produced by
@@ -21,6 +22,7 @@ class LocalCatalogDatasource {
   LocalCatalogDatasource();
 
   static const String _assetPath = 'assets/catalog/imported_catalog.json';
+  static const MediaUrlResolver _media = MediaUrlResolver.current;
 
   Future<_Catalog>? _cache;
 
@@ -113,8 +115,8 @@ class LocalCatalogDatasource {
       artistName: m['artistName'] as String? ?? '',
       albumId: m['albumId'] as String? ?? '',
       albumTitle: m['albumTitle'] as String? ?? '',
-      audioUrl: m['audioUrl'] as String? ?? '',
-      artworkUrl: m['artworkUrl'] as String? ?? '',
+      audioUrl: _media.resolve(m['audioUrl'] as String? ?? ''),
+      artworkUrl: _media.resolve(m['artworkUrl'] as String? ?? ''),
       duration: Duration(milliseconds: (m['durationMs'] as num? ?? 0).toInt()),
       region: m['region'] as String? ?? '',
       language: m['language'] as String? ?? '',
@@ -145,7 +147,7 @@ class LocalCatalogDatasource {
       title: m['title'] as String? ?? '',
       artistId: m['artistId'] as String? ?? '',
       artistName: m['artistName'] as String? ?? '',
-      artworkUrl: m['artworkUrl'] as String? ?? '',
+      artworkUrl: _media.resolve(m['artworkUrl'] as String? ?? ''),
       region: m['region'] as String? ?? '',
       language: m['language'] as String? ?? '',
       genre: m['genre'] as String? ?? '',
@@ -170,7 +172,7 @@ class LocalCatalogDatasource {
     return Artist(
       id: m['id'] as String,
       name: m['name'] as String? ?? '',
-      imageUrl: m['imageUrl'] as String? ?? '',
+      imageUrl: _media.resolve(m['imageUrl'] as String? ?? ''),
       region: m['region'] as String? ?? '',
       bio: m['bio'] as String? ?? '',
       songCount: (m['songCount'] as num? ?? 0).toInt(),

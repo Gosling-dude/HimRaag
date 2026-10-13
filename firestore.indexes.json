@@ -4,124 +4,240 @@
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "playCount", "order": "DESCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "playCount",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "releasedAt", "order": "DESCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "releasedAt",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "region", "order": "ASCENDING" },
-        { "fieldPath": "playCount", "order": "DESCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "releaseYear",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "genre", "order": "ASCENDING" },
-        { "fieldPath": "playCount", "order": "DESCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "region",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "playCount",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "albumId", "order": "ASCENDING" },
-        { "fieldPath": "isApproved", "order": "ASCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "genre",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "playCount",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "artistId", "order": "ASCENDING" },
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "playCount", "order": "DESCENDING" }
+        {
+          "fieldPath": "albumId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "titleLowercase", "order": "ASCENDING" }
+        {
+          "fieldPath": "artistId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "playCount",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "songs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "titleLowercase",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "albums",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "isApproved", "order": "ASCENDING" },
-        { "fieldPath": "titleLowercase", "order": "ASCENDING" }
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "titleLowercase",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "albums",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "artistId", "order": "ASCENDING" },
-        { "fieldPath": "isApproved", "order": "ASCENDING" }
+        {
+          "fieldPath": "artistId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "artists",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "nameLowercase", "order": "ASCENDING" },
-        { "fieldPath": "monthlyListeners", "order": "DESCENDING" }
+        {
+          "fieldPath": "nameLowercase",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "monthlyListeners",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "approvalStatus", "order": "ASCENDING" },
-        { "fieldPath": "titleLowercase", "order": "ASCENDING" }
+        {
+          "fieldPath": "approvalStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "titleLowercase",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "songs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "approvalStatus", "order": "ASCENDING" },
-        { "fieldPath": "region", "order": "ASCENDING" },
-        { "fieldPath": "titleLowercase", "order": "ASCENDING" }
+        {
+          "fieldPath": "approvalStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "region",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "titleLowercase",
+          "order": "ASCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "submissions",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "status", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "submissions",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "submittedBy", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
+        {
+          "fieldPath": "submittedBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
       "collectionGroup": "auditLogs",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "entityId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
+        {
+          "fieldPath": "entityId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
       ]
     }
   ],

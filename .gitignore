@@ -11,6 +11,7 @@ build/
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
+**/android/.kotlin/
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
@@ -58,3 +59,11 @@ scripts/node_modules/
 # bundled, app-shipped copies live under assets/audio/ (which IS tracked).
 # Re-import any time with: node scripts/seed_imported.js "<folder>"
 music/
+
+# Cloud Functions / Worker build output
+backend/functions/node_modules/
+backend/functions/lib/
+backend/functions/.env.*
+backend/cdn-worker/node_modules/
+backend/cdn-worker/.wrangler/
+backend/cdn-worker/.dev.vars

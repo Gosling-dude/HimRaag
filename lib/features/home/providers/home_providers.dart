@@ -9,6 +9,7 @@ import '../../../data/local/local_catalog_datasource.dart';
 import '../../../data/remote/firebase_album_datasource.dart';
 import '../../../data/remote/firebase_artist_datasource.dart';
 import '../../../data/remote/firebase_song_datasource.dart';
+import '../../../data/remote/home_feed_datasource.dart';
 import '../../../domain/models/album.dart';
 import '../../../domain/models/artist.dart';
 import '../../../domain/models/song.dart';
@@ -52,36 +53,71 @@ final artistDatasourceProvider = Provider<FirebaseArtistDatasource>((ref) {
   return FirebaseArtistDatasource(ref.watch(firestoreProvider));
 });
 
+final homeFeedDatasourceProvider = Provider<HomeFeedDatasource>((ref) {
+  return HomeFeedDatasource(ref.watch(firestoreProvider));
+});
+
+/// The server-built Home payload, or null → rows fall back to their own
+/// Firestore queries (e.g. before the Cloud Functions are deployed).
+final homeFeedProvider = FutureProvider<HomeFeed?>((ref) async {
+  try {
+    return await ref.watch(homeFeedDatasourceProvider).fetch();
+  } catch (e) {
+    debugPrint('[FEED] fetch failed, using direct queries: $e');
+    return null;
+  }
+});
+
+/// Top [limit] consumer-visible items from the feed. The server over-fetches
+/// so demo-only entries filtered out in release builds don't empty a row.
+List<Song> _topSongs(List<Song> songs, int limit) =>
+    songs.visibleToConsumers().take(limit).toList();
+
 final featuredSongsProvider = FutureProvider<List<Song>>((ref) async {
-  final remote = await ref.watch(songDatasourceProvider).getFeaturedSongs();
+  final feed = await ref.watch(homeFeedProvider.future);
+  final remote = feed != null
+      ? _topSongs(feed.featuredSongs, 10)
+      : await ref.watch(songDatasourceProvider).getFeaturedSongs();
   final local = await ref.watch(localSongsProvider.future);
   final merged = _mergeById(local, remote, (s) => s.id);
   return _logVisibility('featuredSongs', merged, merged.visibleToConsumers());
 });
 
 final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
-  final remote = await ref.watch(songDatasourceProvider).getTrendingSongs();
+  final feed = await ref.watch(homeFeedProvider.future);
+  final remote = feed != null
+      ? _topSongs(feed.trendingSongs, 20)
+      : await ref.watch(songDatasourceProvider).getTrendingSongs();
   final local = await ref.watch(localSongsProvider.future);
   final merged = _mergeById(local, remote, (s) => s.id);
   return _logVisibility('trendingSongs', merged, merged.visibleToConsumers());
 });
 
 final newReleasesProvider = FutureProvider<List<Song>>((ref) async {
-  final remote = await ref.watch(songDatasourceProvider).getNewReleases();
+  final feed = await ref.watch(homeFeedProvider.future);
+  final remote = feed != null
+      ? _topSongs(feed.newReleases, 20)
+      : await ref.watch(songDatasourceProvider).getNewReleases();
   final local = await ref.watch(localSongsProvider.future);
   final merged = _mergeById(local, remote, (s) => s.id);
   return _logVisibility('newReleases', merged, merged.visibleToConsumers());
 });
 
 final featuredAlbumsProvider = FutureProvider<List<Album>>((ref) async {
-  final remote = await ref.watch(albumDatasourceProvider).getFeaturedAlbums();
+  final feed = await ref.watch(homeFeedProvider.future);
+  final remote = feed != null
+      ? feed.albums.visibleToConsumers().take(10).toList()
+      : await ref.watch(albumDatasourceProvider).getFeaturedAlbums();
   final local = await ref.watch(localAlbumsProvider.future);
   final merged = _mergeById(local, remote, (a) => a.id);
   return _logVisibility('featuredAlbums', merged, merged.visibleToConsumers());
 });
 
 final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
-  final remote = await ref.watch(artistDatasourceProvider).getFeaturedArtists();
+  final feed = await ref.watch(homeFeedProvider.future);
+  final remote = feed != null
+      ? feed.artists.visibleToConsumers().take(10).toList()
+      : await ref.watch(artistDatasourceProvider).getFeaturedArtists();
   final local = await ref.watch(localArtistsProvider.future);
   final merged = _mergeById(local, remote, (a) => a.id);
   return _logVisibility(
@@ -97,15 +133,31 @@ final regionSongsProvider =
   return _mergeById(local, remote, (s) => s.id).visibleToConsumers();
 });
 
+/// Home's "<Region> Hits" rows: served from the feed when available. The
+/// Region screen keeps using [regionSongsProvider] for its fuller list.
+final homeRegionSongsProvider =
+    FutureProvider.family<List<Song>, String>((ref, region) async {
+  final feed = await ref.watch(homeFeedProvider.future);
+  if (feed == null) return ref.watch(regionSongsProvider(region).future);
+  final local = (await ref.watch(localSongsProvider.future))
+      .where((s) => s.region == region)
+      .toList();
+  final remote = feed.regionSongs[region] ?? const <Song>[];
+  return _mergeById(local, remote, (s) => s.id).visibleToConsumers();
+});
+
 /// Regions that actually have at least one visible song, in catalog order.
 /// Drives the curated "<Region> Hits" rows on Home — empty regions never
 /// render, so there are no blank sections.
 final populatedRegionsProvider = FutureProvider<List<String>>((ref) async {
   final local = await ref.watch(localSongsProvider.future);
   final remote = await ref.watch(trendingSongsProvider.future);
+  final feed = await ref.watch(homeFeedProvider.future);
   final present = {
     for (final s in [...local, ...remote])
       if (s.region.trim().isNotEmpty && s.region != 'Needs Review') s.region,
+    for (final e in feed?.regionSongs.entries ?? <MapEntry<String, List<Song>>>[])
+      if (e.value.visibleToConsumers().isNotEmpty) e.key,
   };
   return AppConstants.pahadiRegions.where(present.contains).toList();
 });

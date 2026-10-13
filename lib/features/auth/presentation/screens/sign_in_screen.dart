@@ -31,7 +31,12 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     }
   }
 
-  void _continueAsGuest() => context.go('/home');
+  void _continueAsGuest() {
+    // Don't block navigation on the network; the anonymous account is also
+    // created lazily on first play if this attempt fails.
+    ref.read(authRepositoryProvider).continueAsGuest().ignore();
+    context.go('/home');
+  }
 
   @override
   Widget build(BuildContext context) {

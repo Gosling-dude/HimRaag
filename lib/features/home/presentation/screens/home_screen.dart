@@ -30,13 +30,16 @@ class HomeScreen extends ConsumerWidget {
       body: RefreshIndicator(
         color: AppColors.primary,
         onRefresh: () async {
+          // Re-reading the feed refreshes every row built from it; the rest
+          // cover fallback mode (no feed yet).
+          ref.invalidate(homeFeedProvider);
           ref.invalidate(featuredSongsProvider);
           ref.invalidate(trendingSongsProvider);
           ref.invalidate(newReleasesProvider);
           ref.invalidate(featuredAlbumsProvider);
           ref.invalidate(featuredArtistsProvider);
           if (selectedRegion != 'All') {
-            ref.invalidate(regionSongsProvider(selectedRegion));
+            ref.invalidate(homeRegionSongsProvider(selectedRegion));
           }
         },
         child: CustomScrollView(
@@ -189,7 +192,7 @@ class _RegionSongsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final songs = ref.watch(regionSongsProvider(region));
+    final songs = ref.watch(homeRegionSongsProvider(region));
 
     return SliverToBoxAdapter(
       child: Column(
@@ -207,7 +210,7 @@ class _RegionSongsSection extends ConsumerWidget {
             loading: () => const ShimmerHorizontalList(),
             error: (e, _) => _ErrorWidget(
               message: 'Could not load $region songs',
-              onRetry: () => ref.invalidate(regionSongsProvider(region)),
+              onRetry: () => ref.invalidate(homeRegionSongsProvider(region)),
             ),
           ),
         ],
@@ -372,7 +375,7 @@ class _CuratedRegionRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final songs = ref.watch(regionSongsProvider(region));
+    final songs = ref.watch(homeRegionSongsProvider(region));
     return songs.maybeWhen(
       data: (list) {
         if (list.isEmpty) return const SizedBox.shrink();

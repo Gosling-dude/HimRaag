@@ -44,21 +44,10 @@ flutterfire configure --project=himraag-prod
 
 ---
 
-## 3. Algolia Setup
+## 3. Search
 
-```bash
-# 1. Create account at algolia.com (free tier: 10k ops/month)
-# 2. Create app: "himraag"
-# 3. Create indices: songs, artists, albums
-# 4. Configure index settings for songs:
-#    Searchable attributes: title, artistName, albumTitle, tags
-#    Facets: region, language, genre, mood, isApproved
-#    Ranking: playCount (descending), then default
-
-# 5. Add credentials to android/local.properties:
-algoliaAppId=YOUR_ALGOLIA_APP_ID
-algoliaSearchKey=YOUR_SEARCH_ONLY_API_KEY
-```
+Search runs on Firestore prefix queries plus the bundled catalog — no Algolia
+account or keys are needed. (The old Algolia sync functions were removed.)
 
 ---
 
@@ -72,17 +61,16 @@ flutter pub get
 
 ## 5. Backend Functions Deployment
 
+Run from the **repo root** — the root `firebase.json` deploys rules, indexes and
+`backend/functions` together. Full runbook (CDN Worker, secrets, rollout
+order): [`docs/LAUNCH_INFRASTRUCTURE.md`](docs/LAUNCH_INFRASTRUCTURE.md).
+
 ```bash
-cd backend
 firebase login
 firebase use himraag-prod
-firebase functions:config:set algolia.app_id="YOUR_ID" algolia.admin_key="YOUR_KEY"
-
-cd functions
-npm install
-npm run build
-cd ..
-firebase deploy --only functions,firestore:rules,firestore:indexes,storage:rules
+firebase functions:secrets:set R2_ACCESS_KEY_ID
+firebase functions:secrets:set R2_SECRET_ACCESS_KEY
+firebase deploy --only firestore,functions
 ```
 
 ---

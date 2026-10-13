@@ -109,9 +109,10 @@ flutter build apk --debug
    keystoreStorePassword=YOUR_STORE_PASSWORD
    ```
 
-3. Build:
+3. Build (point media at the CDN Worker — see `docs/LAUNCH_INFRASTRUCTURE.md`):
    ```bash
-   flutter build appbundle --release
+   flutter build appbundle --release \
+     --dart-define=MEDIA_CDN_BASE=https://cdn.himraag.in
    ```
    Output: `build/app/outputs/bundle/release/app-release.aab`
 
@@ -159,10 +160,13 @@ placeholder images. Both are free public CDNs suitable for development and demo.
 ## Firebase Deploy (production)
 
 ```bash
-firebase deploy --only firestore
+firebase deploy --only firestore,functions
 ```
 
-Deploys Firestore rules and indexes. Storage rules are skipped until Storage is enabled.
+Deploys Firestore rules, indexes and Cloud Functions (play counting, home feed,
+R2 cleanup) from the root `firebase.json`. Storage rules are skipped until
+Storage is enabled. First-time setup — secrets, the media CDN Worker and the
+rollout order — is in [`docs/LAUNCH_INFRASTRUCTURE.md`](docs/LAUNCH_INFRASTRUCTURE.md).
 
 ## Play Store Submission
 

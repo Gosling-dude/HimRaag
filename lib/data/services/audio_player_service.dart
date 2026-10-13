@@ -4,11 +4,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/models/song.dart';
+import 'media_url_resolver.dart';
 
 enum RepeatMode { off, one, all }
 
+/// The URI the player should open for [song]: the local file when
+/// downloaded, else the CDN URL (with [token] on protected audio paths).
+Uri playbackUriFor(Song song, String? token, MediaUrlResolver resolver) =>
+    song.isDownloaded
+        ? Uri.file(song.localPath!)
+        : resolver.authorize(song.audioUrl, token);
+
 class AudioPlayerService {
-  AudioPlayerService() : _player = AudioPlayer() {
+  AudioPlayerService({
+    AudioPlayer? player,
+    MediaTokenProvider? mediaToken,
+    MediaUrlResolver resolver = MediaUrlResolver.current,
+  })  : _player = player ?? AudioPlayer(),
+        _mediaToken = mediaToken ?? (() async => null),
+        _resolver = resolver {
     // Surface engine-level state + errors. Without this, a failed load (e.g. a
     // broken audio platform or an unreachable URL) is invisible: the future
     // throws into a fire-and-forget call site and is swallowed.
@@ -28,6 +42,8 @@ class AudioPlayerService {
   }
 
   final AudioPlayer _player;
+  final MediaTokenProvider _mediaToken;
+  final MediaUrlResolver _resolver;
 
   AudioPlayer get player => _player;
 
@@ -42,6 +58,13 @@ class AudioPlayerService {
   Duration? get duration => _player.duration;
   int? get currentIndex => _player.currentIndex;
 
+  /// Id of the song currently loaded, or null. Cheaper than [getCurrentSong]
+  /// for per-tick listeners such as play tracking.
+  String? get currentSongId {
+    final tag = _player.sequenceState?.currentSource?.tag;
+    return tag is MediaItem ? tag.id : null;
+  }
+
   Future<void> playSong(Song song, {List<Song>? queue, int? queueIndex}) async {
     final songs = queue ?? [song];
     final index = queueIndex ?? 0;
@@ -50,7 +73,7 @@ class AudioPlayerService {
       '[AUDIO] PLAY_REQUEST id=${song.id} title="${song.title}" '
       'queueLength=${songs.length} index=$index',
     );
-    debugPrint('[AUDIO] AUDIO_URL ${song.isDownloaded ? song.localPath : song.audioUrl}');
+    debugPrint('[AUDIO] AUDIO_URL ${song.isDownloaded ? song.localPath : _resolver.resolve(song.audioUrl)}');
 
     if (!song.isDownloaded &&
         (song.audioUrl.isEmpty || Uri.tryParse(song.audioUrl) == null)) {
@@ -59,8 +82,11 @@ class AudioPlayerService {
     }
 
     try {
+      // One token for the whole queue; the CDN accepts it for hours past
+      // expiry (TOKEN_GRACE_SECONDS), which covers a long listening session.
+      final token = await _mediaToken();
       final playlist = ConcatenatingAudioSource(
-        children: songs.map((s) => _buildAudioSource(s)).toList(),
+        children: songs.map((s) => buildAudioSource(s, token)).toList(),
       );
 
       debugPrint('[AUDIO] SET_AUDIO_SOURCE initialIndex=$index');
@@ -116,7 +142,7 @@ class AudioPlayerService {
   }
 
   Future<void> addToQueue(Song song) async {
-    final source = _buildAudioSource(song);
+    final source = buildAudioSource(song, await _mediaToken());
     final sequence = _player.audioSource;
     if (sequence is ConcatenatingAudioSource) {
       await sequence.add(source);
@@ -124,7 +150,7 @@ class AudioPlayerService {
   }
 
   Future<void> addToQueueNext(Song song) async {
-    final source = _buildAudioSource(song);
+    final source = buildAudioSource(song, await _mediaToken());
     final sequence = _player.audioSource;
     if (sequence is ConcatenatingAudioSource) {
       final nextIndex = (_player.currentIndex ?? 0) + 1;
@@ -153,10 +179,8 @@ class AudioPlayerService {
     return _mediaItemToSong(item as MediaItem);
   }
 
-  AudioSource _buildAudioSource(Song song) {
-    final uri = song.isDownloaded
-        ? Uri.file(song.localPath!)
-        : Uri.parse(song.audioUrl);
+  AudioSource buildAudioSource(Song song, String? token) {
+    final uri = playbackUriFor(song, token, _resolver);
 
     return AudioSource.uri(
       uri,
@@ -205,7 +229,7 @@ class AudioPlayerService {
 }
 
 final audioPlayerServiceProvider = Provider<AudioPlayerService>((ref) {
-  final service = AudioPlayerService();
+  final service = AudioPlayerService(mediaToken: ref.watch(mediaTokenProvider));
   ref.onDispose(service.dispose);
   return service;
 });

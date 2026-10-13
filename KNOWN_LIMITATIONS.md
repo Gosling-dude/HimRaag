@@ -101,11 +101,13 @@ _Last updated: 2026-06-15_
 
 ## Infrastructure Limitations
 
-### L-15 — Firestore free tier daily limits
-**Severity:** Low at launch scale  
-**Description:** The Spark plan allows 50,000 reads / 20,000 writes / 20,000 deletes per day. `incrementPlayCount()` writes on every song play. At scale this will exceed free limits.  
-**Threshold:** ~20,000 song plays/day hits the write limit. With 10 songs and early-stage traffic, this won't be an issue.  
-**Fix:** Batch play count increments or switch to a counter service at scale.
+### L-15 — Firestore free tier daily limits — ✅ resolved
+**Status:** Fixed on `fix/launch-readiness`.
+Plays are buffered on device and sent in batches to the `recordPlays` Cloud
+Function, which writes to sharded counters; `aggregatePlays` folds them into
+`songs.playCount` every 30 min. Home reads one pre-built `feeds/home` doc
+instead of ~150–200 docs. See `docs/LAUNCH_INFRASTRUCTURE.md`. (Requires the
+Blaze plan for Cloud Functions.)
 
 ### L-16 — Firebase Storage not integrated
 **Severity:** Info  

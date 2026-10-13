@@ -176,16 +176,8 @@ class FirebaseSongDatasource {
     }
   }
 
-  Future<void> incrementPlayCount(String songId) async {
-    try {
-      await _songs.doc(songId).update({
-        FirebaseConstants.songsPopularityField: FieldValue.increment(1),
-      });
-    } catch (e) {
-      // Silently fails for unauthenticated users — non-critical
-      debugPrint('[FIRESTORE] incrementPlayCount skipped (guest mode): $e');
-    }
-  }
+  // Play counts are written server-side only: the app batches plays through
+  // the `recordPlays` Cloud Function (see data/services/play_tracking.dart).
 
   Stream<List<Song>> watchSongsByAlbum(String albumId) {
     return _songs

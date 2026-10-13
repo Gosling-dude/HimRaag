@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../core/constants/content_constants.dart';
 import '../../../domain/models/album.dart';
+import '../../services/media_url_resolver.dart';
 
 class AlbumDto {
   const AlbumDto({
@@ -48,12 +49,15 @@ class AlbumDto {
   final bool isPublished;
   final bool rightsCleared;
 
-  factory AlbumDto.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory AlbumDto.fromFirestore(DocumentSnapshot doc) =>
+      AlbumDto.fromMap(doc.id, doc.data() as Map<String, dynamic>);
+
+  /// Parses a raw document map (Firestore doc or an embedded feed item).
+  factory AlbumDto.fromMap(String id, Map<String, dynamic> data) {
     final rawStatus = data['approvalStatus'] as String?;
     final approvedFlag = data['isApproved'] as bool? ?? true;
     return AlbumDto(
-      id: doc.id,
+      id: id,
       title: data['title'] as String? ?? '',
       artistId: data['artistId'] as String? ?? '',
       artistName: data['artistName'] as String? ?? '',
@@ -81,7 +85,7 @@ class AlbumDto {
         title: title,
         artistId: artistId,
         artistName: artistName,
-        artworkUrl: artworkUrl,
+        artworkUrl: MediaUrlResolver.current.resolve(artworkUrl),
         region: region,
         language: language,
         genre: genre,
