@@ -47,6 +47,14 @@ export function formatMessage(req, user) {
   ].filter((line) => line !== false && line !== undefined && line !== null).join('\n');
 }
 
+/** Telegram Bot API sendMessage call for [chatId]. */
+export function telegramRequest(botToken, chatId, text) {
+  return {
+    url: `https://api.telegram.org/bot${botToken}/sendMessage`,
+    body: { chat_id: chatId, text, disable_web_page_preview: true },
+  };
+}
+
 export function callMeBotUrl(phone, apiKey, text) {
   const params = new URLSearchParams({ phone, text, apikey: apiKey });
   return `https://api.callmebot.com/whatsapp.php?${params}`;

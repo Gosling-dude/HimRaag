@@ -1,6 +1,13 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 
-import { bearerToken, callMeBotUrl, CORS_HEADERS, formatMessage, parseRequest } from './lib.js';
+import {
+  bearerToken,
+  callMeBotUrl,
+  CORS_HEADERS,
+  formatMessage,
+  parseRequest,
+  telegramRequest,
+} from './lib.js';
 
 // Google's public keys for Firebase Auth ID tokens (cached by jose).
 const FIREBASE_JWKS = createRemoteJWKSet(
@@ -52,6 +59,17 @@ async function sendWhatsApp(text, env) {
   return res.ok ? 'sent' : `failed ${res.status}`;
 }
 
+async function sendTelegram(text, env) {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return 'skipped';
+  const { url, body } = telegramRequest(env.TELEGRAM_BOT_TOKEN, env.TELEGRAM_CHAT_ID, text);
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  return res.ok ? 'sent' : `failed ${res.status}`;
+}
+
 async function sendEmail(subject, text, env) {
   if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) return 'skipped';
   const res = await fetch('https://api.resend.com/emails', {
@@ -95,11 +113,12 @@ export default {
 
     const req = parsed.value;
     const text = formatMessage(req, { uid: user.sub, name: user.name, email: user.email });
-    const [whatsapp, email] = await Promise.all([
+    const [whatsapp, telegram, email] = await Promise.all([
       sendWhatsApp(text, env).catch((e) => `failed ${e.message}`),
+      sendTelegram(text, env).catch((e) => `failed ${e.message}`),
       sendEmail(`Song request: ${req.songTitle}`, text, env).catch((e) => `failed ${e.message}`),
     ]);
-    console.log('song request', { uid: user.sub, whatsapp, email });
-    return json(202, { whatsapp, email });
+    console.log('song request', { uid: user.sub, whatsapp, telegram, email });
+    return json(202, { whatsapp, telegram, email });
   },
 };
