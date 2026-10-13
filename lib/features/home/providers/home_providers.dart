@@ -81,7 +81,21 @@ final featuredSongsProvider = FutureProvider<List<Song>>((ref) async {
       : await ref.watch(songDatasourceProvider).getFeaturedSongs();
   final local = await ref.watch(localSongsProvider.future);
   final merged = _mergeById(local, remote, (s) => s.id);
-  return _logVisibility('featuredSongs', merged, merged.visibleToConsumers());
+  final visible = merged.visibleToConsumers();
+  // Hand-picked banner songs (featuredRank) lead, in rank order. The rank
+  // only exists on the Firestore copy, so prefer it over a bundled one.
+  final ranked = {
+    for (final s in remote)
+      if (s.featuredRank != null) s.id: s
+  };
+  final curated = ranked.values
+      .where((s) => visible.any((v) => v.id == s.id))
+      .toList()
+    ..sort((a, b) => a.featuredRank!.compareTo(b.featuredRank!));
+  return _logVisibility('featuredSongs', merged, [
+    ...curated,
+    ...visible.where((s) => !ranked.containsKey(s.id)),
+  ]);
 });
 
 final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
@@ -134,7 +148,8 @@ final featuredArtistsProvider = FutureProvider<List<Artist>>((ref) async {
 
 final regionSongsProvider =
     FutureProvider.family<List<Song>, String>((ref, region) async {
-  final remote = await ref.watch(songDatasourceProvider).getSongsByRegion(region);
+  final remote =
+      await ref.watch(songDatasourceProvider).getSongsByRegion(region);
   final local = (await ref.watch(localSongsProvider.future))
       .where((s) => s.region == region)
       .toList();
@@ -164,7 +179,8 @@ final populatedRegionsProvider = FutureProvider<List<String>>((ref) async {
   final present = {
     for (final s in [...local, ...remote])
       if (s.region.trim().isNotEmpty && s.region != 'Needs Review') s.region,
-    for (final e in feed?.regionSongs.entries ?? <MapEntry<String, List<Song>>>[])
+    for (final e
+        in feed?.regionSongs.entries ?? <MapEntry<String, List<Song>>>[])
       if (e.value.visibleToConsumers().isNotEmpty) e.key,
   };
   return AppConstants.pahadiRegions.where(present.contains).toList();
@@ -212,7 +228,8 @@ final artistAlbumsProvider =
 final favoriteSongsProvider = FutureProvider<List<Song>>((ref) async {
   final favoriteIds = ref.watch(favoritesProvider).toList();
   if (favoriteIds.isEmpty) return [];
-  final songs = await ref.watch(songDatasourceProvider).getSongsByIds(favoriteIds);
+  final songs =
+      await ref.watch(songDatasourceProvider).getSongsByIds(favoriteIds);
   return songs.visibleToConsumers();
 });
 

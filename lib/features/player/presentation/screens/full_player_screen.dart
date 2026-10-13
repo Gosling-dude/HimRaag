@@ -15,6 +15,7 @@ import '../../../songs/providers/download_providers.dart';
 import '../../providers/player_providers.dart';
 import '../widgets/lyrics_view.dart';
 import '../widgets/queue_view.dart';
+import '../../../recommendations/more_like_this_sheet.dart';
 
 class FullPlayerScreen extends ConsumerStatefulWidget {
   const FullPlayerScreen({super.key});
@@ -82,6 +83,11 @@ class _FullPlayerScreenState extends ConsumerState<FullPlayerScreen>
         onPressed: () => context.pop(),
       ),
       actions: [
+        IconButton(
+          tooltip: 'More like this',
+          icon: const Icon(Icons.auto_awesome_rounded, color: Colors.white),
+          onPressed: () => showMoreLikeThisSheet(context, song.id),
+        ),
         IconButton(
           icon: Icon(
             _showLyrics ? Icons.music_note_rounded : Icons.lyrics_outlined,

@@ -68,3 +68,9 @@ backend/functions/.env.*
 backend/cdn-worker/node_modules/
 backend/cdn-worker/.wrangler/
 backend/cdn-worker/.dev.vars
+backend/notify-worker/node_modules/
+backend/notify-worker/.wrangler/
+backend/notify-worker/.dev.vars
+
+# Source MP3s for import (uploaded to R2, never committed)
+New songs to add/

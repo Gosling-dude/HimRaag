@@ -125,7 +125,11 @@ service cloud.firestore {
     // own uid; only admins read them and move them out of "new".
 
     match /songRequests/{requestId} {
-      allow read, update, delete: if isAdmin();
+      // Listeners see their own requests (Profile) and can delete them
+      // (account deletion); admins see and manage all.
+      allow read, delete: if isAdmin()
+        || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow update: if isAdmin();
       allow create: if isSignedIn()
         && request.auth.token.firebase.sign_in_provider != 'anonymous'
         && request.resource.data.userId == request.auth.uid

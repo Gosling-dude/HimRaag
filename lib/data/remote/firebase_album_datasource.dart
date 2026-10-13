@@ -34,6 +34,21 @@ class FirebaseAlbumDatasource {
     }
   }
 
+  /// Every approved album, newest first (the Albums page).
+  Future<List<Album>> getAllAlbums({int limit = 300}) async {
+    try {
+      final snapshot =
+          await _albums.where('isApproved', isEqualTo: true).limit(limit).get();
+      return snapshot.docs
+          .map((doc) => AlbumDto.fromFirestore(doc).toDomain())
+          .toList()
+        ..sort((a, b) => b.releaseYear.compareTo(a.releaseYear));
+    } catch (e, st) {
+      debugPrint('[FIRESTORE] getAllAlbums ERROR: $e\n$st');
+      rethrow;
+    }
+  }
+
   Future<List<Album>> getAlbumsByArtist(String artistId) async {
     try {
       debugPrint('[FIRESTORE] getAlbumsByArtist($artistId): fetching');

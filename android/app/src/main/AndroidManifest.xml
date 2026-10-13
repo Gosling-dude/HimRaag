@@ -81,4 +81,13 @@
 
     </application>
 
+    <!-- Android 11+ package visibility: lets url_launcher open https links
+         (Profile → Manage Google account). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
 </manifest>

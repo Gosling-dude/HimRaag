@@ -39,6 +39,23 @@ class FirebaseArtistDatasource {
     }
   }
 
+  /// Every verified artist, most songs first (the Artists page).
+  Future<List<Artist>> getAllArtists({int limit = 300}) async {
+    try {
+      final snapshot = await _artists
+          .orderBy('songCount', descending: true)
+          .limit(limit)
+          .get();
+      return snapshot.docs
+          .map((doc) => ArtistDto.fromFirestore(doc).toDomain())
+          .where((a) => a.isVerified)
+          .toList();
+    } catch (e, st) {
+      debugPrint('[FIRESTORE] getAllArtists ERROR: $e\n$st');
+      rethrow;
+    }
+  }
+
   Future<Artist?> getArtistById(String id) async {
     try {
       debugPrint('[FIRESTORE] getArtistById($id): fetching');

@@ -16,6 +16,9 @@ import '../../features/songs/presentation/screens/category_screen.dart';
 import '../../features/songs/presentation/screens/playlist_detail_screen.dart';
 import '../../features/songs/presentation/screens/region_screen.dart';
 import '../shell/main_shell.dart';
+import '../../features/browse/presentation/browse_screens.dart';
+import '../../features/profile/presentation/my_requests_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
@@ -87,7 +90,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/library',
-            builder: (context, state) => const LibraryScreen(),
+            builder: (context, state) => LibraryScreen(
+              initialTab:
+                  int.tryParse(state.uri.queryParameters['tab'] ?? '') ?? 0,
+            ),
+          ),
+          GoRoute(
+            path: '/profile',
+            builder: (context, state) => const ProfileScreen(),
           ),
         ],
       ),
@@ -109,6 +119,42 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             );
           },
         ),
+      ),
+      GoRoute(
+        path: '/profile/requests',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const MyRequestsScreen(),
+      ),
+      GoRoute(
+        path: '/browse/trending',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const TrendingScreen(),
+      ),
+      GoRoute(
+        path: '/browse/new-releases',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const NewReleasesScreen(),
+      ),
+      GoRoute(
+        path: '/browse/for-you',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const RecommendedScreen(),
+      ),
+      GoRoute(
+        path: '/albums',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AlbumsScreen(),
+      ),
+      GoRoute(
+        path: '/artists',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ArtistsScreen(),
+      ),
+      GoRoute(
+        path: '/festival/:name',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) =>
+            FestivalScreen(festival: state.pathParameters['name']!),
       ),
       GoRoute(
         path: '/album/:id',

@@ -28,16 +28,14 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const { PROJECT_ID } = require('./lib/constants');
 const { loginHeaders, docWrite, commit } = require('./lib/firebase_rest');
+const { upload, PUBLIC_BASE } = require('./lib/r2_wrangler');
 
 const arg = (name) => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null; };
 const APPLY = process.argv.includes('--apply');
 const RESULTS = arg('--results');
 const PHOTOS = arg('--photos');
-const BUCKET = 'himraag-audio';
-const PUBLIC_BASE = 'https://pub-fbd0e71ca20e41deaf8e1ea21cea0e42.r2.dev';
 const VERSION = 'v6'; // bump to cache-bust client image caches
 const repoRoot = path.dirname(__dirname);
-const WORKER_DIR = path.join(repoRoot, 'backend', 'cdn-worker');
 const CATALOG = path.join(repoRoot, 'assets', 'catalog', 'imported_catalog.json');
 const REPORT = path.join(__dirname, 'seed_data', 'artist_photos_report.md');
 
@@ -61,12 +59,6 @@ function toJpeg(src, id) {
   const out = path.join(os.tmpdir(), `himraag-artist-${id}.jpg`);
   execFileSync('sips', ['-Z', '800', '-s', 'format', 'jpeg', '-s', 'formatOptions', '85', src, '--out', out], { stdio: 'ignore' });
   return out;
-}
-
-function upload(file, key) {
-  execFileSync('npx', ['--no-install', 'wrangler', 'r2', 'object', 'put', `${BUCKET}/${key}`,
-    `--file=${file}`, '--content-type=image/jpeg', '--cache-control=public, max-age=31536000, immutable', '--remote'],
-  { cwd: WORKER_DIR, stdio: ['ignore', 'ignore', 'inherit'] });
 }
 
 async function main() {
@@ -100,7 +92,7 @@ async function main() {
   if (!APPLY) { console.log('dry run — nothing uploaded or written. Re-run with --apply.'); return; }
 
   for (const [i, p] of found.entries()) {
-    upload(toJpeg(p.file, p.id), p.key);
+    upload(toJpeg(p.file, p.id), p.key, 'image/jpeg');
     process.stdout.write(`\r  uploaded ${i + 1}/${found.length}`);
   }
   console.log();

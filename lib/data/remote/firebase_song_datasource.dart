@@ -21,14 +21,28 @@ class FirebaseSongDatasource {
   Future<List<Song>> getFeaturedSongs({int limit = 10}) async {
     try {
       debugPrint('[FIRESTORE] getFeaturedSongs: fetching');
+      // Hand-picked banner songs first, in rank order. Range + orderBy on the
+      // same single field — no composite index required.
+      final curatedSnap = await _songs
+          .where('featuredRank', isGreaterThan: 0)
+          .orderBy('featuredRank')
+          .limit(limit)
+          .get();
+      final curated = curatedSnap.docs
+          .map((doc) => SongDto.fromFirestore(doc).toDomain())
+          .where((s) => s.isApproved)
+          .toList();
       final snapshot = await _songs
           .where(FirebaseConstants.songsIsApprovedField, isEqualTo: true)
           .limit(limit * 2)
           .get();
-      final songs = snapshot.docs
+      final seen = curated.map((s) => s.id).toSet();
+      final rest = snapshot.docs
           .map((doc) => SongDto.fromFirestore(doc).toDomain())
+          .where((s) => seen.add(s.id))
           .toList()
         ..sort((a, b) => b.playCount.compareTo(a.playCount));
+      final songs = [...curated, ...rest];
       debugPrint('[FIRESTORE] getFeaturedSongs: got ${songs.length} songs');
       return songs.take(limit).toList();
     } catch (e, st) {
@@ -40,14 +54,16 @@ class FirebaseSongDatasource {
   Future<List<Song>> getTrendingSongs({int limit = 20}) async {
     try {
       debugPrint('[FIRESTORE] getTrendingSongs: fetching');
+      // Ordered server-side across the whole catalog; a single orderBy needs
+      // no composite index, so approval is filtered here.
       final snapshot = await _songs
-          .where(FirebaseConstants.songsIsApprovedField, isEqualTo: true)
-          .limit(50)
+          .orderBy('playCount', descending: true)
+          .limit(limit * 2)
           .get();
       final songs = snapshot.docs
           .map((doc) => SongDto.fromFirestore(doc).toDomain())
-          .toList()
-        ..sort((a, b) => b.playCount.compareTo(a.playCount));
+          .where((s) => s.isApproved)
+          .toList();
       debugPrint('[FIRESTORE] getTrendingSongs: got ${songs.length} songs');
       return songs.take(limit).toList();
     } catch (e, st) {
@@ -59,14 +75,16 @@ class FirebaseSongDatasource {
   Future<List<Song>> getNewReleases({int limit = 20}) async {
     try {
       debugPrint('[FIRESTORE] getNewReleases: fetching');
+      // Recently added to the catalog first. releaseYear can't order this:
+      // older imports were all stamped with the import year.
       final snapshot = await _songs
-          .where(FirebaseConstants.songsIsApprovedField, isEqualTo: true)
-          .limit(50)
+          .orderBy('addedAt', descending: true)
+          .limit(limit * 2)
           .get();
       final songs = snapshot.docs
           .map((doc) => SongDto.fromFirestore(doc).toDomain())
-          .toList()
-        ..sort((a, b) => b.releaseYear.compareTo(a.releaseYear));
+          .where((s) => s.isApproved)
+          .toList();
       debugPrint('[FIRESTORE] getNewReleases: got ${songs.length} songs');
       return songs.take(limit).toList();
     } catch (e, st) {

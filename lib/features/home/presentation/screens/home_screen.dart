@@ -10,6 +10,7 @@ import '../../../../domain/models/song.dart';
 import '../../../auth/providers/auth_providers.dart';
 import '../../../player/providers/player_providers.dart';
 import '../../providers/home_providers.dart';
+import '../../../recommendations/recommendation_providers.dart';
 import '../widgets/album_card.dart';
 import '../widgets/artist_card.dart';
 import '../widgets/featured_banner.dart';
@@ -38,6 +39,7 @@ class HomeScreen extends ConsumerWidget {
           ref.invalidate(newReleasesProvider);
           ref.invalidate(featuredAlbumsProvider);
           ref.invalidate(featuredArtistsProvider);
+          ref.invalidate(tasteSeedsProvider);
           if (selectedRegion != 'All') {
             ref.invalidate(homeRegionSongsProvider(selectedRegion));
           }
@@ -50,6 +52,7 @@ class HomeScreen extends ConsumerWidget {
             if (selectedRegion != 'All')
               _RegionSongsSection(region: selectedRegion)
             else ...[
+              const _RecommendedSection(),
               const _TrendingSection(),
               const _NewReleasesSection(),
               const _CuratedRegionSections(),
@@ -202,7 +205,7 @@ class _RegionSongsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: '$region Songs',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/region/$region'),
             ),
           ),
           songs.when(
@@ -214,6 +217,40 @@ class _RegionSongsSection extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _RecommendedSection extends ConsumerWidget {
+  const _RecommendedSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recommended = ref.watch(recommendedSongsProvider);
+    final personal =
+        ref.watch(tasteSeedsProvider).valueOrNull?.isNotEmpty ?? false;
+
+    return SliverToBoxAdapter(
+      child: recommended.when(
+        data: (songs) => songs.isEmpty
+            ? const SizedBox.shrink()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+                    child: SectionHeader(
+                      title: personal ? 'Recommended for You' : 'Popular Picks',
+                      onSeeAll: () => context.push('/browse/for-you'),
+                    ),
+                  ),
+                  _HorizontalSongList(songs: songs.take(15).toList()),
+                ],
+              ),
+        loading: () => const ShimmerHorizontalList(),
+        // A failed recommendation shouldn't leave a broken row on Home.
+        error: (_, __) => const SizedBox.shrink(),
       ),
     );
   }
@@ -234,7 +271,7 @@ class _TrendingSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Trending Now',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/browse/trending'),
             ),
           ),
           trending.when(
@@ -266,7 +303,7 @@ class _NewReleasesSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'New Releases',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/browse/new-releases'),
             ),
           ),
           newReleases.when(
@@ -298,7 +335,7 @@ class _AlbumsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Popular Albums',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/albums'),
             ),
           ),
           albums.when(
@@ -330,7 +367,7 @@ class _ArtistsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Featured Artists',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/artists'),
             ),
           ),
           artists.when(
@@ -386,9 +423,7 @@ class _CuratedRegionRow extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
               child: SectionHeader(
                 title: '$region Hits',
-                onSeeAll: () {
-                  ref.read(selectedRegionProvider.notifier).state = region;
-                },
+                onSeeAll: () => context.push('/region/$region'),
               ),
             ),
             _HorizontalSongList(songs: list),
@@ -415,7 +450,7 @@ class _FestivalSection extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 12),
             child: SectionHeader(
               title: 'Festival Collections',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push('/category/Festival'),
             ),
           ),
           GridView.builder(
@@ -457,7 +492,7 @@ class _FestivalCard extends StatelessWidget {
     final gradient = colors[name.hashCode % colors.length];
 
     return GestureDetector(
-      onTap: () => context.push('/search'),
+      onTap: () => context.push('/festival/${Uri.encodeComponent(name)}'),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: gradient),

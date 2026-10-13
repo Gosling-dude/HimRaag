@@ -23,6 +23,7 @@ class Song extends Equatable {
     required this.isDownloadable,
     this.lyrics,
     this.mood,
+    this.featuredRank,
     this.albumArtist,
     this.localPath,
     this.slug = '',
@@ -56,6 +57,9 @@ class Song extends Equatable {
   final bool isDownloadable;
   final String? lyrics;
   final String? mood;
+
+  /// Position in the Home banner when curated (1 = first); null otherwise.
+  final int? featuredRank;
   final String? albumArtist;
   final String? localPath;
 
@@ -112,6 +116,7 @@ class Song extends Equatable {
     bool? isDownloadable,
     String? lyrics,
     String? mood,
+    int? featuredRank,
     String? albumArtist,
     String? localPath,
     String? slug,
@@ -145,6 +150,7 @@ class Song extends Equatable {
       isDownloadable: isDownloadable ?? this.isDownloadable,
       lyrics: lyrics ?? this.lyrics,
       mood: mood ?? this.mood,
+      featuredRank: featuredRank ?? this.featuredRank,
       albumArtist: albumArtist ?? this.albumArtist,
       localPath: localPath ?? this.localPath,
       slug: slug ?? this.slug,
@@ -181,6 +187,7 @@ class Song extends Equatable {
         isDownloadable,
         lyrics,
         mood,
+        featuredRank,
         albumArtist,
         localPath,
         slug,

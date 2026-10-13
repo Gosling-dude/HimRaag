@@ -11,7 +11,10 @@ import '../../providers/library_providers.dart';
 import '../widgets/song_list_tile.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
-  const LibraryScreen({super.key});
+  const LibraryScreen({super.key, this.initialTab = 0});
+
+  /// 0 Downloads, 1 Favorites, 2 Recent — Profile links straight to a tab.
+  final int initialTab;
 
   @override
   ConsumerState<LibraryScreen> createState() => _LibraryScreenState();
@@ -24,7 +27,19 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: widget.initialTab.clamp(0, 2),
+    );
+  }
+
+  @override
+  void didUpdateWidget(LibraryScreen old) {
+    super.didUpdateWidget(old);
+    if (old.initialTab != widget.initialTab) {
+      _tabController.animateTo(widget.initialTab.clamp(0, 2));
+    }
   }
 
   @override
