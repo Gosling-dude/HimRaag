@@ -34,6 +34,12 @@ class FavoritesNotifier extends StateNotifier<Set<String>> {
   }
 
   bool isFavorite(String songId) => state.contains(songId);
+
+  /// Forgets every favorite (account deletion).
+  Future<void> clearAll() async {
+    await HiveBoxes.favorites.clear();
+    state = {};
+  }
 }
 
 final libraryProvider =

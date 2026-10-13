@@ -13,6 +13,7 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'data/local/hive_boxes.dart';
 import 'data/services/play_tracking.dart';
+import 'features/profile/settings_providers.dart';
 import 'features/recommendations/recommendation_providers.dart';
 import 'firebase_options.dart';
 

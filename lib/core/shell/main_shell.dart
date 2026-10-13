@@ -37,6 +37,7 @@ class MainShell extends ConsumerWidget {
   int _locationToIndex(String location) {
     if (location.startsWith('/search')) return 1;
     if (location.startsWith('/library')) return 2;
+    if (location.startsWith('/profile')) return 3;
     return 0;
   }
 }
@@ -89,6 +90,14 @@ class _BottomNav extends StatelessWidget {
                 activeIcon: Icons.library_music_rounded,
                 label: 'Library',
                 onTap: () => context.go('/library'),
+              ),
+              _NavItem(
+                index: 3,
+                currentIndex: currentIndex,
+                icon: Icons.person_outline_rounded,
+                activeIcon: Icons.person_rounded,
+                label: 'Profile',
+                onTap: () => context.go('/profile'),
               ),
             ],
           ),

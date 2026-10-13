@@ -70,5 +70,27 @@ class AuthRepository {
     ]);
   }
 
+  /// Permanently deletes the Firebase account. Firebase only allows this
+  /// shortly after a sign-in, so on `requires-recent-login` the user confirms
+  /// with Google again and the delete is retried.
+  Future<void> deleteAccount() async {
+    final user = auth.currentUser;
+    if (user == null) return;
+    try {
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code != 'requires-recent-login') rethrow;
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) throw Exception('Sign in cancelled');
+      final googleAuth = await googleUser.authentication;
+      await user.reauthenticateWithCredential(GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      ));
+      await user.delete();
+    }
+    await googleSignIn.signOut();
+  }
+
   bool get isSignedIn => auth.currentUser != null;
 }

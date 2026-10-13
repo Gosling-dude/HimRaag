@@ -103,26 +103,45 @@ class FirebaseSongRequestDatasource {
     }
   }
 
+  /// The signed-in listener's own requests, newest first. Filtered by
+  /// userId only (rules require it) and sorted here — no composite index.
+  Future<List<SongRequest>> mine(String userId) async {
+    final snap = await _col.where('userId', isEqualTo: userId).get();
+    return snap.docs.map(_fromDoc).toList()
+      ..sort((a, b) =>
+          (b.createdAt ?? DateTime(0)).compareTo(a.createdAt ?? DateTime(0)));
+  }
+
+  /// Deletes all of [userId]'s requests (account deletion).
+  Future<void> deleteMine(String userId) async {
+    final snap = await _col.where('userId', isEqualTo: userId).get();
+    for (final doc in snap.docs) {
+      await doc.reference.delete();
+    }
+  }
+
   /// Most recent requests first (admin only).
   Future<List<SongRequest>> recent({int limit = 200}) async {
     final snap =
         await _col.orderBy('createdAt', descending: true).limit(limit).get();
-    return snap.docs.map((doc) {
-      final d = doc.data();
-      return SongRequest(
-        id: doc.id,
-        songTitle: d['songTitle'] as String? ?? '',
-        artist: d['artist'] as String? ?? '',
-        link: d['link'] as String? ?? '',
-        details: d['details'] as String? ?? '',
-        searchQuery: d['searchQuery'] as String? ?? '',
-        userId: d['userId'] as String? ?? '',
-        userName: d['userName'] as String? ?? '',
-        userEmail: d['userEmail'] as String? ?? '',
-        status: d['status'] as String? ?? SongRequest.statusNew,
-        createdAt: (d['createdAt'] as Timestamp?)?.toDate(),
-      );
-    }).toList();
+    return snap.docs.map(_fromDoc).toList();
+  }
+
+  SongRequest _fromDoc(QueryDocumentSnapshot<Map<String, dynamic>> doc) {
+    final d = doc.data();
+    return SongRequest(
+      id: doc.id,
+      songTitle: d['songTitle'] as String? ?? '',
+      artist: d['artist'] as String? ?? '',
+      link: d['link'] as String? ?? '',
+      details: d['details'] as String? ?? '',
+      searchQuery: d['searchQuery'] as String? ?? '',
+      userId: d['userId'] as String? ?? '',
+      userName: d['userName'] as String? ?? '',
+      userEmail: d['userEmail'] as String? ?? '',
+      status: d['status'] as String? ?? SongRequest.statusNew,
+      createdAt: (d['createdAt'] as Timestamp?)?.toDate(),
+    );
   }
 
   static String _clip(String s, int max) =>

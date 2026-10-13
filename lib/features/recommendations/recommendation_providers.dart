@@ -10,6 +10,7 @@ import '../../data/services/audio_player_service.dart';
 import '../../domain/models/song.dart';
 import '../home/providers/home_providers.dart';
 import '../library/providers/library_providers.dart';
+import '../profile/settings_providers.dart';
 import 'recommender.dart';
 
 /// Full song docs by id, cached for the session. Recently-played and queue
@@ -133,6 +134,7 @@ final autoplayProvider = Provider<void>((ref) {
     if (seq == null || index == null || seq.isEmpty) return;
     if (index != seq.length - 1) return;
     if (service.player.loopMode != LoopMode.off) return;
+    if (!ref.read(autoplayEnabledProvider)) return;
     final current = service.currentSongId;
     if (current == null || current == extendedAfter) return;
     extendedAfter = current;

@@ -17,6 +17,8 @@ import '../../features/songs/presentation/screens/playlist_detail_screen.dart';
 import '../../features/songs/presentation/screens/region_screen.dart';
 import '../shell/main_shell.dart';
 import '../../features/browse/presentation/browse_screens.dart';
+import '../../features/profile/presentation/my_requests_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
@@ -88,7 +90,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/library',
-            builder: (context, state) => const LibraryScreen(),
+            builder: (context, state) => LibraryScreen(
+              initialTab:
+                  int.tryParse(state.uri.queryParameters['tab'] ?? '') ?? 0,
+            ),
+          ),
+          GoRoute(
+            path: '/profile',
+            builder: (context, state) => const ProfileScreen(),
           ),
         ],
       ),
@@ -110,6 +119,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             );
           },
         ),
+      ),
+      GoRoute(
+        path: '/profile/requests',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const MyRequestsScreen(),
       ),
       GoRoute(
         path: '/browse/trending',

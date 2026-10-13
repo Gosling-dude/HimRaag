@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
-
-final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
 
 class AppTheme {
   AppTheme._();
