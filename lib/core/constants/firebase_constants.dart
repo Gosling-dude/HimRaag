@@ -10,6 +10,7 @@ class FirebaseConstants {
   static const String regionsCollection = 'regions';
   static const String featuredCollection = 'featured';
   static const String bannersCollection = 'banners';
+  static const String songRequestsCollection = 'songRequests';
 
   // Firebase Storage paths — reserved for future paid-tier (Blaze plan) integration.
   // Currently unused: audio/artwork URLs are served from external CDN (free tier).

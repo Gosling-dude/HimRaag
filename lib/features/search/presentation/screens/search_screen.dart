@@ -12,6 +12,7 @@ import '../../../home/presentation/widgets/artist_card.dart';
 import '../../../home/presentation/widgets/shimmer_loading.dart';
 import '../../../library/presentation/widgets/song_list_tile.dart';
 import '../../../player/providers/player_providers.dart';
+import '../../../requests/song_request_sheet.dart';
 import '../../providers/search_providers.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -125,10 +126,18 @@ class _SearchResults extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 Text(
-                  'Try different keywords or filters',
+                  "Can't find it? Tell us and we'll try to add it.",
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppColors.textSecondaryDark,
                       ),
+                ),
+                const SizedBox(height: 20),
+                FilledButton.icon(
+                  onPressed: () =>
+                      showSongRequestSheet(context, searchQuery: result.query),
+                  icon: const Icon(Icons.library_add_rounded),
+                  label: const Text('Request this song'),
                 ),
               ],
             ),
@@ -146,6 +155,17 @@ class _SearchResults extends ConsumerWidget {
               _ArtistResults(artists: result.artists),
             if (activeTab == 'All' || activeTab == 'Albums')
               _AlbumResults(albums: result.albums),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+                child: TextButton.icon(
+                  onPressed: () =>
+                      showSongRequestSheet(context, searchQuery: result.query),
+                  icon: const Icon(Icons.library_add_rounded),
+                  label: const Text("Didn't find your song? Request it"),
+                ),
+              ),
+            ),
             const SliverToBoxAdapter(child: SizedBox(height: 140)),
           ],
         );

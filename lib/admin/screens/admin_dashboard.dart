@@ -8,6 +8,7 @@ import '../admin_widgets.dart';
 import 'catalog_section.dart';
 import 'import_section.dart';
 import 'insight_sections.dart';
+import 'requests_section.dart';
 import 'review_section.dart';
 
 /// Full admin console: navigation rail + section content.
@@ -29,6 +30,7 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
     (Icons.album_outlined, Icons.album, 'Albums'),
     (Icons.people_outline, Icons.people, 'Artists'),
     (Icons.inbox_outlined, Icons.inbox, 'Submissions'),
+    (Icons.library_add_outlined, Icons.library_add, 'Requests'),
     (Icons.upload_file_outlined, Icons.upload_file, 'Import'),
     (Icons.rate_review_outlined, Icons.rate_review, 'Review'),
     (Icons.health_and_safety_outlined, Icons.health_and_safety, 'Data Quality'),
@@ -48,12 +50,14 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
       case 4:
         return const SubmissionsSection();
       case 5:
-        return const ImportSection();
+        return const RequestsSection();
       case 6:
-        return const ReviewSection();
+        return const ImportSection();
       case 7:
-        return const DataQualitySection();
+        return const ReviewSection();
       case 8:
+        return const DataQualitySection();
+      case 9:
         return const AuditSection();
       default:
         return const _OverviewSection();

@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/providers/player_providers.dart';
+import '../../../requests/song_request_sheet.dart';
 import '../../../home/providers/home_providers.dart';
 import '../../providers/library_providers.dart';
 import '../widgets/song_list_tile.dart';
@@ -37,6 +38,13 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('Library'),
+        actions: [
+          IconButton(
+            tooltip: 'Request a song',
+            icon: const Icon(Icons.library_add_rounded),
+            onPressed: () => showSongRequestSheet(context),
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: AppColors.primary,
