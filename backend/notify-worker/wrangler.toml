@@ -1,0 +1,20 @@
+# HimRaag notifications — forwards listeners' song requests to the owner on
+# WhatsApp (CallMeBot) and email (Resend). Runs on the free Workers plan
+# because the Firebase project has no Cloud Functions (Spark plan).
+#
+# Deploy:   npm install && npx wrangler deploy
+# Secrets (each channel is skipped until its secrets are set):
+#   npx wrangler secret put CALLMEBOT_PHONE    # your WhatsApp number, e.g. 919876543210
+#   npx wrangler secret put CALLMEBOT_APIKEY   # key CallMeBot sent you
+#   npx wrangler secret put RESEND_API_KEY     # re_… from resend.com
+#   npx wrangler secret put NOTIFY_EMAIL       # the email you signed up to Resend with
+
+name = "himraag-notify"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+FIREBASE_PROJECT_ID = "himraag-prod"
+# Most requests one signed-in user can send per hour.
+MAX_REQUESTS_PER_HOUR = "5"

@@ -1,6 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+
+import '../../core/config/app_config.dart';
 
 import '../../core/constants/firebase_constants.dart';
+import '../services/media_url_resolver.dart';
 
 /// A listener's request for a song the catalog doesn't have yet.
 class SongRequest {
@@ -71,6 +77,30 @@ class FirebaseSongRequestDatasource {
       'status': SongRequest.statusNew,
       'createdAt': FieldValue.serverTimestamp(),
     });
+    // The request is saved; the WhatsApp/email alert is best-effort.
+    _notifyOwner({
+      'songTitle': songTitle.trim(),
+      'artist': artist.trim(),
+      'link': link.trim(),
+      'details': details.trim(),
+      'searchQuery': _clip(searchQuery.trim(), 200),
+    }).ignore();
+  }
+
+  Future<void> _notifyOwner(Map<String, String> request) async {
+    const url = AppConfig.requestNotifyUrl;
+    final user = signedInUser(FirebaseAuth.instance);
+    if (url.isEmpty || user == null) return;
+    try {
+      final token = await user.getIdToken();
+      await Dio().post<void>(
+        url,
+        data: request,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+    } catch (e) {
+      debugPrint('[REQUEST] owner alert failed: $e');
+    }
   }
 
   /// Most recent requests first (admin only).

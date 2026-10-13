@@ -33,4 +33,12 @@ class AppConfig {
         return kDebugMode;
     }
   }
+
+  /// Cloudflare Worker (backend/notify-worker) that forwards song requests to
+  /// the owner on WhatsApp and email. Empty disables the alert; the request
+  /// is still saved in Firestore.
+  static const String requestNotifyUrl = String.fromEnvironment(
+    'REQUEST_NOTIFY_URL',
+    defaultValue: 'https://himraag-notify.sc5271027.workers.dev/song-request',
+  );
 }
