@@ -11,8 +11,11 @@ class QueueView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // The queue is listed in play order (shuffled while shuffle is on); list
+    // positions go straight to the controller, which maps them to the
+    // underlying source indices.
     final queue = ref.watch(currentQueueProvider);
-    final currentSong = ref.watch(currentSongProvider);
+    final currentPosition = ref.watch(currentQueuePositionProvider);
     final controller = ref.read(playerControllerProvider);
 
     return DraggableScrollableSheet(
@@ -63,7 +66,7 @@ class QueueView extends ConsumerWidget {
                         itemCount: queue.length,
                         itemBuilder: (context, index) {
                           final song = queue[index];
-                          final isCurrent = song.id == currentSong?.id;
+                          final isCurrent = index == currentPosition;
 
                           return ListTile(
                             leading: Stack(

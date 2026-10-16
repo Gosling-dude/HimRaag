@@ -63,7 +63,7 @@ Future<void> _initialize() async {
   debugPrint('[APP] AUDIO_BG_INIT_START');
   try {
     await JustAudioBackground.init(
-      androidNotificationChannelId: 'com.himraag.app.audio',
+      androidNotificationChannelId: 'com.sumitchauhan.himraag.audio',
       androidNotificationChannelName: 'HimRaag Audio',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,

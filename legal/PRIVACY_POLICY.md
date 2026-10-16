@@ -1,7 +1,7 @@
 # Privacy Policy for HimRaag
 
 **Last updated:** 3 August 2026
-**Applies to:** HimRaag Android application (package `com.himraag.app`)
+**Applies to:** HimRaag Android application (package `com.sumitchauhan.himraag`)
 
 HimRaag ("we", "us") provides a streaming app for Pahadi folk and Himalayan
 regional music. This policy explains exactly what we collect, why, and who it is

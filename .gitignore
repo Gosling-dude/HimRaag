@@ -1,3 +1,7 @@
+# Release artifacts archived by scripts/release/release_android.sh (signed
+# app bundles are large and must not be committed).
+dist/
+
 # Flutter
 .dart_tool/
 .flutter-plugins
@@ -25,6 +29,7 @@ build/
 
 # Firebase credentials - replace per-environment
 android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 
 # IDE
@@ -62,3 +67,9 @@ music/
 # local import working backups (not committed)
 .import_backup/
 scripts/baseline_counts.js
+
+# Play Console tester lists contain personal email addresses — this repo is
+# public, so they must never be committed.
+tester.csv
+testers.csv*
+*testers*.csv

@@ -18,7 +18,8 @@ import '../../features/songs/presentation/screens/album_detail_screen.dart';
 import '../../features/songs/presentation/screens/artist_detail_screen.dart';
 import '../../features/songs/presentation/screens/category_screen.dart';
 import '../../features/songs/presentation/screens/playlist_detail_screen.dart';
-import '../../features/songs/presentation/screens/region_screen.dart';
+import '../../features/songs/presentation/screens/song_collection_screen.dart';
+import '../../features/songs/providers/song_collection_providers.dart';
 import '../shell/main_shell.dart';
 import '../widgets/mini_player_overlay.dart';
 
@@ -154,12 +155,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => MiniPlayerOverlay(
             child: CategoryScreen(categoryId: state.pathParameters['id']!)),
       ),
-      GoRoute(
-        path: '/region/:id',
-        parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => MiniPlayerOverlay(
-            child: RegionScreen(regionId: state.pathParameters['id']!)),
-      ),
+      ...songCollectionRoutes(parentNavigatorKey: _rootNavigatorKey),
       GoRoute(
         path: '/playlist/:id',
         parentNavigatorKey: _rootNavigatorKey,
@@ -182,3 +178,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
   return router;
 });
+
+/// The Home "See All" pages: `/collection/<slug>` (Made for You, Trending, New
+/// Releases) and `/region/<region>`. A function so tests can mount the real
+/// routes without the rest of the app shell.
+List<GoRoute> songCollectionRoutes(
+    {GlobalKey<NavigatorState>? parentNavigatorKey}) {
+  return [
+    GoRoute(
+      path: '/collection/:slug',
+      parentNavigatorKey: parentNavigatorKey,
+      builder: (context, state) {
+        final collection =
+            SongCollection.fromSlug(state.pathParameters['slug']!);
+        if (collection == null) {
+          return Scaffold(
+            body: Center(child: Text('Page not found: ${state.uri}')),
+          );
+        }
+        return MiniPlayerOverlay(
+            child: SongCollectionScreen(collection: collection));
+      },
+    ),
+    GoRoute(
+      path: '/region/:id',
+      parentNavigatorKey: parentNavigatorKey,
+      builder: (context, state) => MiniPlayerOverlay(
+          child: SongCollectionScreen(
+              collection: SongCollection.region(state.pathParameters['id']!))),
+    ),
+  ];
+}

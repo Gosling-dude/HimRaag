@@ -67,10 +67,14 @@ final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
   return _logVisibility('trendingSongs', merged, merged.visibleToConsumers());
 });
 
+/// Newest first by `releaseYear` — the ordering [FirebaseSongDatasource.getNewReleases]
+/// applies remotely — across the merged list, so the bundled catalog is ranked
+/// too. The sort is stable: equal years keep the local-first merge order.
 final newReleasesProvider = FutureProvider<List<Song>>((ref) async {
   final remote = await ref.watch(songDatasourceProvider).getNewReleases();
   final local = await ref.watch(localSongsProvider.future);
   final merged = _mergeById(local, remote, (s) => s.id);
+  mergeSort(merged, compare: (a, b) => b.releaseYear.compareTo(a.releaseYear));
   return _logVisibility('newReleases', merged, merged.visibleToConsumers());
 });
 
@@ -166,6 +170,9 @@ final selectedRegionProvider = StateProvider<String>((ref) => 'All');
 /// their favorites, so two users with different tastes (or history) get a
 /// different ordering. Returns empty when there is no personalization signal
 /// yet (the Home section then hides itself instead of duplicating Trending).
+///
+/// This is the complete recommendation set: the Home row shows its first
+/// cards, while its See All page and playback queue use all of it.
 final personalizedSongsProvider = FutureProvider<List<Song>>((ref) async {
   final profile = ref.watch(userProfileProvider);
   final favorites = ref.watch(favoritesProvider);
@@ -201,7 +208,7 @@ final personalizedSongsProvider = FutureProvider<List<Song>>((ref) async {
     });
   // Drop zero-signal tail so the rail stays genuinely "for you".
   final picked = ranked.where((s) => score(s) > 0).toList();
-  return (picked.isEmpty ? ranked : picked).take(15).toList();
+  return picked.isEmpty ? ranked : picked;
 });
 
 /// Regions ordered with the user's preferred regions first, so the curated

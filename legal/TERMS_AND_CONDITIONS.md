@@ -1,7 +1,7 @@
 # Terms & Conditions for HimRaag
 
 **Last updated:** 3 August 2026
-**Applies to:** HimRaag Android application (package `com.himraag.app`)
+**Applies to:** HimRaag Android application (package `com.sumitchauhan.himraag`)
 
 By downloading or using HimRaag you agree to these terms. If you do not agree,
 please do not use the app.

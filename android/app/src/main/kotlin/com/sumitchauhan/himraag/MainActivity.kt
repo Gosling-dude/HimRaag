@@ -1,4 +1,4 @@
-package com.himraag.app
+package com.sumitchauhan.himraag
 
 import io.flutter.embedding.android.FlutterActivity
 

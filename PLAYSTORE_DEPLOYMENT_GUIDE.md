@@ -12,7 +12,7 @@ release artifact is small and the catalog scales server-side.
 
 | Item | Value |
 |---|---|
-| Application ID | `com.himraag.app` (confirm in `android/app/build.gradle`) |
+| Application ID | `com.sumitchauhan.himraag` (confirm in `android/app/build.gradle`) |
 | Firebase project | `himraag-prod` |
 | Audio/artwork host | Cloudflare R2 bucket `himraag-audio`, public base `https://pub-…r2.dev` |
 | Flutter | stable channel, Dart SDK ≥ 3.3 |

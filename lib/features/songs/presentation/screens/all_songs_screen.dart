@@ -1,5 +1,3 @@
-import 'dart:math';
-
 // Newer Flutter SDKs export their own `RepeatMode` (repeating animations);
 // ours comes from audio_player_service.dart.
 import 'package:flutter/material.dart' hide RepeatMode;
@@ -48,23 +46,24 @@ class _AllSongsScreenState extends ConsumerState<AllSongsScreen> {
     }
   }
 
+  /// Queue context for playback started here: keeps growing from the catalog
+  /// with the filters as they are right now.
+  QueueSource _queueSource() =>
+      ref.read(allSongsQueueSourceProvider(ref.read(allSongsFiltersProvider)));
+
   Future<void> _playAll(List<Song> songs, {bool shuffle = false}) async {
-    if (songs.isEmpty) return;
     final controller = ref.read(playerControllerProvider);
     if (shuffle) {
-      final queue = [...songs]..shuffle(Random());
-      ref.read(isShuffleProvider.notifier).state = true;
-      await controller.playSong(queue.first, queue: queue, queueIndex: 0);
+      await controller.shufflePlay(songs, source: _queueSource());
     } else {
-      await controller.playSong(songs.first, queue: songs, queueIndex: 0);
+      await controller.playAll(songs, source: _queueSource());
     }
   }
 
-  Future<void> _toggleRepeatAll() async {
+  Future<void> _toggleRepeatAll() {
     final current = ref.read(repeatModeProvider);
-    final next = current == RepeatMode.all ? RepeatMode.off : RepeatMode.all;
-    ref.read(repeatModeProvider.notifier).state = next;
-    await ref.read(audioPlayerServiceProvider).setRepeatMode(next);
+    return ref.read(playerControllerProvider).setRepeatMode(
+        current == RepeatMode.all ? RepeatMode.off : RepeatMode.all);
   }
 
   @override
@@ -233,6 +232,7 @@ class _AllSongsScreenState extends ConsumerState<AllSongsScreen> {
               filtered[index],
               queue: filtered,
               queueIndex: index,
+              source: _queueSource(),
             ),
           );
         },

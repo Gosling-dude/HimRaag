@@ -225,6 +225,41 @@ class FirebaseSongDatasource {
     }
   }
 
+  /// One page of approved songs — optionally only [region] — for paging a
+  /// Home collection ("See All" / a playback queue) past the songs its row
+  /// already shows. Equality filters ordered by document ID are served by
+  /// Firestore's automatic single-field indexes, so unlike the ranked queries
+  /// this needs no composite index and can't fail with FAILED_PRECONDITION.
+  /// Pass the returned cursor back as [startAfter] for the next page.
+  Future<({List<Song> songs, DocumentSnapshot<Map<String, dynamic>>? cursor})>
+      getApprovedSongsPageById({
+    String? region,
+    DocumentSnapshot<Map<String, dynamic>>? startAfter,
+    int limit = 50,
+  }) async {
+    try {
+      var q = _songs.where(FirebaseConstants.songsIsApprovedField,
+          isEqualTo: true);
+      if (region != null) {
+        q = q.where(FirebaseConstants.songsRegionField, isEqualTo: region);
+      }
+      q = q.orderBy(FieldPath.documentId).limit(limit);
+      if (startAfter != null) q = q.startAfterDocument(startAfter);
+      final snapshot = await q.get();
+      debugPrint('[FIRESTORE] getApprovedSongsPageById(region: $region): '
+          'got ${snapshot.docs.length} songs');
+      return (
+        songs: snapshot.docs
+            .map((doc) => SongDto.fromFirestore(doc).toDomain())
+            .toList(),
+        cursor: snapshot.docs.isEmpty ? null : snapshot.docs.last,
+      );
+    } catch (e, st) {
+      debugPrint('[FIRESTORE] getApprovedSongsPageById ERROR: $e\n$st');
+      rethrow;
+    }
+  }
+
   // ── Admin / content-management operations ────────────────────────────────
   // These are used by the Flutter Web admin dashboard. Reads are unfiltered
   // (no isApproved gate) so moderators can see pending/rejected/demo content.

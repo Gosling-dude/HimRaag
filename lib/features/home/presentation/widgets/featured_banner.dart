@@ -7,72 +7,39 @@ import '../../../../core/display/consumer_labels.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../domain/models/song.dart';
 import '../../../player/presentation/player_navigation.dart';
+import '../../../songs/providers/song_collection_providers.dart';
+import 'auto_advancing_carousel.dart';
 
-class FeaturedBanner extends ConsumerStatefulWidget {
+class FeaturedBanner extends ConsumerWidget {
   const FeaturedBanner({super.key, required this.songs});
 
+  /// The full featured list — featured songs first, then the rest of the
+  /// eligible catalog. The banner shows the first [slideCount]; playback
+  /// queues all of it (and keeps growing from [SongCollection.featured]), so
+  /// it never stops after the last slide's song.
   final List<Song> songs;
 
-  @override
-  ConsumerState<FeaturedBanner> createState() => _FeaturedBannerState();
-}
-
-class _FeaturedBannerState extends ConsumerState<FeaturedBanner> {
-  final PageController _controller = PageController();
-  int _currentPage = 0;
+  static const int slideCount = 5;
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final slides = songs.take(slideCount).toList();
 
-  @override
-  Widget build(BuildContext context) {
-    final displaySongs = widget.songs.take(5).toList();
-
-    return Column(
-      children: [
-        SizedBox(
-          height: 200,
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: displaySongs.length,
-            onPageChanged: (i) => setState(() => _currentPage = i),
-            itemBuilder: (context, index) {
-              return _BannerItem(
-                song: displaySongs[index],
-                onTap: () => playSongAndOpenPlayer(
-                      context,
-                      ref,
-                      displaySongs[index],
-                      queue: displaySongs,
-                      queueIndex: index,
-                    ),
-              );
-            },
-          ),
+    return AutoAdvancingCarousel(
+      itemCount: slides.length,
+      itemBuilder: (context, index) => _BannerItem(
+        song: slides[index],
+        onTap: () => playSongAndOpenPlayer(
+          context,
+          ref,
+          slides[index],
+          // The slides are the head of [songs], so the index carries over.
+          queue: songs,
+          queueIndex: index,
+          source: ref
+              .read(songCollectionQueueSourceProvider(SongCollection.featured)),
         ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            displaySongs.length,
-            (i) => AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: _currentPage == i ? 20 : 6,
-              height: 6,
-              decoration: BoxDecoration(
-                color: _currentPage == i
-                    ? AppColors.primary
-                    : AppColors.dividerDark,
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

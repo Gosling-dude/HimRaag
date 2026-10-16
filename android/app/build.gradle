@@ -19,7 +19,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.himraag.app"
+    namespace "com.sumitchauhan.himraag"
     // Google Play requires new apps and updates to target API 36 from
     // 2026-08-31. compileSdk must match so the API-36 behaviour changes
     // (edge-to-edge enforcement, FGS rules) compile against the real SDK.
@@ -36,7 +36,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.himraag.app"
+        applicationId "com.sumitchauhan.himraag"
         minSdk 24
         // Google Play target-API floor for new apps and updates submitted on or
         // after 2026-08-31 is Android 16 / API 36. Do not lower this.

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/display/consumer_labels.dart';
 import '../../../data/catalog_visibility.dart';
 import '../../../data/local/local_catalog_datasource.dart';
+import '../../../data/services/audio_player_service.dart';
 import '../../../domain/models/song.dart';
 import '../../home/providers/home_providers.dart';
 
@@ -136,22 +137,61 @@ final allSongsRegionOptionsProvider = Provider<List<String>>((ref) {
   return list;
 });
 
-/// Songs after applying the search query + region + artist filters.
-final filteredAllSongsProvider = Provider<List<Song>>((ref) {
-  final all = ref.watch(allSongsControllerProvider).songs;
-  final q = ref.watch(allSongsQueryProvider).trim().toLowerCase();
-  final region = ref.watch(allSongsRegionProvider);
-  final artist = ref.watch(allSongsArtistProvider);
+/// The search query + region + artist filters, query trimmed and lowercased.
+typedef AllSongsFilters = ({String query, String region, String artist});
 
-  return all.where((s) {
-    if (region != 'All' && s.displayRegion != region) return false;
-    if (artist != 'All' && s.displayArtist != artist) return false;
-    if (q.isNotEmpty) {
+final allSongsFiltersProvider = Provider<AllSongsFilters>((ref) => (
+      query: ref.watch(allSongsQueryProvider).trim().toLowerCase(),
+      region: ref.watch(allSongsRegionProvider),
+      artist: ref.watch(allSongsArtistProvider),
+    ));
+
+List<Song> _applyFilters(List<Song> songs, AllSongsFilters f) {
+  return songs.where((s) {
+    if (f.region != 'All' && s.displayRegion != f.region) return false;
+    if (f.artist != 'All' && s.displayArtist != f.artist) return false;
+    if (f.query.isNotEmpty) {
       final hay =
           '${s.title} ${s.displayArtist} ${s.albumTitle} ${s.displayRegion}'
               .toLowerCase();
-      if (!hay.contains(q)) return false;
+      if (!hay.contains(f.query)) return false;
     }
     return true;
   }).toList();
+}
+
+/// Songs after applying the search query + region + artist filters.
+final filteredAllSongsProvider = Provider<List<Song>>((ref) {
+  return _applyFilters(
+    ref.watch(allSongsControllerProvider).songs,
+    ref.watch(allSongsFiltersProvider),
+  );
 });
+
+/// Queue context for playback started on All Songs: the queue keeps growing
+/// as more of the catalog pages in, filtered the way the list was when
+/// playback began (changing the filters afterwards doesn't change the queue).
+final allSongsQueueSourceProvider =
+    Provider.family<QueueSource, AllSongsFilters>(
+  (ref, filters) => _AllSongsQueueSource(ref, filters),
+);
+
+class _AllSongsQueueSource implements QueueSource {
+  _AllSongsQueueSource(this._ref, this._filters);
+
+  final Ref _ref;
+  final AllSongsFilters _filters;
+
+  @override
+  List<Song> get songs =>
+      _applyFilters(_ref.read(allSongsControllerProvider).songs, _filters);
+
+  @override
+  bool get hasMore => _ref.read(allSongsControllerProvider).hasMore;
+
+  @override
+  Future<List<Song>> loadMore() async {
+    await _ref.read(allSongsControllerProvider.notifier).loadMore();
+    return songs;
+  }
+}

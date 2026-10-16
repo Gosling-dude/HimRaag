@@ -24,11 +24,11 @@
 #    - Crashlytics
 
 # 3. Add Android app:
-#    Package: com.himraag.app
+#    Package: com.sumitchauhan.himraag
 #    Download google-services.json → place in android/app/
 
 # 4. Add iOS app (optional):
-#    Bundle ID: com.himraag.app
+#    Bundle ID: com.sumitchauhan.himraag
 #    Download GoogleService-Info.plist → place in ios/Runner/
 ```
 

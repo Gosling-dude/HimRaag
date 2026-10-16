@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../core/network/artwork_cache.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import '../../../auth/providers/user_profile_providers.dart';
 import '../../../../domain/models/app_user.dart';
 import '../../../library/providers/library_providers.dart';
 import '../../../player/presentation/player_navigation.dart';
+import '../../../songs/providers/song_collection_providers.dart';
 import '../../providers/home_providers.dart';
 import '../widgets/album_card.dart';
 import '../widgets/artist_card.dart';
@@ -302,6 +305,7 @@ class _RegionSongsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final songs = ref.watch(regionSongsProvider(region));
+    final collection = SongCollection.region(region);
 
     return SliverToBoxAdapter(
       child: Column(
@@ -311,11 +315,12 @@ class _RegionSongsSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: '$region Songs',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push(collection.path),
             ),
           ),
           songs.when(
-            data: (list) => _HorizontalSongList(songs: list),
+            data: (list) =>
+                _HorizontalSongList(songs: list, collection: collection),
             loading: () => const ShimmerHorizontalList(),
             error: (e, _) => _ErrorWidget(
               message: 'Could not load $region songs',
@@ -343,11 +348,12 @@ class _TrendingSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'Trending Now',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push(SongCollection.trending.path),
             ),
           ),
           trending.when(
-            data: (songs) => _HorizontalSongList(songs: songs),
+            data: (songs) => _HorizontalSongList(
+                songs: songs, collection: SongCollection.trending),
             loading: () => const ShimmerHorizontalList(),
             error: (e, _) => _ErrorWidget(
               message: 'Could not load trending songs',
@@ -375,11 +381,12 @@ class _NewReleasesSection extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: SectionHeader(
               title: 'New Releases',
-              onSeeAll: () => context.push('/search'),
+              onSeeAll: () => context.push(SongCollection.newReleases.path),
             ),
           ),
           newReleases.when(
-            data: (songs) => _HorizontalSongList(songs: songs),
+            data: (songs) => _HorizontalSongList(
+                songs: songs, collection: SongCollection.newReleases),
             loading: () => const ShimmerHorizontalList(),
             error: (e, _) => _ErrorWidget(
               message: 'Could not load new releases',
@@ -485,6 +492,7 @@ class _CuratedRegionRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final songs = ref.watch(regionSongsProvider(region));
+    final collection = SongCollection.region(region);
     return songs.maybeWhen(
       data: (list) {
         if (list.isEmpty) return const SizedBox.shrink();
@@ -495,12 +503,10 @@ class _CuratedRegionRow extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
               child: SectionHeader(
                 title: '$region Hits',
-                onSeeAll: () {
-                  ref.read(selectedRegionProvider.notifier).state = region;
-                },
+                onSeeAll: () => context.push(collection.path),
               ),
             ),
-            _HorizontalSongList(songs: list),
+            _HorizontalSongList(songs: list, collection: collection),
           ],
         );
       },
@@ -608,7 +614,14 @@ class _ContinueListeningSection extends ConsumerWidget {
     if (cl == null) return const SliverToBoxAdapter(child: SizedBox.shrink());
 
     void resume() {
-      final song = Song(
+      // Resume within the catalog queue so playback carries on afterwards
+      // instead of stopping after this one song. The catalog copy has the
+      // full metadata, and its place in the featured order is the resume
+      // point.
+      final catalog =
+          ref.read(featuredSongsProvider).valueOrNull ?? const <Song>[];
+      final index = catalog.indexWhere((s) => s.id == cl.songId);
+      final song = index >= 0 ? catalog[index] : Song(
         id: cl.songId,
         title: cl.title,
         artistId: '',
@@ -628,7 +641,14 @@ class _ContinueListeningSection extends ConsumerWidget {
         isDownloadable: false,
       );
       resumeSongAndOpenPlayer(
-          context, ref, song, Duration(milliseconds: cl.positionMs));
+        context,
+        ref,
+        song,
+        Duration(milliseconds: cl.positionMs),
+        queue: index >= 0 ? catalog : [song, ...catalog],
+        source:
+            ref.read(songCollectionQueueSourceProvider(SongCollection.featured)),
+      );
     }
 
     return SliverToBoxAdapter(
@@ -735,10 +755,14 @@ class _MadeForYouSection extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
                 child: SectionHeader(
                   title: 'Made for You',
-                  onSeeAll: () => context.push('/all-songs'),
+                  onSeeAll: () => context.push(SongCollection.recommended.path),
                 ),
               ),
-              _HorizontalSongList(songs: list),
+              _HorizontalSongList(
+                songs: list,
+                collection: SongCollection.recommended,
+                visibleCount: 15,
+              ),
             ],
           );
         },
@@ -768,17 +792,26 @@ class _RecentlyPlayedSection extends ConsumerWidget {
                     onSeeAll: () => context.go('/library'),
                   ),
                 ),
-                _HorizontalSongList(songs: recent.take(12).toList()),
+                _HorizontalSongList(songs: recent, visibleCount: 12),
               ],
             ),
     );
   }
 }
 
+/// A Home row of song cards. Tapping a card queues the row's whole list —
+/// [songs], not just the [visibleCount] cards shown — and, with a
+/// [collection], keeps growing the queue from it as playback advances.
 class _HorizontalSongList extends ConsumerWidget {
-  const _HorizontalSongList({required this.songs});
+  const _HorizontalSongList({
+    required this.songs,
+    this.collection,
+    this.visibleCount,
+  });
 
   final List<Song> songs;
+  final SongCollection? collection;
+  final int? visibleCount;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -789,12 +822,13 @@ class _HorizontalSongList extends ConsumerWidget {
       );
     }
 
+    final collection = this.collection;
     return SizedBox(
       height: 200,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        itemCount: songs.length,
+        itemCount: min(songs.length, visibleCount ?? songs.length),
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
           return SongCard(
@@ -805,6 +839,9 @@ class _HorizontalSongList extends ConsumerWidget {
               songs[index],
               queue: songs,
               queueIndex: index,
+              source: collection == null
+                  ? null
+                  : ref.read(songCollectionQueueSourceProvider(collection)),
             ),
           );
         },

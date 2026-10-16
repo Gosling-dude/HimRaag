@@ -16,9 +16,10 @@ class MainShell extends ConsumerWidget {
     final location = GoRouterState.of(context).matchedLocation;
     final currentIndex = _locationToIndex(location);
     final hasCurrentSong = ref.watch(currentSongProvider) != null;
-    // Keep the "Continue Listening" progress tracker alive while the app shell
-    // is mounted (records mid-track position, throttled).
+    // Keep the "Continue Listening" progress tracker and the play-history
+    // recorder alive while the app shell is mounted.
     ref.watch(playbackPersistenceProvider);
+    ref.watch(playbackHistoryProvider);
 
     return Scaffold(
       body: Stack(

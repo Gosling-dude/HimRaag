@@ -1,0 +1,5 @@
+HimRaag 1.0.2 (closed test)
+• New Privacy & Legal section in Profile: Privacy Policy, Terms of Service and Delete account
+• The Terms of Service and Privacy Policy on the sign-in screen are now links
+• Updated release build for closed testing
+Send feedback to himraag.review@gmail.com

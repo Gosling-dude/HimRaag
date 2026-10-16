@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/network/artwork_cache.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/legal_links.dart';
 import '../../../../data/local/hive_boxes.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../domain/models/app_user.dart';
@@ -63,6 +64,10 @@ class ProfileScreen extends ConsumerWidget {
                 const _SectionTitle('Account'),
                 const SizedBox(height: 10),
                 _AccountCard(user: user),
+                const SizedBox(height: 24),
+                const _SectionTitle('Privacy & Legal'),
+                const SizedBox(height: 10),
+                const LegalLinksCard(),
                 const SizedBox(height: 28),
                 _SignOutButton(user: user),
               ],

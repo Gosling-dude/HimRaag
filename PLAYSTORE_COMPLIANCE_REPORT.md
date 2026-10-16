@@ -1,6 +1,6 @@
 # Google Play Compliance Report (Phase 7)
 
-**Date:** 2026-08-03 · **Package:** `com.himraag.app`
+**Date:** 2026-08-03 · **Package:** `com.himraag.app` at time of writing — production package migrated to `com.sumitchauhan.himraag` on 2026-08-12; re-verify this checklist against the new package before submission.
 
 ## ⛔ Rejection risks — read first
 

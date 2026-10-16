@@ -1,4 +1,17 @@
 /**
+ * HISTORICAL / SUPERSEDED — 2026-07-03 fix for the old package `com.himraag.app`.
+ *
+ * The production package is now `com.sumitchauhan.himraag` (migrated
+ * 2026-08-12; see the Firebase Android app "HimRaag (Play)",
+ * 1:39471021909:android:ce23c0c346997c9bf7b9dc). The PACKAGE/CERTS constants
+ * below are left exactly as they were run historically — do not re-run this
+ * script as-is, it would register the wrong (old, already-superseded)
+ * fingerprints against the wrong package. The current upload key's SHA-1/
+ * SHA-256 were registered against the new app directly via
+ * `firebase apps:android:sha:create`, not via this script.
+ *
+ * Original description follows, kept for reference:
+ *
  * Fix Google Sign-In config for com.himraag.app (ApiException: 10).
  *
  * Root cause: no SHA certificates registered on the Firebase Android app, so

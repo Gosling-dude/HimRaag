@@ -215,11 +215,14 @@ class _PlayerControlsState extends ConsumerState<_PlayerControls> {
     final isShuffle = ref.watch(isShuffleProvider);
     final controller = ref.read(playerControllerProvider);
 
-    final position = positionAsync.valueOrNull ?? Duration.zero;
-    final duration = durationAsync.valueOrNull ?? Duration.zero;
-    final progress = duration.inMilliseconds > 0
-        ? position.inMilliseconds / duration.inMilliseconds
-        : 0.0;
+    // The player reports no duration until the track has loaded (or ever, for
+    // some streams); the catalog duration keeps the times and seek bar usable.
+    final duration = durationAsync.valueOrNull ?? widget.song.duration;
+    final canSeek = duration > Duration.zero;
+    var position = positionAsync.valueOrNull ?? Duration.zero;
+    if (canSeek && position > duration) position = duration;
+    final progress =
+        canSeek ? position.inMilliseconds / duration.inMilliseconds : 0.0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -280,16 +283,15 @@ class _PlayerControlsState extends ConsumerState<_PlayerControls> {
                   _seekValue = v;
                 });
               },
-              onChanged: (v) => setState(() => _seekValue = v),
+              // Seeking moves within the current song only; the queue is
+              // untouched. Disabled until a duration is known.
+              onChanged:
+                  canSeek ? (v) => setState(() => _seekValue = v) : null,
               onChangeEnd: (v) {
-                _isSeeking = false;
-                if (duration > Duration.zero) {
-                  controller.seekTo(
-                    Duration(
-                      milliseconds: (v * duration.inMilliseconds).round(),
-                    ),
-                  );
-                }
+                setState(() => _isSeeking = false);
+                controller.seekTo(
+                  Duration(milliseconds: (v * duration.inMilliseconds).round()),
+                );
               },
             ),
           ),

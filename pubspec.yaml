@@ -1,7 +1,7 @@
 name: himraag
 description: HimRaag - Pahadi Music, Heart of the Hills
 publish_to: none
-version: 1.0.0+1
+version: 1.0.2+3
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -56,6 +56,16 @@ dependencies:
   # Google Sign In
   google_sign_in: ^6.2.2
 
+  # Opens the hosted Privacy Policy, Terms and account-deletion pages. Google
+  # Play requires both an in-app privacy-policy link and an in-app path to
+  # request account deletion — see core/widgets/legal_links.dart.
+  url_launcher: ^6.3.3
+  # Pinned: url_launcher_android >= 6.3.26 pulls androidx.core 1.17 and
+  # androidx.browser 1.9, which require Android Gradle Plugin >= 8.9.1. This
+  # project is on AGP 8.7.3 (android/settings.gradle). Remove the pin when AGP
+  # is upgraded.
+  url_launcher_android: 6.3.25
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,12 +75,16 @@ dev_dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.12
   flutter_launcher_icons: ^0.13.1
+  # Fake url_launcher platform for test/legal_links_test.dart.
+  url_launcher_platform_interface: ^2.3.2
+  plugin_platform_interface: ^2.1.8
 
 # App icon — branded HimRaag mark (Himalayan peaks + folk lute + note).
 # Regenerate with:  dart run flutter_launcher_icons
 flutter_launcher_icons:
   image_path: "assets/icons/app_icon.png"
   android: true
+  ios: true
   min_sdk_android: 21
   remove_alpha_ios: true
   adaptive_icon_background: "#0D0D14"

@@ -1,8 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/legal_links.dart';
 import '../../../auth/providers/auth_providers.dart';
 import '../../../auth/providers/user_profile_providers.dart';
 
@@ -15,6 +18,25 @@ class SignInScreen extends ConsumerStatefulWidget {
 
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   bool _isLoading = false;
+
+  // The consent line must link to the documents it refers to.
+  late final TapGestureRecognizer _termsTap = TapGestureRecognizer()
+    ..onTap = () => openExternalUrl(context, AppConstants.termsUrl);
+  late final TapGestureRecognizer _privacyTap = TapGestureRecognizer()
+    ..onTap = () => openExternalUrl(context, AppConstants.privacyPolicyUrl);
+
+  static final TextStyle _linkStyle = TextStyle(
+    color: Colors.white.withValues(alpha: 0.75),
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.white.withValues(alpha: 0.75),
+  );
+
+  @override
+  void dispose() {
+    _termsTap.dispose();
+    _privacyTap.dispose();
+    super.dispose();
+  }
 
   Future<void> _signInWithGoogle() async {
     setState(() => _isLoading = true);
@@ -103,8 +125,24 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ),
                 const SizedBox(height: 32),
                 Center(
-                  child: Text(
-                    'By continuing, you agree to our Terms of Service and Privacy Policy.',
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'By continuing, you agree to our ',
+                      children: [
+                        TextSpan(
+                          text: 'Terms of Service',
+                          style: _linkStyle,
+                          recognizer: _termsTap,
+                        ),
+                        const TextSpan(text: ' and '),
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: _linkStyle,
+                          recognizer: _privacyTap,
+                        ),
+                        const TextSpan(text: '.'),
+                      ],
+                    ),
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white.withValues(alpha: 0.4),
